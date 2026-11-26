@@ -1,0 +1,505 @@
+{
+ "manchete": "A semana das provas formais com IA, chips próprios em teste aberto e data centers em órbita",
+ "subtitulo": "Em 24 horas, a corrida da IA foi da matemática verificada em Lean até a disputa de custo por tarefa e a aprovação, pela FCC, de até um milhão de satélites de data center.",
+ "fio_do_dia": [
+  "Os bastidores da IA tiveram uma semana movimentada. Desde 20/11, uma sequência de provas matemáticas feitas com ajuda de modelos ocupou os laboratórios. O marco mais sólido é a prova da Hipótese de Riemann que Levent Alpöge, da Anthropic, fez com o Claude. Ela saiu como biblioteca Lean, e o Lean FRO e a Mathlib Initiative declararam em nota conjunta ter total confiança de que está correta. Na sequência vieram a pasta de VP != VNP da Anthropic em 23/11, dois preprints da OpenAI datados de 24/11 e seis papers que o Google subiu em silêncio na manhã de 25/11. Segundo o Google, eles foram gerados pelo framework agêntico Cogentic com o Gemini 4.",
+  "O ponto que liga tudo isso é o verificador formal Lean. Segundo Scott Aaronson, as labs agora sustentam as alegações com certificados Lean. Mas aqui entra o filtro de rigor. A Hipótese de Riemann já tem o endosso do Lean FRO e da Mathlib Initiative. Já a prova de VP != VNP da Anthropic não foi revisada por nenhum matemático humano, segundo a própria empresa, e os seis papers do Google ainda estão sem as formalizações em Lean. No meio da tarde de 25/11, Aaronson escreveu no blog estar praticamente certo, com base em várias fontes confiáveis, de que as labs guardam uma ou mais \"bombshells\" (resultados bombásticos) nessa área, e que alguns desses algoritmos vão quebrar sistemas criptográficos em uso. É rumor: o que ele diz não foi confirmado. E o post não fala em RSA. As leituras nas redes de que o RSA foi quebrado vão além do que o post diz.",
+  "Fora da matemática, a noite trouxe um novo ranking de modelos. O ranking GDPx da SemiAnalysis colocou o GPT-6.2 Astra em primeiro lugar com 19,3%, na frente do Claude Fable 5.2 (16,4%) e bem acima do Gemini 4 Neon (10,1%, em sexto). Só que o recorte importa: na opinião de Dylan Patel, o Astra vai muito bem em áreas técnicas e de negócios, mas fica atrás dos líderes em engenharia de software. Em código, há relatos pessoais com o Claude: Andrej Karpathy contou uma sessão de 7 horas com cerca de 45 mil linhas de código, e Simon Willison contou 194 commits com coautoria do Fable 5.2.",
+  "Na infraestrutura, os números são grandes. A FCC aprovou a constelação Starmind da SpaceX, com até 1 milhão de satélites de data center orbital, enquanto a própria SpaceX tenta aprovar um campus de até 6 GW no Arizona. Ao mesmo tempo, segundo a SemiAnalysis, os chips próprios da Amazon (Trainium3) e do Google (TPU) apareceram pela primeira vez no benchmark aberto InferenceX/AgentX, ao lado de NVIDIA e AMD. Para empresas que operam no Brasil, há dois pontos. A regra de exportação dos EUA de 16/11 exige licença para chips avançados vendidos a empresas sediadas no Brasil, o que afeta o custo de GPU local. E no WhatsApp, a conta de atendimento muda conforme a empresa usa o Meta Business Agent, cobrado por token, ou uma IA de terceiros, que paga a tarifa de mensagem de serviço."
+ ],
+ "em_3_linhas": [
+  "Provas matemáticas com IA viraram o assunto da semana: a prova da Hipótese de Riemann feita com o Claude foi verificada em Lean, o Google subiu seis papers que, segundo a empresa, foram gerados por agentes com um único prompt, e Scott Aaronson disse ter fontes de que as labs guardam \"bombshells\" em criptografia (rumor; o post não fala em RSA).",
+  "No ranking GDPx da SemiAnalysis, o GPT-6.2 Astra lidera com 19,3% e o Gemini 4 Neon fica em sexto. Na opinião de Dylan Patel, fundador da SemiAnalysis, o Astra fica atrás dos líderes em engenharia de software.",
+  "Na infraestrutura, a FCC aprovou até 1 milhão de satélites de data center da SpaceX e, segundo a SemiAnalysis, o Trainium3 da Amazon e as TPUs do Google estrearam no benchmark aberto InferenceX/AgentX, ao lado de NVIDIA e AMD."
+ ],
+ "timeline": [
+  {
+   "quando": "25/11 07h21",
+   "o_que": "Google sobe em silêncio no GitHub seis papers que, segundo a empresa, foram gerados pelo framework agêntico Cogentic com Gemini 4, ainda sem as formalizações em Lean.",
+   "ref": "google-cogentic-seis-papers"
+  },
+  {
+   "quando": "25/11 13h26",
+   "o_que": "Anthropic detalha como migrou sua Messages API de Python para Rust usando agentes Claude sobre tráfego espelhado.",
+   "ref": "anthropic-messages-api-rust"
+  },
+  {
+   "quando": "25/11 14h07",
+   "o_que": "SpaceX volta a defender seu campus de supercomputação de até 6 GW e US$ 50 bi ou mais em Cochise County, no Arizona.",
+   "ref": "spacex-cochise-arizona-6gw"
+  },
+  {
+   "quando": "25/11 14h12",
+   "o_que": "Sam Altman anuncia testes do Private Inference, com computação confidencial, para um grupo pequeno de clientes.",
+   "ref": "openai-private-inference-teste"
+  },
+  {
+   "quando": "25/11 14h24",
+   "o_que": "Zvi Mowshowitz publica balanço da prova da Hipótese de Riemann feita por Levent Alpöge com Claude e verificada em Lean.",
+   "ref": "zvi-riemann-alpoge-claude"
+  },
+  {
+   "quando": "25/11 ~15h22",
+   "o_que": "FCC aprova a constelação Starmind da SpaceX com até 1 milhão de satélites de data center orbital.",
+   "ref": "fcc-aprova-starmind-spacex"
+  },
+  {
+   "quando": "25/11 15h31",
+   "o_que": "SemiAnalysis divulga os primeiros resultados do Trainium3 da AWS no benchmark aberto InferenceX/AgentX.",
+   "ref": "trainium3-tpu-inferencex"
+  },
+  {
+   "quando": "25/11 16h01",
+   "o_que": "Scott Aaronson escreve no blog Shtetl-Optimized sobre as provas de IA e diz ter fontes de que as labs guardam \"bombshells\" em criptografia (rumor).",
+   "ref": "aaronson-singularidade-bombshells-cripto"
+  },
+  {
+   "quando": "25/11 21h05",
+   "o_que": "SemiAnalysis publica o ranking GDPx com GPT-6.2 Astra em 1º, Claude Fable 5.2 em 2º e Gemini 4 Neon em 6º.",
+   "ref": "semianalysis-gdpx-astra-fable-neon"
+  },
+  {
+   "quando": "25/11 23h31",
+   "o_que": "Andrej Karpathy relata sessão de 7 horas em que o Claude Opus 5.5 gerou cerca de 45 mil linhas de código integrando 31 fontes públicas.",
+   "ref": "karpathy-opus-civilization-map"
+  },
+  {
+   "quando": "26/11 00h21",
+   "o_que": "Dylan Patel opina sobre o GDPx: o Astra 6.2 brilha em áreas técnicas e de negócios, mas vai mal em engenharia de software frente aos líderes.",
+   "ref": "dylan-patel-astra-ruim-em-codigo"
+  },
+  {
+   "quando": "26/11 05h22",
+   "o_que": "SemiAnalysis anuncia resultados de TPU do Google no benchmark aberto InferenceX/AgentX.",
+   "ref": "trainium3-tpu-inferencex"
+  }
+ ],
+ "quem_ta_fazendo": [
+  {
+   "lab": "OpenAI",
+   "movimento": "Lidera o ranking GDPx da SemiAnalysis com o GPT-6.2 Astra (19,3%) (fato). Publicou dois preprints matemáticos datados de 24/11 no repositório openai/math e, segundo a empresa, começou a testar o Private Inference com um grupo pequeno de clientes.",
+   "status": "segundo a empresa",
+   "refs": [
+    "semianalysis-gdpx-astra-fable-neon",
+    "aaronson-singularidade-bombshells-cripto",
+    "openai-private-inference-teste"
+   ]
+  },
+  {
+   "lab": "Anthropic",
+   "movimento": "A prova da Hipótese de Riemann que Levent Alpöge fez com o Claude recebeu nota conjunta de confiança do Lean FRO e da Mathlib Initiative (fato). Publicou VP != VNP com prova em Lean que, segundo a própria empresa, nenhum matemático humano revisou. Segundo a empresa, migrou a Messages API para Rust, com cerca de 70% menos CPU por requisição.",
+   "status": "segundo a empresa",
+   "refs": [
+    "zvi-riemann-alpoge-claude",
+    "anthropic-vp-vnp-formal-math",
+    "anthropic-messages-api-rust"
+   ]
+  },
+  {
+   "lab": "Google Research / Google DeepMind",
+   "movimento": "Subiu seis papers que, segundo a empresa, foram gerados pelo framework agêntico Cogentic com Gemini 4, ainda sem formalização Lean publicada. Teve resultados de TPU anunciados pela SemiAnalysis no InferenceX/AgentX e viu o Gemini 4 Neon ficar em 6º no GDPx, mesmo com Logan Kilpatrick e Demis Hassabis promovendo o modelo.",
+   "status": "segundo a empresa",
+   "refs": [
+    "google-cogentic-seis-papers",
+    "semianalysis-gdpx-astra-fable-neon",
+    "trainium3-tpu-inferencex"
+   ]
+  },
+  {
+   "lab": "SpaceX / xAI",
+   "movimento": "Teve aprovada pela FCC a Starmind, a primeira constelação de data center orbital autorizada pela agência. Segundo a TechCrunch e a Via Satellite, parte das camadas fica em espera até a entrega do plano final de detritos. No Arizona, ainda busca aprovação do condado para um campus que, segundo a empresa, terá até 6 GW.",
+   "status": "fato",
+   "refs": [
+    "fcc-aprova-starmind-spacex",
+    "spacex-cochise-arizona-6gw"
+   ]
+  },
+  {
+   "lab": "Amazon (AWS)",
+   "movimento": "Segundo a SemiAnalysis, enviou pela primeira vez resultados do Trainium3 UltraServer ao benchmark AgentX/InferenceX. Na conta da SemiAnalysis, o desempenho por dólar é 2,28x o do GB300 NVL72.",
+   "status": "segundo a empresa",
+   "refs": [
+    "trainium3-tpu-inferencex"
+   ]
+  },
+  {
+   "lab": "Microsoft",
+   "movimento": "Mustafa Suleyman usou o debate no X para promover o Humanist AI Code of Conduct e rebater a tese de excesso de capacidade em chips citando o paradoxo de Jevons.",
+   "status": "opinião",
+   "refs": [
+    "suleyman-humanist-code-e-chips"
+   ]
+  },
+  {
+   "lab": "China (DeepSeek / Alibaba / Moonshot)",
+   "movimento": "A DeepSeek atualizou repositórios de kernels, entre eles o DeepGEMM-Ascend para as NPUs Huawei Ascend. A Alibaba anunciou mais capacidade multilíngue no Qwen-Audio-3.1, com foco em dialetos chineses. O Qwen4-Max ficou como melhor modelo chinês no GDPx, com 7,44%.",
+   "status": "fato",
+   "refs": [
+    "china-deepseek-ascend-qwen-audio",
+    "china-gdpx-preco-por-token"
+   ]
+  }
+ ],
+ "historias": [
+  {
+   "id": "riemann-lean-aaronson-singularidade",
+   "titulo": "A semana em que a IA entregou provas verificadas em Lean e reacendeu rumores sobre criptografia",
+   "chamada": "A prova da Hipótese de Riemann feita com o Claude recebeu nota conjunta de confiança do Lean FRO e da Mathlib Initiative. Já Scott Aaronson disse estar praticamente certo, por várias fontes, de que as labs guardam \"bombshells\" na área de algoritmos e que alguns deles vão quebrar sistemas criptográficos em uso. Isso é rumor, não fato confirmado.",
+   "corpo": [
+    "Em 25/11, Zvi Mowshowitz publicou um balanço longo da prova da Hipótese de Riemann que Levent Alpöge, da Anthropic, fez com o Claude. A prova saiu em 20/11 como uma biblioteca Lean de cerca de 17 milhões de linhas, que depende só da Mathlib. O fato confirmado de maior peso é a nota conjunta do Lean FRO e da Mathlib Initiative: \"We have full confidence that Alpöge's proof of the Riemann Hypothesis is correct.\" (Tradução: \"Temos total confiança de que a prova da Hipótese de Riemann feita por Alpöge está correta.\"). A verificação formal cobre a Hipótese de Riemann. A extensão para a GRH é uma alegação do autor e ainda não está formalizada. A Anthropic não tem post oficial sobre o tema no newsroom, e não achamos manifestação de Terence Tao sobre a prova.",
+    "Outros repositórios também se mexeram. Em 23/11, entrou no repositório anthropics/formal-math da Anthropic a pasta vp-vnp, com paper e prova em Lean de VP ≠ VNP. Segundo a empresa, o README traz uma cota inferior superpolinomial para circuitos que calculam o permanente (fora da característica 2) e o polinômio de ciclos hamiltonianos. A própria Anthropic avisa que isso \"does not settle P vs NP\" (não resolve P vs NP) e faz o alerta: \"Both were written by AI models, and no human mathematician has checked the proof.\" (Tradução: \"Ambos foram escritos por modelos de IA, e nenhum matemático humano checou a prova.\"). A checagem disponível é a do Lean. Na OpenAI, dois preprints datados de 24/11 no repositório openai/math tratam do expoente de multiplicação de matrizes ω = 9/4 (agora com cota inferior) e da complexidade da transformada de Fourier.",
+    "Na tarde de 25/11, o cientista da computação Scott Aaronson escreveu no blog Shtetl-Optimized que ainda estava digerindo as provas de VP ≠ VNP da OpenAI e da Anthropic. Ele disse que as labs agora sustentam as alegações com certificados Lean e que a sua \"working assumption\" é que essas provas estão corretas. Também deu a opinião de que sente, pela primeira vez, que uma prova de P ≠ NP não está longe: \"I now feel in my bones, for the first time ever, that a proof of P ≠ NP is not far.\" O trecho mais delicado é sobre criptografia: \"Because people have been hounding me about it: yes, I’m virtually certain, from multiple reliable sources, that the AI labs are now sitting on one or more bombshells in that area.\" (Tradução: \"Porque as pessoas têm me cobrado sobre isso: sim, estou praticamente certo, por várias fontes confiáveis, de que as labs de IA estão agora sentadas sobre um ou mais resultados bombásticos nessa área.\"). Ele completou: \"And yes, some of those algorithms will break currently deployed cryptosystems.\" (Tradução: \"E sim, alguns desses algoritmos vão quebrar sistemas criptográficos em uso hoje.\"). É fato que ele escreveu isso, mas o conteúdo é rumor: fala de resultados que não foram confirmados. Aaronson usou a palavra \"bombshells\", não \"bombs\", não citou RSA e não afirmou que o RSA foi quebrado. A leitura do @namcios (\"quebram RSA\", \"bitcoin despencando\") vai além do que o post diz."
+   ],
+   "status": "fato",
+   "por_que_importa": "Para empresas, profissionais e usuários de IA, a semana pede que se separe o que foi verificado do que é barulho. A prova da Hipótese de Riemann tem verificação formal em Lean, e o Lean FRO e a Mathlib Initiative disseram ter total confiança nela. A prova de VP ≠ VNP da Anthropic, segundo a própria empresa, só tem a checagem do Lean e nenhuma revisão humana. A fala sobre quebra de criptografia continua sendo rumor.",
+   "refs": [
+    "zvi-riemann-alpoge-claude",
+    "anthropic-vp-vnp-formal-math",
+    "aaronson-singularidade-bombshells-cripto"
+   ],
+   "simples": [
+    "É fato: um pesquisador da Anthropic usou o Claude para provar a Hipótese de Riemann, um famoso problema de matemática.",
+    "É fato: os grupos que cuidam do Lean, um programa que confere provas, disseram ter total confiança de que a prova está certa.",
+    "Segundo a Anthropic, outra prova dela saiu na mesma semana, mas nenhum matemático humano a revisou ainda.",
+    "É rumor: um cientista disse ter fontes de que empresas de IA guardam resultados que podem quebrar a criptografia usada hoje."
+   ],
+   "fontes": [
+    "https://thezvi.substack.com/p/claude-and-levent-alpoge-prove-the",
+    "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/",
+    "https://alpo.ge",
+    "https://github.com/anthropics/formal-math/tree/main/vp-vnp",
+    "https://github.com/anthropics/formal-math/commits/main/",
+    "https://scottaaronson.blog/?p=10379",
+    "https://github.com/openai/math/blob/main/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf",
+    "https://github.com/openai/math/blob/main/preprints/The-logarithmic-exponent-of-finite-Fourier-transforms-November-24-2026/paper.pdf"
+   ]
+  },
+  {
+   "id": "google-cogentic-seis-papers-rsa",
+   "titulo": "Google sobe seis papers feitos por agentes e alimenta rumor sobre criptografia",
+   "chamada": "Segundo o Google, o framework Cogentic com o Gemini 4 gerou seis papers sem interação humana além do prompt inicial. Os papers alimentaram rumores sobre criptografia, mas o que eles descrevem não equivale a quebrar RSA.",
+   "corpo": [
+    "Às 07h21 (BRT) de 25/11, o Google subiu em silêncio seis papers para a pasta google-research/cogentic_research_papers. Segundo o próprio repositório, todos foram gerados pelo framework agêntico Cogentic, com o Gemini 4 como modelo base. O texto afirma: \"There was no human interaction other than the initial prompt for Cogentic to generate a full proof and formalization.\" (Tradução: \"Não houve nenhuma interação humana além do prompt inicial para o Cogentic gerar uma prova completa e sua formalização.\")",
+    "Os títulos incluem fatoração de inteiros incondicional em tempo L_N[1/3, O(1)], logaritmo discreto em corpos de característica fixa, fatoração determinística subexponencial, log-rank conjecture, edge reconstruction e equilíbrio de Nash 1/5-aproximado. Os papers de fatoração e de logaritmo discreto são de algoritmos clássicos e alimentaram os rumores sobre criptografia.",
+    "Vale segurar o freio em dois pontos. Primeiro, o título fala em tempo L[1/3], a mesma classe do Number Field Sieve, que já existe (mas é heurístico). Isso não equivale a \"quebrar RSA\". Segundo, as formalizações em Lean 4 dos seis papers ainda não foram publicadas. Segundo o commit, virão numa submissão separada. Depois, ainda em 25/11, o Google fez ajustes de README e incluiu uma citação de trabalho concorrente (commits às 16h51, 17h54 e 20h54 BRT)."
+   ],
+   "status": "segundo a empresa",
+   "por_que_importa": "Para empresas e usuários de IA, a pergunta sobre se a IA acabou de quebrar a criptografia usada hoje tem uma resposta clara: o resultado descrito nos títulos não equivale a quebrar RSA. A alegação do Google é outra. Segundo a empresa, um agente gerou provas completas sem interação humana além do prompt inicial. As formalizações em Lean prometidas ainda não foram publicadas.",
+   "refs": [
+    "google-cogentic-seis-papers",
+    "aaronson-singularidade-bombshells-cripto"
+   ],
+   "simples": [
+    "Segundo o próprio Google, um sistema de IA da empresa criou seis estudos de matemática quase sozinho.",
+    "A empresa diz que as pessoas só deram o pedido inicial para o sistema trabalhar.",
+    "Alguns estudos tratam de contas ligadas à criptografia, mas o que eles descrevem não equivale a quebrar a criptografia RSA.",
+    "As versões das provas no verificador Lean ainda não foram publicadas."
+   ],
+   "fontes": [
+    "https://github.com/google-research/google-research/commit/4a7bc8ab0bc770e71a259b7966c500496b99010a",
+    "https://github.com/google-research/google-research/tree/master/cogentic_research_papers",
+    "https://github.com/google-research/google-research/commit/3f540f420bfae7e6ce48365a68d0ae003feb2f87",
+    "https://scottaaronson.blog/?p=10379",
+    "https://github.com/openai/math/blob/main/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf",
+    "https://github.com/openai/math/blob/main/preprints/The-logarithmic-exponent-of-finite-Fourier-transforms-November-24-2026/paper.pdf"
+   ]
+  },
+  {
+   "id": "gdpx-astra-fable-neon-codigo",
+   "titulo": "GDPx põe o GPT-6.2 Astra no topo e critica o Neon; opinião e relatos apontam o Claude no código",
+   "chamada": "Novo ranking da SemiAnalysis coloca o modelo da OpenAI em primeiro lugar. Na opinião do fundador da consultoria, o Astra fica atrás em engenharia de software, e relatos pessoais de dois programadores mostram o Claude Fable 5.2 e o Opus 5.5 em uso intenso.",
+   "corpo": [
+    "A SemiAnalysis divulgou na noite de 25/11 seu ranking GDPx com os lançamentos mais recentes. O GPT-6.2 Astra, lançado em 17/11 a US$ 8 por milhão de tokens de entrada e US$ 40 de saída, ficou em 1º lugar com 19,3%. Em 2º veio o Claude Fable 5.2 (16,4%), seguido por Opus 5.5 (12%), GPT-6.2 Sol (11,5%), Gemini 4 Carbon (10,9%) e Gemini 4 Neon, em 6º lugar com 10,1%. A consultoria também apontou o custo: \"At $88 and 1.23M output tokens per task, Fable 5.2 costs 1.9x as much as 6.2 Astra\" (Tradução: \"A US$ 88 e 1,23 milhão de tokens de saída por tarefa, o Fable 5.2 custa 1,9 vez o que custa o 6.2 Astra\").",
+    "Sobre o Google, Logan Kilpatrick e Demis Hassabis passaram o dia promovendo o Gemini 4 Neon (\"Neon usage is 📈📈📈\"), lançado em 18/11 a US$ 3/US$ 15. A SemiAnalysis, por sua vez, chamou o modelo de \"overrated\" (superestimado) e criticou o custo de operação: \"Neon is unnecessarily expensive to run because Google’s prompt caching lags behind its competitors.\" (Tradução: \"O Neon é desnecessariamente caro de rodar porque o prompt caching do Google fica atrás dos concorrentes.\"). O post é parcialmente pago.",
+    "Para quem desenvolve software, o placar do GDPx não conta a história inteira. Na madrugada de 26/11, Dylan Patel, fundador da SemiAnalysis, deu a opinião de que o Astra impressiona em ciência de materiais, design de hardware, RSI, design de chips, finanças e jurídico, mas vai mal em engenharia de software frente aos modelos líderes. A Wccftech também registrou que o Astra não melhorou no Coding Agent Index da Artificial Analysis. Em relato pessoal, Simon Willison contou ter feito 194 commits em projetos open source com coautoria do Fable 5.2 em cerca de duas semanas. Também em relato pessoal, Andrej Karpathy descreveu uma sessão de 7 horas em que o Opus 5.5 gerou cerca de 45 mil linhas de código integrando 31 fontes públicas de dados dos EUA: \"I asked Claude to populate a Civilization-style game map with real data from the US. Opus 5.5 downloaded and parse a ton of public data and 7 hours and 45K lines of code later... it works :)\" (Tradução: \"Pedi ao Claude para preencher um mapa estilo Civilization com dados reais dos EUA. O Opus 5.5 baixou e processou uma tonelada de dados públicos e 7 horas e 45 mil linhas de código depois... funciona :)\")."
+   ],
+   "status": "fato",
+   "por_que_importa": "Para empresas e profissionais que escolhem um modelo de IA, o ranking ajuda, mas não basta. No GDPx, o Astra lidera e o Fable 5.2 custa 1,9 vez mais por tarefa. Na opinião de Patel, porém, o Astra fica atrás dos modelos líderes em engenharia de software, e relatos pessoais mostram o Claude em tarefas longas de código e de integração de dados, um tipo de trabalho comum também em empresas que organizam catálogos. E, segundo a SemiAnalysis, o Neon sai mais caro de rodar do que deveria porque o prompt caching do Google fica atrás dos concorrentes.",
+   "refs": [
+    "semianalysis-gdpx-astra-fable-neon",
+    "dylan-patel-astra-ruim-em-codigo",
+    "karpathy-opus-civilization-map",
+    "simonw-194-commits-fable"
+   ],
+   "simples": [
+    "Fato: a consultoria SemiAnalysis testou novos modelos de IA e colocou o Astra, da OpenAI, em primeiro lugar.",
+    "O Claude Fable 5.2 ficou em segundo lugar, mas custou quase o dobro do Astra por tarefa.",
+    "O Neon, do Google, ficou em sexto. A consultoria disse que ele é caro para rodar.",
+    "Na opinião do fundador da consultoria, o Astra vai mal em programação. Relatos pessoais de dois programadores mostram o Claude sendo muito usado para escrever código."
+   ],
+   "fontes": [
+    "https://newsletter.semianalysis.com/p/evaluating-recent-model-releases",
+    "https://openai.com/index/introducing-gpt-6-2-astra-sol",
+    "https://9to5google.com/2026/11/18/gemini-4-neon-announcement/",
+    "https://x.com/dylan522p/status/2125791910543360088",
+    "https://wccftech.com/openais-gpt-6-2-astra-becomes-the-first-model-to-achieve-a-100-score-on-arc-agi-3-while-being-8x-cheaper-than-anthropics-fable-5-2-but-actual-users-are-not-impressed/",
+    "https://x.com/karpathy/status/2125779541952246039",
+    "https://x.com/simonw/status/2125640464863056148"
+   ]
+  },
+  {
+   "id": "fcc-starmind-spacex-orbita-arizona",
+   "titulo": "FCC aprova até 1 milhão de satélites de data center da SpaceX enquanto campus no Arizona enfrenta oposição local",
+   "chamada": "Regulador americano libera a constelação orbital Starmind, com prazo até 2040, enquanto o campus terrestre de até 6 GW ainda depende do condado e enfrenta grupos contrários.",
+   "corpo": [
+    "Em 25/11, a FCC autorizou, pela ordem DA 26-1273, a constelação Starmind, da SpaceX. É a primeira constelação de data center orbital aprovada pela agência: até 1 milhão de satélites entre 500 e 1.002 km de altitude, com links ópticos. O cronograma é longo. O primeiro satélite precisa estar em órbita até 25/11/2033 e a constelação completa até 25/11/2040. Segundo a TechCrunch e a Via Satellite, parte das camadas orbitais fica em espera até a SpaceX entregar o plano final de detritos.",
+    "Brendan Carr defendeu a aprovação (opinião): \"Compute campuses or data centers are essential to sustaining America's leadership in [super intelligence].\" (Tradução: \"Campi de computação ou data centers são essenciais para sustentar a liderança dos Estados Unidos em [superinteligência].\"). Amazon (Kuiper/Leo), Viasat e a American Astronomical Society tinham pedido a rejeição. Sobre esses pedidos, Carr afirma que, em muitos casos, eles tentam pôr o julgamento do governo sobre a viabilidade do negócio no lugar do julgamento do requerente e da iniciativa privada: \"We decline to do so.\" (\"Nos recusamos a fazer isso.\"). A Earthjustice criticou a ausência de revisão ambiental (NEPA). Seguem pendentes os pedidos da Starcloud, de 88 mil satélites, e do Project Sunrise da Blue Origin, de 51.600.",
+    "Em terra, a SpaceX tem um teste mais imediato. No mesmo dia, a empresa voltou a defender nas redes seu campus de supercomputação em Cochise County, no Arizona, anunciado em 12/11: US$ 50 bilhões ou mais, até 6 GW e 24 GWh de baterias. Segundo a SpaceX, o projeto não terá usina a gás nem uso industrial de água, e vai usar resfriamento a seco em circuito fechado. A empresa promete 1.000 empregos permanentes e até 5.500 na construção, números que são estimativas dela própria. Ainda não há aprovação do condado: os comentários escritos vão até 27/11 e a audiência de zoneamento é em 9/12/2026, em Bisbee. Há grupos locais organizados contra."
+   ],
+   "status": "fato",
+   "por_que_importa": "Para empresas, profissionais e usuários de IA, a decisão mostra a escala da aposta em capacidade de computação: a FCC aprovou até 1 milhão de satélites de data center, e outros pedidos parecidos aguardam análise. Em terra, o caso do Arizona mostra que grandes campi de computação ainda dependem de aprovação local e podem enfrentar oposição.",
+   "refs": [
+    "fcc-aprova-starmind-spacex",
+    "spacex-cochise-arizona-6gw"
+   ],
+   "simples": [
+    "O regulador americano FCC aprovou uma rede de satélites com data centers da SpaceX.",
+    "A licença permite até um milhão de satélites, com prazo até 2040.",
+    "Amazon, Viasat e um grupo de astrônomos pediram a rejeição. A Earthjustice criticou a falta de revisão ambiental.",
+    "Em terra, um centro de supercomputação da SpaceX no Arizona ainda não tem aprovação do condado, e grupos locais são contra."
+   ],
+   "fontes": [
+    "https://www.cnbc.com/2026/11/25/spacex-fcc-satellite-approval.html",
+    "https://www.satellitetoday.com/connectivity/2026/11/25/fcc-approves-spacexs-1-million-satellite-orbital-data-center-constellation/",
+    "https://docs.fcc.gov/public/attachments/DA-26-1273A1.pdf",
+    "https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan-to-put-ai-data-centers-in-space/",
+    "https://x.com/SpaceX/status/2125637438710153247",
+    "https://www.azfamily.com/2026/11/17/spacex-plans-50b-data-center-campus-cochise-county/",
+    "https://azbigmedia.com/business/spacex-proposes-50-billion-arizona-ai-computing-campus/"
+   ]
+  },
+  {
+   "id": "trainium3-tpu-inferencex-exportacao-brasil",
+   "titulo": "Chips próprios de Amazon e Google entram no InferenceX ao lado da NVIDIA",
+   "chamada": "Na conta da SemiAnalysis, o Trainium3 entrega 2,28x o desempenho por dólar do GB300 NVL72 em benchmark aberto. Regra de exportação dos EUA de 16/11 cita o Brasil.",
+   "corpo": [
+    "Pela primeira vez, os chips próprios de Amazon e Google aparecem no mesmo benchmark aberto de inferência em que já estão NVIDIA e AMD. Na tarde de 25/11, a SemiAnalysis publicou os primeiros números do Trainium3 UltraServer, da AWS, no benchmark AgentX/InferenceX: \"Amazon has submitted its FIRST Trainium3 UltraServer results to our Agentic Inference Benchmark and has demonstrated 2.28x better perf per dollar than even GB300 NVL72, B300, and MI355\" (Tradução: \"A Amazon submeteu seus PRIMEIROS resultados do Trainium3 UltraServer ao nosso Benchmark de Inferência Agêntica e demonstrou desempenho por dólar 2,28x melhor até mesmo que GB300 NVL72, B300 e MI355\"). Na madrugada de 26/11, às 05h22, a SemiAnalysis anunciou também resultados de TPU do Google. Os resultados detalhados estão no painel da InferenceX.",
+    "No mesmo dia, Mustafa Suleyman, da Microsoft AI, rebateu quem prevê excesso de chips citando o paradoxo de Jevons (opinião): \"Things are just getting started.\" (\"As coisas estão só começando.\").",
+    "Para quem opera no Brasil, o pano de fundo regulatório merece atenção. Não achamos ato novo do Departamento de Comércio dos EUA em 25/11, mas segue valendo como contexto a regra interina do BIS de 16/11/2026. Ela exige licença para exportar chips e servidores de IA a data centers em qualquer país que possam fornecer computação a empresas da China e de outros países restritos. Também exige licença para chips avançados vendidos a empresas sediadas em Brasil, Indonésia, Malásia, Singapura e Tailândia, com vigência em 90 dias. Na prática, isso afeta o custo de GPU local."
+   ],
+   "status": "segundo a empresa",
+   "por_que_importa": "Pela primeira vez, empresas, profissionais e usuários de IA podem comparar chips próprios de Amazon e Google com NVIDIA e AMD no mesmo benchmark aberto de desempenho por dólar. Ao mesmo tempo, a regra americana de 16/11 cita o Brasil e afeta o custo de GPU local.",
+   "refs": [
+    "trainium3-tpu-inferencex",
+    "suleyman-humanist-code-e-chips",
+    "export-controls-brasil-nuvem"
+   ],
+   "simples": [
+    "Segundo a SemiAnalysis, que faz o teste, o chip da Amazon rendeu 2,28 vezes mais por dólar que um chip da NVIDIA.",
+    "Pela primeira vez, chips da Amazon e do Google aparecem no mesmo teste aberto que os da NVIDIA e da AMD.",
+    "Na opinião de um executivo da Microsoft, não há excesso de chips e tudo está só começando.",
+    "Uma regra dos Estados Unidos de 16/11 exige licença para vender chips avançados a empresas do Brasil."
+   ],
+   "fontes": [
+    "https://x.com/SemiAnalysis_/status/2125658708357128703",
+    "https://x.com/SemiAnalysis_/status/2125867835050111357",
+    "https://inferencex.semianalysis.com/about",
+    "https://x.com/mustafasuleyman/status/2125673700032905321",
+    "https://x.com/mustafasuleyman/status/2125709603275243636",
+    "https://microsoft.ai/code-of-conduct/",
+    "https://x.com/emollick/status/2125831416491692310",
+    "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/",
+    "https://www.lw.com/en/insights/us-commerce-department-adopts-rule-restricting-remote-access-to-advanced-ai-chips",
+    "https://www.nbcnews.com/tech/tech-news/us-closes-loophole-let-chinese-companies-use-top-ai-chips-rcna609634"
+   ]
+  },
+  {
+   "id": "anthropic-rust-agentes-openai-private-inference",
+   "titulo": "Anthropic migra API para Rust com ajuda de agentes e OpenAI testa Private Inference",
+   "chamada": "Segundo a Anthropic, a API em Rust usa cerca de 70% menos CPU por requisição. A OpenAI diz que testa inferência com computação confidencial com um grupo pequeno de clientes.",
+   "corpo": [
+    "A Anthropic publicou em 25/11 o relato de como migrou sua Messages API de Python para Rust. Segundo a empresa, a API em Rust passou em cerca de 98% dos testes em abril, mas só cerca de um quarto das entradas batia no tráfego de produção. Para validar, o time usou a API em Python como oráculo e times de agentes Claude, que caçavam e corrigiam as diferenças em tráfego de produção espelhado.",
+    "Segundo a Anthropic, a concordância de entradas com o tráfego real subiu de cerca de 25% para 99,6% no fim do processo. A empresa diz que a API em Rust usa cerca de 70% menos CPU por requisição e reduz em cerca de 20% o tempo mediano até o primeiro token. O método (tráfego espelhado, fingerprints de diferença e agentes em loop) serve de modelo para quem migra sistemas legados com IA.",
+    "Do lado da OpenAI, Sam Altman (25/11) e Greg Brockman (26/11) anunciaram que o Private Inference está em teste com um grupo pequeno de clientes. Segundo Brockman, é inferência com computação confidencial, com controles estritos sobre prompts e respostas enquanto o modelo os processa. O produto faz parte do guarda-chuva OpenAI Private Intelligence, que também inclui Zero Data Retention com Private Safety Processing. Até a manhã de 26/11, não havia post novo no RSS do openai.com sobre isso, e a OpenAI não divulgou preço nem data de disponibilidade geral."
+   ],
+   "status": "segundo a empresa",
+   "por_que_importa": "Para empresas com sistemas legados, o relato da Anthropic descreve um método de migração que compara o sistema novo com o antigo em tráfego de produção espelhado, com agentes de IA corrigindo as diferenças. Os resultados são os informados pela própria empresa. Para quem usa IA com dados sensíveis, a OpenAI diz que o Private Inference terá controles estritos sobre prompts e respostas durante o processamento. Por enquanto ele está só em teste e não tem preço divulgado.",
+   "refs": [
+    "anthropic-messages-api-rust",
+    "openai-private-inference-teste"
+   ],
+   "simples": [
+    "Segundo a Anthropic, a empresa trocou a linguagem de um sistema importante e usou agentes de IA para achar e corrigir diferenças.",
+    "A empresa diz que o sistema novo gasta menos processamento e começa a responder mais rápido.",
+    "Segundo a OpenAI, ela testa um modo mais privado, com controles rígidos sobre perguntas e respostas.",
+    "Esse teste é com um grupo pequeno de clientes. A OpenAI ainda não divulgou preço nem data para todos."
+   ],
+   "fontes": [
+    "https://www.anthropic.com/research/migrating-api-to-rust",
+    "https://www.anthropic.com/engineering",
+    "https://x.com/AnthropicAI/status/2125627317263466739",
+    "https://x.com/sama/status/2125638790593274259",
+    "https://x.com/gdb/status/2125824585027272727",
+    "https://openai.com/form/private-intelligence-interest/",
+    "https://venturebeat.com/ai/openais-new-private-intelligence-targets-a-growing-enterprise-concern-who-can-see-your-ai-data/"
+   ]
+  },
+  {
+   "id": "amodei-suleyman-governanca-ia",
+   "titulo": "Dario Amodei e Mustafa Suleyman opinam sobre controle humano da IA",
+   "chamada": "Dario Amodei, da Anthropic, rebateu no X quem atribuiu a ele a ideia de entregar o livre-arbítrio humano à IA. Mustafa Suleyman, da Microsoft AI, apoiou a resposta e disse que slogans não são barreiras de proteção. As duas falas são opinião.",
+   "corpo": [
+    "Em 25/11, às 15h22, Dario Amodei respondeu no X a quem atribuiu a ele a ideia de \"entregar o livre-arbítrio humano\" à IA. Não conseguimos identificar a postagem original que ele rebatia, porque o X bloqueou a leitura. Ele disse que não acredita nisso e que é absurdo sugerir que acredita. Também disse que escreveu centenas de páginas de ensaios e que um tema constante neles é a necessidade de a IA ser governada por processos democráticos legítimos. Que ele disse isso é fato. O conteúdo é a opinião dele.",
+    "Às 16h31, Mustafa Suleyman, da Microsoft AI, apoiou a resposta de Amodei e a usou para promover o Humanist AI Code of Conduct da Microsoft AI, publicado em 14/09/2026 com consulta pública de seis semanas. O texto do código diz que humanos precisam manter controle significativo sobre a IA. Suleyman disse que há retórica e \"vibes\" demais no debate e resumiu: \"Slogans aren't guardrails.\" (Tradução: \"Slogans não são barreiras de proteção.\"). Isso também é opinião.",
+    "Ethan Mollick comentou o contraste: o CEO de IA da Microsoft alerta para limiares, enquanto o resto da empresa trata IA como \"normal technology\" (tecnologia normal). É a leitura dele, ou seja, opinião."
+   ],
+   "status": "opinião",
+   "por_que_importa": "Para empresas, profissionais e usuários de IA, mostra que líderes de grandes empresas do setor defendem em público o controle humano e a governança democrática da IA. São opiniões, não regras. Já o código de conduta da Microsoft AI é um texto público que pode ser consultado.",
+   "refs": [
+    "dario-livre-arbitrio-governanca",
+    "suleyman-humanist-code-e-chips"
+   ],
+   "simples": [
+    "Duas pessoas conhecidas do mundo da IA deram suas opiniões sobre manter humanos no comando da IA.",
+    "Dario Amodei, da Anthropic, negou querer entregar as escolhas humanas para a IA. Ele defendeu que a IA seja governada de forma democrática.",
+    "Mustafa Suleyman, da Microsoft AI, concordou. Na opinião dele, frases de efeito não servem como proteção.",
+    "Um comentarista opinou que esse alerta contrasta com o jeito como o resto da Microsoft trata a IA."
+   ],
+   "fontes": [
+    "https://x.com/DarioAmodei/status/2125656399392690605",
+    "https://x.com/mustafasuleyman/status/2125673700032905321",
+    "https://x.com/mustafasuleyman/status/2125709603275243636",
+    "https://microsoft.ai/code-of-conduct/",
+    "https://x.com/emollick/status/2125831416491692310"
+   ]
+  }
+ ],
+ "quem_falou": [
+  {
+   "pessoa": "Scott Aaronson",
+   "citacao_original": "And yes, some of those algorithms will break currently deployed cryptosystems.",
+   "traducao": "E sim, alguns desses algoritmos vão quebrar sistemas criptográficos atualmente em uso.",
+   "etiqueta": "rumor",
+   "link": "https://scottaaronson.blog/?p=10379",
+   "contexto": "No blog Shtetl-Optimized, ele disse estar praticamente certo, com base em várias fontes confiáveis, de que as labs guardam \"bombshells\" (bombas) nessa área. É fato que ele escreveu isso, mas o conteúdo não foi confirmado. O post não cita RSA nem afirma que ele foi quebrado."
+  },
+  {
+   "pessoa": "Zvi Mowshowitz",
+   "citacao_original": "The Lean and Mathlib communities have verified that the proof is correct.",
+   "traducao": "As comunidades Lean e Mathlib verificaram que a prova está correta.",
+   "etiqueta": "fato",
+   "link": "https://thezvi.substack.com/p/claude-and-levent-alpoge-prove-the",
+   "contexto": "Zvi disse isso ao resumir a prova da Hipótese de Riemann que Levent Alpöge fez com o Claude. O selo de fato vem da nota conjunta do Lean FRO e da Mathlib Initiative, que confirma a prova. A verificação formal cobre a Hipótese de Riemann. A extensão para a GRH é uma alegação do autor e ainda não está formalizada."
+  },
+  {
+   "pessoa": "Dylan Patel",
+   "citacao_original": "While also being really bad at software engineering relative to the leading models.",
+   "traducao": "Enquanto também é muito ruim em engenharia de software em relação aos modelos líderes.",
+   "etiqueta": "opinião",
+   "link": "https://x.com/dylan522p/status/2125791910543360088",
+   "contexto": "O fundador da SemiAnalysis resumiu assim o desempenho do GPT-6.2 Astra no ranking GDPx: forte em domínios técnicos e de negócios, fraco em engenharia de software."
+  },
+  {
+   "pessoa": "Brendan Carr",
+   "citacao_original": "Compute campuses or data centers are essential to sustaining America's leadership in [super intelligence]. By moving compute capacity beyond Earth, SpaceX and the many competitors working on their own orbital data centers are meeting the moment.",
+   "traducao": "Campi de computação ou data centers são essenciais para sustentar a liderança dos Estados Unidos em [superinteligência]. Ao levar capacidade de computação para além da Terra, a SpaceX e os muitos concorrentes que trabalham em seus próprios data centers orbitais estão à altura do momento.",
+   "etiqueta": "opinião",
+   "link": "https://www.cnbc.com/2026/11/25/spacex-fcc-satellite-approval.html",
+   "contexto": "Ele falou sobre a aprovação da constelação Starmind, da SpaceX, pela FCC. A aprovação é fato. A avaliação é opinião dele."
+  },
+  {
+   "pessoa": "Dario Amodei",
+   "citacao_original": "No, I do not believe that we should “surrender human free will” to AI systems, and it’s absurd to suggest that I do. I have written hundreds of pages of essays and a constant theme in them is the need for AI to be governed by legitimate democratic processes.",
+   "traducao": "Não, eu não acredito que devamos \"entregar o livre-arbítrio humano\" a sistemas de IA, e é absurdo sugerir que eu acredite nisso. Escrevi centenas de páginas de ensaios e um tema constante neles é a necessidade de a IA ser governada por processos democráticos legítimos.",
+   "etiqueta": "opinião",
+   "link": "https://x.com/DarioAmodei/status/2125656399392690605",
+   "contexto": "Ele respondeu no X a quem atribuiu a ele a ideia de entregar o livre-arbítrio humano à IA. Não foi possível identificar a postagem original."
+  },
+  {
+   "pessoa": "Mustafa Suleyman",
+   "citacao_original": "For all those people who keep predicting we're overbuilding chips / we aren't seeing jevon's paradox etc. Things are just getting started.",
+   "traducao": "Para todas aquelas pessoas que continuam prevendo que estamos construindo chips demais ou que não estamos vendo o paradoxo de Jevons etc. As coisas estão só começando.",
+   "etiqueta": "opinião",
+   "link": "https://x.com/mustafasuleyman/status/2125709603275243636",
+   "contexto": "O executivo da Microsoft AI rebateu a tese de excesso de capacidade em chips citando o paradoxo de Jevons."
+  }
+ ],
+ "fixos": {
+  "chatgpt_business": {
+   "alerta": false,
+   "texto": "Sem novidade desde a atualização de 19/11. Fora dos EUA, só negócios de e-commerce e serviços online podem reivindicar o perfil e publicar Business Agents. Lojas físicas e restaurantes só podem reivindicar listagens que já existem nos EUA. Nenhuma das duas páginas da OpenAI cita o Brasil pelo nome nem traz lista de países, e o corpo do anúncio ainda diz que os Business Agents estão disponíveis \"in the United States\", em conflito com a nota de 19/11. A OpenAI não revisou o texto. A central de ajuda mostrava \"Updated: 10 hours ago\", mas o texto de elegibilidade segue igual, com a promessa de expandir \"to more markets and business categories\"."
+  },
+  "meta_whatsapp": "Nenhuma alteração nova nesta manhã. Segue valendo a tabela em vigor desde 1/10/2026, que passou a cobrar mensagens de serviço antes gratuitas, mantendo 1.000 mensagens de serviço grátis por número por mês. No Brasil, contas elegíveis precisam migrar para faturamento em BRL (Facebook Brasil) até 30/06/2027. Segundo a Meta, a partir de 1/7/2027 ela deixa de entregar mensagens de contas elegíveis que não faturam em BRL. O Meta Business Agent cobra US$ 2,00 por milhão de tokens, inclusive dentro da janela grátis de Click-to-WhatsApp. A alteração de preço de serviço de 1/10/2026 não se aplica a AI Providers, que têm política própria. Mudanças de tarifa só acontecem em 1/1, 1/4, 1/7 ou 1/10, com pelo menos um mês de aviso. A próxima janela possível é 1/1/2027.",
+  "china": "No ranking GDPx da SemiAnalysis, o Qwen4-Max foi o melhor modelo chinês, com 7,44%, contra 19,3% do GPT-6.2 Astra e 12% do Opus 5.5. Segundo agregadores, e não páginas oficiais, ele custa cerca de US$ 1,50/US$ 4,50 por milhão de tokens, e o Kimi K3.1 Pro, US$ 2/US$ 10. O Kimi K3.1 Pro foi pior no GDPx do que em outros benchmarks, e o DeepSeek v4.1 Flash só aparece na ponta barata da fronteira custo-desempenho. O preço dele varia entre as fontes e não foi confirmado. Na engenharia, a DeepSeek atualizou nesta madrugada seus repositórios de kernels FlashMLA, DeepSelect, DeepGEMM e DeepGEMM-Ascend. Este último é para as NPUs Huawei Ascend, a alternativa chinesa à NVIDIA diante do controle de exportação. A Alibaba anunciou mais capacidade multilíngue no Qwen-Audio-3.1, com foco em dialetos chineses. Os agentes de código de terminal open source QwenLM/qwen-code e MoonshotAI/kimi-code tiveram pushes em 25 e 26/11.",
+  "varejo": "Segundo a empresa, a Commerce.com lançou seu Shopping Agent para lojistas BigCommerce. Ele conversa com o cliente com acesso direto ao catálogo do lojista e mantém o contexto entre perguntas de acompanhamento. No Business Hub do ChatGPT, empresas verificadas atualizam dados, preços e estoque, e no Japão agências já vendem o serviço de cadastro e configuração (PR Times, 26/11). No WhatsApp, o Meta Business Agent cobra US$ 2,00 por milhão de tokens (a Meta estima de 4 a 5 centavos de dólar por mensagem), enquanto uma IA de terceiros paga a tarifa de mensagem de serviço."
+ },
+ "resumo_simples": [
+  {
+   "texto": "Prova matemática feita com ajuda do Claude foi confirmada por programa verificador.",
+   "selo": "fato"
+  },
+  {
+   "texto": "Google diz que programa criou seis estudos matemáticos com apenas um pedido.",
+   "selo": "segundo a empresa"
+  },
+  {
+   "texto": "Ranking da SemiAnalysis põe modelo da OpenAI em primeiro lugar.",
+   "selo": "fato"
+  },
+  {
+   "texto": "Agência americana aprova plano da SpaceX para satélites com centros de dados.",
+   "selo": "fato"
+  },
+  {
+   "texto": "Segundo a SemiAnalysis, chips de Amazon e Google estreiam em teste aberto de desempenho e custo.",
+   "selo": "segundo a empresa"
+  },
+  {
+   "texto": "Anthropic diz usar menos processador após reescrever um sistema, e OpenAI diz testar modo privado com poucos clientes.",
+   "selo": "segundo a empresa"
+  },
+  {
+   "texto": "Opinião: Dario Amodei diz que a IA deve seguir regras democráticas, e Mustafa Suleyman concorda.",
+   "selo": "opinião"
+  }
+ ],
+ "edition_date": "2026-11-26",
+ "arquivo_url": "../",
+ "tema_visual": {
+  "nome": "Quadro-Negro de Teoremas",
+  "conceito": "A semana em que as IAs passaram a entregar provas formais é tratada como uma aula de seminário: um quadro-negro verde-ardósia com giz branco, amarelo e azul, onde cada notícia vira um lema numerado. Os resultados de matemática ocupam o centro do quadro, e o resto do dia (rankings, satélites, chips) aparece nas margens, como anotações de giz ao redor da demonstração principal.",
+  "paleta": {
+   "bg": "#1E2B24",
+   "surface": "#263630",
+   "surface2": "#2F4139",
+   "text": "#F2EFE6",
+   "muted": "#B8C2B5",
+   "accent": "#F2D16B",
+   "accent2": "#9CCBE8",
+   "border": "#4A5E53"
+  },
+  "tipografia": {
+   "titulo": "\"Chalkboard SE\", \"Marker Felt\", \"Bradley Hand\", cursive",
+   "corpo": "\"Iowan Old Style\", Palatino, \"Palatino Linotype\", Georgia, serif",
+   "mono": "\"SF Mono\", Menlo, ui-monospace, monospace"
+  },
+  "layout": {
+   "estilo": "quadro-negro",
+   "descricao": "A página inteira imita um quadro-negro com moldura de madeira escura: uma borda de 10px em #4A5E53 e uma textura sutil de pó de giz em #263630. A capa é o 'Teorema do Dia': o título em giz amarelo, a frase-resumo como enunciado em itálico e uma caixa de 'Demonstração' em mono com um trecho de pseudocódigo Lean. A caixa fecha com o símbolo ∎ alinhado à direita. Logo abaixo da manchete e do subtítulo vem o Fio do dia, a primeira seção de conteúdo, em coluna larga de leitura. Depois, 'Em 3 linhas' aparece como 'Hipóteses H1, H2, H3', em lista numerada com marcadores à mão. As histórias seguem numa grade de duas colunas (uma no celular). Cada cartão é um 'Lema n.º' com numeração grande em giz azul, um sublinhado irregular feito à mão e o selo de status ('fato', 'segundo a empresa', 'opinião') escrito como uma nota de giz circulada. A linha do tempo é uma reta numérica horizontal com setas e marcações de data, como um eixo desenhado no quadro (vertical no celular). Quem falou vira 'Comentários da plateia', com aspas grandes em giz e o nome em versalete. Quem tá fazendo fica numa faixa tipo 'canto do quadro', com densidade alta e réguas tracejadas. Os fixos vão no rodapé como 'Notação e convenções', em mono pequeno. Pequenos elementos gráficos espalhados pela página: ≠, ∀, ∴ e setas de giz entre seções.",
+   "ordem_secoes": [
+    "capa",
+    "fio_do_dia",
+    "em_3_linhas",
+    "historias",
+    "linha_do_tempo",
+    "quem_falou",
+    "quem_ta_fazendo",
+    "fixos"
+   ]
+  },
+  "imagens": {
+   "estilo": "Hand-drawn chalk illustration on a matte slate-green blackboard (#1E2B24), with dusty white chalk strokes (#F2EFE6), yellow chalk highlights (#F2D16B) and pale blue chalk accents (#9CCBE8). Abstract mathematical imagery: interlocking proof trees, algebraic circuit diagrams, complex-plane spirals and orbital arcs, with visible smudges and eraser marks for texture. No text, letters or numbers, no logos, no human faces."
+  }
+ },
+ "imagens": {
+  "capa": "img/capa.jpg",
+  "riemann-lean-aaronson-singularidade": "img/riemann-lean-aaronson-singularidade.jpg",
+  "google-cogentic-seis-papers-rsa": "img/google-cogentic-seis-papers-rsa.jpg",
+  "gdpx-astra-fable-neon-codigo": "img/gdpx-astra-fable-neon-codigo.jpg",
+  "fcc-starmind-spacex-orbita-arizona": "img/fcc-starmind-spacex-orbita-arizona.jpg",
+  "trainium3-tpu-inferencex-exportacao-brasil": "img/trainium3-tpu-inferencex-exportacao-bras.jpg",
+  "anthropic-rust-agentes-openai-private-inference": "img/anthropic-rust-agentes-openai-private-in.jpg",
+  "amodei-suleyman-governanca-ia": "img/amodei-suleyman-governanca-ia.jpg"
+ },
+ "gerado_em": "26/11/2026 09:20 (horário de Brasília)"
+}

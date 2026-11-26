@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1E2B24">
+<meta name="color-scheme" content="dark">
+<title>Radar dos bastidores</title>
+<style>
+:root{
+  --bg:#1E2B24;
+  --surface:#263630;
+  --surface2:#2F4139;
+  --text:#F2EFE6;
+  --muted:#B8C2B5;
+  --accent:#F2D16B;
+  --accent2:#9CCBE8;
+  --border:#4A5E53;
+  --f-titulo:"Chalkboard SE","Marker Felt","Bradley Hand",cursive;
+  --f-corpo:"Iowan Old Style",Palatino,"Palatino Linotype",Georgia,serif;
+  --f-mono:"SF Mono",Menlo,ui-monospace,monospace;
+  --s-fato:#A9DDA0;
+  --s-segundo:var(--accent2);
+  --s-reportagem:#D7BCEF;
+  --s-rumor:#FF9E8E;
+  --s-neutro:#D9D3C3;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-corpo);font-size:1.0625rem;line-height:1.62;-webkit-font-smoothing:antialiased}
+@media (min-width:700px){body{font-size:1.125rem}}
+a{color:var(--accent2);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--accent)}
+:focus-visible{outline:2px dashed var(--accent);outline-offset:3px}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- moldura e quadro ---------- */
+.frame{
+  position:relative;min-height:100vh;overflow-x:clip;
+  border:10px solid var(--border);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.45),inset 0 0 70px rgba(0,0,0,.5);
+  background-color:var(--bg);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .95 0 0 0 0 .94 0 0 0 0 .9 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(ellipse 55% 30% at 12% 6%,var(--surface),transparent 70%),
+    radial-gradient(ellipse 40% 26% at 88% 34%,var(--surface),transparent 70%),
+    radial-gradient(ellipse 60% 22% at 30% 72%,var(--surface),transparent 72%),
+    radial-gradient(ellipse 35% 20% at 80% 92%,var(--surface),transparent 70%);
+}
+.frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(242,239,230,.05));pointer-events:none}
+.skip{position:absolute;left:12px;top:-60px;z-index:20;background:var(--accent);color:var(--bg);padding:8px 14px;border-radius:4px;font-family:var(--f-mono);font-size:.85rem;text-decoration:none}
+.skip:focus{top:12px}
+
+.board{max-width:1380px;margin:0 auto;padding:18px 14px 110px;display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+@media (min-width:1000px){.board{padding:30px 30px 120px}}
+.quadro{min-width:0;outline:none}
+
+/* ---------- alerta ---------- */
+.alerta{display:flex;gap:12px;align-items:flex-start;background:#9E2328;color:#fff;padding:12px 18px;border-bottom:3px dashed #FFC9C3;font-size:.98rem;line-height:1.5}
+.alerta .ico{font-size:1.4rem;line-height:1.1}
+.alerta strong{font-family:var(--f-titulo);font-weight:400;letter-spacing:.02em}
+.alerta a{color:#fff;font-weight:700}
+
+/* ---------- selos ---------- */
+.selos{display:inline-flex;flex-wrap:wrap;gap:6px 8px;align-items:center}
+.selo{display:inline-block;font-family:var(--f-titulo);font-size:.82rem;line-height:1.15;padding:.26em .75em .3em;border:1.6px solid currentColor;border-radius:58% 42% 55% 45%/52% 60% 40% 48%;transform:rotate(-2deg);color:var(--s-neutro);white-space:nowrap;text-shadow:0 0 1px rgba(0,0,0,.2)}
+.selo:nth-child(even){transform:rotate(1.6deg);border-radius:45% 55% 48% 52%/60% 44% 56% 40%}
+.s-fato{color:var(--s-fato)}
+.s-segundo{color:var(--s-segundo)}
+.s-reportagem{color:var(--s-reportagem)}
+.s-rumor{color:var(--s-rumor);background:rgba(255,158,142,.1)}
+.s-neutro{color:var(--s-neutro);border-style:dashed}
+.legenda{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:12px 0 0;font-family:var(--f-mono);font-size:.68rem;color:var(--muted);letter-spacing:.04em}
+.legenda .selo{font-size:.72rem}
+
+/* ---------- cabeçalhos de seção ---------- */
+.sec{position:relative;min-width:0}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:10px 16px;margin:0 0 18px}
+.eyebrow{margin:0 0 2px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sec-title{margin:0;font-family:var(--f-titulo);font-weight:400;font-size:clamp(1.75rem,5.4vw,2.5rem);line-height:1.08;color:var(--text);text-shadow:0 0 1px rgba(242,239,230,.35),0 0 10px rgba(242,239,230,.06)}
+.sec-title.sm{font-size:1.55rem}
+.glifo{font-family:var(--f-titulo);font-size:2.4rem;line-height:1;color:var(--accent2);opacity:.5;transform:rotate(-8deg);user-select:none}
+.sec-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+/* ---------- divisores de giz ---------- */
+.divisor{display:flex;align-items:center;gap:12px;margin:38px 0 28px;color:var(--muted)}
+.div-linha{flex:1;height:0;border-top:2px dashed var(--border)}
+.div-linha.curta{flex:0 0 16%}
+.div-g{font-family:var(--f-titulo);font-size:1.7rem;color:var(--accent2);opacity:.85}
+.div-seta{width:56px;height:36px;flex:none}
+.div-seta path{fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- botões ---------- */
+.btn{font:inherit;font-family:var(--f-titulo);font-size:.98rem;line-height:1.2;color:var(--text);background:transparent;border:1.6px solid rgba(242,239,230,.5);border-radius:30px 24px 32px 22px/22px 30px 24px 32px;padding:.55em 1.05em;min-height:44px;cursor:pointer;transition:color .2s,border-color .2s,background-color .2s,transform .2s}
+.btn:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn[aria-expanded="true"],.btn[aria-pressed="true"]{color:var(--accent);border-color:var(--accent);background:rgba(242,209,107,.1)}
+.btn-explica::after,.btn-ler::after{content:" ▾";display:inline-block;transition:transform .2s}
+.btn-explica[aria-expanded="true"]::after,.btn-ler[aria-expanded="true"]::after{transform:rotate(180deg)}
+.btn-mini{font-size:.85rem;min-height:38px;padding:.4em .9em}
+
+/* ---------- figuras / fundo gráfico ---------- */
+.fig{position:relative;margin:0;aspect-ratio:16/10;border-radius:5px;overflow:hidden;background:var(--surface);border:1px solid rgba(242,239,230,.14);box-shadow:inset 0 0 30px rgba(0,0,0,.35)}
+.fig .arte{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .5s ease}
+.fig.com-img img{opacity:1}
+.arte .giz{filter:url(#giz)}
+
+/* ---------- capa ---------- */
+.capa{position:relative;min-width:0;padding:4px 0 6px}
+.mast{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 18px;padding-bottom:10px;margin-bottom:24px;border-bottom:1.5px dashed var(--border)}
+.marca{margin:0;font-family:var(--f-titulo);font-size:1.3rem;color:var(--text)}
+.marca span{color:var(--accent2);margin-right:.3em}
+.mast-meta{margin:0;font-family:var(--f-mono);font-size:.74rem;color:var(--muted);letter-spacing:.03em}
+.mast-meta .ponto{margin:0 .5em;color:var(--border)}
+.capa-wrap{container-type:inline-size;container-name:capa}
+.capa-grid{display:grid;gap:22px}
+@container capa (min-width:720px){.capa-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:34px;align-items:center}}
+.teo-label{margin:0 0 8px;font-variant:small-caps;letter-spacing:.08em;color:var(--muted);font-size:1.02rem}
+.teo-label b{color:var(--text)}
+.manchete{margin:0 0 18px;font-family:var(--f-titulo);font-weight:400;color:var(--accent);font-size:clamp(1.9rem,3.6vw + .9rem,3.25rem);line-height:1.1;overflow-wrap:break-word;text-shadow:0 0 1px rgba(242,209,107,.55),0 0 16px rgba(242,209,107,.12)}
+.enunciado{margin:0;font-style:italic;font-size:1.1em;line-height:1.56}
+.enun-l{font-style:normal;font-variant:small-caps;font-weight:700;letter-spacing:.06em;color:var(--accent2);margin-right:.35em}
+.fig-capa{aspect-ratio:4/3;transform:rotate(.4deg)}
+.demo{margin:26px 0 0;padding:14px 16px 8px;border:1.5px dashed var(--border);border-radius:4px;background:rgba(0,0,0,.18)}
+.demo-t{margin:0 0 8px;font-size:1rem}
+.demo-t em{font-weight:700}
+.demo-t span{font-family:var(--f-mono);font-size:.72rem;color:var(--muted);margin-left:.4em}
+.demo pre{margin:0;font-family:var(--f-mono);font-size:.76rem;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--text)}
+@media (min-width:700px){.demo pre{font-size:.82rem}}
+.demo .kw{color:var(--accent)}
+.demo .fn{color:var(--accent2)}
+.demo .ty{color:var(--s-fato)}
+.demo .cm{color:var(--muted);font-style:italic}
+.qed{margin:2px 0 0;text-align:right;font-size:1.35rem;line-height:1;color:var(--accent)}
+
+/* ---------- resumo: dock direito (gaveta) ---------- */
+.resumo-backdrop{position:fixed;inset:0;z-index:59;background:rgba(0,0,0,.45);border:0;padding:0;margin:0;cursor:pointer}
+.resumo{position:fixed;top:0;right:0;height:100dvh;z-index:60;width:min(360px, calc(100vw - 52px));transform:translateX(100%);transition:transform .35s ease;background:var(--surface2);border-left:1.5px solid var(--border);box-shadow:-18px 0 40px rgba(0,0,0,.35);display:flex;flex-direction:column;padding:16px 18px 24px;overflow:auto;overscroll-behavior:contain}
+.resumo.is-open{transform:translateX(0)}
+.resumo-handle{position:fixed;top:42%;right:0;z-index:61;transform:translateY(-50%);writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.12em;background:var(--surface2);color:var(--accent);border:1.5px solid var(--border);border-right:0;border-radius:10px 0 0 10px;padding:16px 8px;font-family:var(--f-titulo);font-size:.95rem;line-height:1.1;cursor:pointer;box-shadow:-6px 0 18px rgba(0,0,0,.25);min-height:120px;display:flex;align-items:center;gap:8px}
+.resumo.is-open ~ .resumo-handle, .resumo.is-open .resumo-handle{right:min(360px, calc(100vw - 52px))}
+.resumo-handle .rt-n{font-family:var(--f-mono);font-size:.7rem;letter-spacing:0;opacity:.8;writing-mode:horizontal-tb}
+.resumo h2{margin:0 0 8px;font-family:var(--f-titulo);font-weight:400;font-size:1.45rem;color:var(--accent)}
+.rs-sub{margin:0 0 4px;font-size:.86rem;color:var(--muted);font-style:italic}
+.resumo-lista{list-style:none;margin:0;padding:0}
+.resumo-lista li{padding:10px 0;border-top:1px dashed var(--border);font-size:.95rem;line-height:1.45}
+.resumo-lista .selos{display:flex;margin-bottom:5px}
+
+/* ---------- navegação do rodapé ---------- */
+.tabbar{position:fixed;z-index:40;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(520px,calc(100% - 24px));display:flex;padding:6px;border-radius:24px;background:color-mix(in srgb, var(--surface) 82%, transparent);-webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);border:1px solid var(--border);box-shadow:0 18px 50px rgba(0,0,0,.45);transform:translateX(-50%)}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 2px 6px;border-radius:18px;color:var(--muted);text-decoration:none;background:none;border:0;font-family:var(--f-titulo);font-size:10.5px;font-weight:650;letter-spacing:.01em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.tab.on{color:var(--accent);background:color-mix(in srgb, var(--accent) 14%, transparent)}
+.tab svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- hipóteses ---------- */
+.hip{list-style:none;margin:0;padding:0}
+.hip li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start;padding:16px 0;border-bottom:1px dashed var(--border)}
+.hip li:first-child{border-top:1px dashed var(--border)}
+.hmark{display:grid;place-items:center;width:2.9rem;height:2.5rem;font-family:var(--f-titulo);font-size:1.2rem;color:var(--accent);border:2px solid currentColor;border-radius:55% 45% 52% 48%/45% 55% 45% 55%;transform:rotate(-5deg)}
+.hip li:nth-child(even) .hmark{transform:rotate(4deg)}
+.hmark sub{font-size:.65em;vertical-align:-.25em;line-height:0}
+.hip p{margin:0}
+.hip-conc{margin:14px 0 0;font-family:var(--f-titulo);color:var(--muted);font-size:1.02rem}
+
+/* ---------- lemas ---------- */
+.lemas-wrap{container-type:inline-size;container-name:lemas}
+.lemas{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
+@container lemas (min-width:620px){
+  .lemas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lema-principal{grid-column:1/-1}
+}
+.lema{position:relative;display:flex;flex-direction:column;gap:12px;min-width:0;padding:18px 18px 16px;background:linear-gradient(180deg,rgba(242,239,230,.03),transparent 45%),var(--surface);border:1px solid rgba(242,239,230,.14);border-radius:6px;scroll-margin-top:18px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.lema:hover{transform:translateY(-2px);border-color:rgba(242,239,230,.3);box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.lema:focus{outline:none}
+.lema.realce{outline:2px dashed var(--accent);outline-offset:5px;animation:realce 2.4s ease}
+@keyframes realce{0%{box-shadow:0 0 0 0 rgba(242,209,107,0)}18%{box-shadow:0 0 0 8px rgba(242,209,107,.25)}100%{box-shadow:0 0 0 0 rgba(242,209,107,0)}}
+@container lemas (min-width:840px){
+  .lema-principal{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);column-gap:28px;row-gap:12px;align-items:start;padding:24px}
+  .lema-principal>*{grid-column:1}
+  .lema-principal>.fig{grid-column:2;grid-row:1/span 5;align-self:stretch;aspect-ratio:auto;min-height:260px}
+  .lema-principal>.simples-box,.lema-principal>.lema-detalhe{grid-column:1/-1}
+  .lema-principal .lema-title{font-size:1.75rem}
+}
+.lema-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px}
+.lema-num{margin:0;display:flex;align-items:baseline;gap:.4rem;font-family:var(--f-titulo);color:var(--accent2);line-height:.9}
+.lema-num small{font-size:.92rem;color:var(--muted)}
+.lema-num b{font-weight:400;font-size:3.3rem;text-shadow:0 0 1px rgba(156,203,232,.6),0 0 14px rgba(156,203,232,.12)}
+.lema-title{margin:0;font-family:var(--f-titulo);font-weight:400;font-size:1.36rem;line-height:1.25;overflow-wrap:break-word}
+.risco{display:block;width:min(240px,72%);height:14px;margin:-6px 0 0;overflow:visible}
+.risco path{fill:none;stroke:var(--accent);stroke-width:2.1;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:0;animation:risca 1.1s ease-out .2s both}
+.lema:hover .risco path{animation:risca2 .7s ease-out both}
+@keyframes risca{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes risca2{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.chamada{margin:0}
+.lema-actions{display:flex;flex-wrap:wrap;gap:10px}
+.simples-box{padding:12px 14px 12px 16px;background:var(--surface2);border-left:3px solid var(--accent2);border-radius:4px}
+.sb-top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:6px}
+.sb-label{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.simples-box ol{margin:0;padding-left:1.25rem}
+.simples-box li{margin:.35em 0;line-height:1.5}
+.simples-box li::marker{color:var(--accent2);font-family:var(--f-titulo)}
+.lema-detalhe{padding-top:4px;border-top:1.5px dashed var(--border)}
+.lema-detalhe>p{margin:.8em 0}
+.pqi{margin:14px 0;padding:12px 14px;border:1.5px dashed var(--accent);border-radius:4px;background:rgba(242,209,107,.05)}
+.pqi p{margin:0}
+.pqi .pqi-t{font-family:var(--f-titulo);color:var(--accent);font-size:1.08rem;margin-bottom:4px}
+.fontes-t{margin:14px 0 4px;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400}
+.fontes{margin:0;padding-left:1.1rem;font-family:var(--f-mono);font-size:.84rem}
+.fontes li{margin:.3em 0;overflow-wrap:anywhere}
+.fontes a::after,.ext::after{content:" ↗"}
+
+/* ---------- linha do tempo ---------- */
+.tl-hint{margin:-6px 0 16px;font-size:.9rem;color:var(--muted);font-style:italic}
+.tl-wrap{container-type:inline-size;container-name:tl}
+.tl-scroll{padding:4px 2px 6px 12px}
+.eixo{list-style:none;margin:0;padding:0}
+.marco{position:relative;padding:0 0 24px 28px;border-left:2px solid var(--muted);background:repeating-linear-gradient(180deg,var(--muted) 0 1px,transparent 1px 22px) left top/7px 100% no-repeat}
+.marco:last-child{padding-bottom:34px}
+.marco:last-child::after{content:"";position:absolute;left:-9px;bottom:-4px;border-left:8px solid transparent;border-right:8px solid transparent;border-top:13px solid var(--muted)}
+.tick{position:absolute;left:-10px;top:.5rem;width:18px;height:18px;border-radius:50%;border:2px solid var(--accent2);background:var(--bg);transition:transform .2s ease,background-color .2s ease,border-color .2s ease}
+.marco.ativo .tick{background:var(--accent);border-color:var(--accent);transform:scale(1.2)}
+.marco-btn{font:inherit;display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 2px -6px;padding:5px 6px;min-height:38px;background:none;border:0;border-radius:4px;color:var(--accent2);text-align:left;cursor:pointer}
+.marco-data{font-family:var(--f-mono);font-size:.84rem;letter-spacing:.03em}
+.marco-ref{font-family:var(--f-titulo);font-size:.88rem;color:var(--accent)}
+.marco-btn:hover .marco-data{text-decoration:underline;text-decoration-style:wavy;text-underline-offset:4px}
+.marco-txt{margin:0;font-size:.95rem;line-height:1.5;color:var(--muted);transition:color .2s}
+.marco.ativo .marco-txt{color:var(--text)}
+@container tl (min-width:700px){
+  .tl-scroll{overflow-x:auto;padding:18px 4px 12px 12px;scrollbar-color:var(--border) transparent}
+  .eixo{display:flex}
+  .marco{flex:1 0 210px;padding:28px 20px 6px 0;border-left:0;border-top:2px solid var(--muted);background:repeating-linear-gradient(90deg,var(--muted) 0 1px,transparent 1px 22px) left top/100% 7px no-repeat}
+  .marco:last-child{padding-right:34px;padding-bottom:6px}
+  .marco:last-child::after{left:auto;right:-6px;top:-9px;bottom:auto;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:13px solid var(--muted);border-right:0}
+  .tick{left:-9px;top:-10px}
+}
+
+/* ---------- comentários da plateia ---------- */
+.plateia-wrap{container-type:inline-size;container-name:plateia}
+.plateia{display:grid;gap:26px 22px}
+@container plateia (min-width:680px){.plateia{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.coment{position:relative;margin:0;padding:34px 18px 16px;background:var(--surface);border:1px solid rgba(242,239,230,.12);border-radius:6px;display:flex;flex-direction:column;gap:10px}
+.aspas{position:absolute;top:-18px;left:10px;font-family:var(--f-titulo);font-size:5.2rem;line-height:1;color:var(--accent);text-shadow:0 0 12px rgba(242,209,107,.18);pointer-events:none}
+.fala{margin:0;font-size:1.14rem;font-style:italic;line-height:1.5}
+.fala p{margin:0}
+.autor{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px}
+.pessoa{font-variant:small-caps;letter-spacing:.07em;font-size:1.08rem;color:var(--text)}
+.pessoa::before{content:"— ";color:var(--muted)}
+.coment-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-family:var(--f-mono);font-size:.8rem}
+.versao{color:var(--muted);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.ctx{margin:0;font-size:.9rem;line-height:1.5;color:var(--muted);border-top:1px dashed var(--border);padding-top:10px}
+
+/* ---------- canto do quadro ---------- */
+.canto-wrap{container-type:inline-size;container-name:canto}
+.canto-label{margin:0 0 8px;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.canto{display:grid;gap:28px;padding:18px 16px 20px;border:1.5px dashed var(--border);border-radius:4px;background-color:rgba(0,0,0,.12);background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(242,239,230,.05) 31px 32px)}
+@container canto (min-width:760px){
+  .canto{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:22px 24px}
+  .canto>.sec+.sec{border-left:1.5px dashed var(--border);padding-left:24px}
+}
+.canto .sec{font-size:.94rem;line-height:1.56}
+.canto .sec-head{margin-bottom:12px}
+.canto .glifo{font-size:1.8rem}
+.fio p{margin:0 0 .85em}
+.fio p:first-of-type::first-letter{float:left;font-family:var(--f-titulo);color:var(--accent);font-size:2.4em;line-height:.9;margin:.08em .12em 0 0}
+.lab{padding:12px 0;border-top:1px dashed var(--border)}
+.lab-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 10px}
+.lab h3{margin:0;font-family:var(--f-titulo);font-weight:400;font-size:1.22rem;color:var(--accent2)}
+.lab p{margin:6px 0 8px}
+.refs{display:flex;flex-wrap:wrap;gap:6px}
+.ref-btn{font-family:var(--f-mono);font-size:.74rem;color:var(--accent);background:none;border:1px dashed var(--accent);border-radius:3px;padding:4px 9px;min-height:34px;cursor:pointer;transition:background-color .2s}
+.ref-btn:hover{background:rgba(242,209,107,.1)}
+
+/* ---------- notação e convenções ---------- */
+.notacao-wrap{container-type:inline-size;container-name:notacao}
+.notacao dl{margin:0;display:grid;gap:16px 26px;font-family:var(--f-mono);font-size:.78rem;line-height:1.65;color:var(--muted)}
+@container notacao (min-width:720px){.notacao dl{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.fx{padding:12px 0 0;border-top:1.5px dashed var(--border)}
+.fx dt{color:var(--accent);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}
+.fx dd{margin:4px 0 0;color:var(--text);opacity:.92}
+.fx-alerta{border-top:2px solid var(--s-rumor)}
+.fx-alerta dt{color:var(--s-rumor)}
+
+/* ---------- rodapé ---------- */
+.rodape{max-width:1380px;margin:0 auto;padding:22px 16px 34px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px 24px;border-top:1.5px dashed var(--border);font-family:var(--f-mono);font-size:.76rem;color:var(--muted)}
+@media (min-width:1000px){.rodape{padding:24px 30px 40px}}
+.rodape p{margin:0}
+.rodape a{color:var(--accent);font-weight:600}
+.rodape .fim{font-family:var(--f-titulo);font-size:1rem;color:var(--text)}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .lema:hover,.btn:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true" focusable="false"><filter id="giz" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="ruido"/><feDisplacementMap in="SourceGraphic" in2="ruido" scale="2.4"/></filter></svg>
+<div class="frame">
+  <a class="skip" href="#quadro">Pular para o conteúdo</a>
+  <div id="alerta-slot"></div>
+  <div class="board">
+    <header class="capa" id="capa"></header>
+    <main class="quadro" id="quadro" tabindex="-1"></main>
+  </div>
+  <footer class="rodape" id="rodape"></footer>
+</div>
+<button type="button" class="resumo-backdrop" id="resumo-backdrop" data-role="resumo-backdrop" hidden aria-label="Fechar resumo"></button>
+<aside class="resumo" id="resumo" data-role="resumo" aria-label="Resumo simples"></aside>
+<nav class="tabbar" id="tabbar" data-role="nav" aria-label="Atalhos das seções"></nav>
+<script id="edition" type="application/json">{"manchete": "A semana das provas formais com IA, chips próprios em teste aberto e data centers em órbita", "subtitulo": "Em 24 horas, a corrida da IA foi da matemática verificada em Lean até a disputa de custo por tarefa e a aprovação, pela FCC, de até um milhão de satélites de data center.", "fio_do_dia": ["Os bastidores da IA tiveram uma semana movimentada. Desde 20/11, uma sequência de provas matemáticas feitas com ajuda de modelos ocupou os laboratórios. O marco mais sólido é a prova da Hipótese de Riemann que Levent Alpöge, da Anthropic, fez com o Claude. Ela saiu como biblioteca Lean, e o Lean FRO e a Mathlib Initiative declararam em nota conjunta ter total confiança de que está correta. Na sequência vieram a pasta de VP != VNP da Anthropic em 23/11, dois preprints da OpenAI datados de 24/11 e seis papers que o Google subiu em silêncio na manhã de 25/11. Segundo o Google, eles foram gerados pelo framework agêntico Cogentic com o Gemini 4.", "O ponto que liga tudo isso é o verificador formal Lean. Segundo Scott Aaronson, as labs agora sustentam as alegações com certificados Lean. Mas aqui entra o filtro de rigor. A Hipótese de Riemann já tem o endosso do Lean FRO e da Mathlib Initiative. Já a prova de VP != VNP da Anthropic não foi revisada por nenhum matemático humano, segundo a própria empresa, e os seis papers do Google ainda estão sem as formalizações em Lean. No meio da tarde de 25/11, Aaronson escreveu no blog estar praticamente certo, com base em várias fontes confiáveis, de que as labs guardam uma ou mais \"bombshells\" (resultados bombásticos) nessa área, e que alguns desses algoritmos vão quebrar sistemas criptográficos em uso. É rumor: o que ele diz não foi confirmado. E o post não fala em RSA. As leituras nas redes de que o RSA foi quebrado vão além do que o post diz.", "Fora da matemática, a noite trouxe um novo ranking de modelos. O ranking GDPx da SemiAnalysis colocou o GPT-6.2 Astra em primeiro lugar com 19,3%, na frente do Claude Fable 5.2 (16,4%) e bem acima do Gemini 4 Neon (10,1%, em sexto). Só que o recorte importa: na opinião de Dylan Patel, o Astra vai muito bem em áreas técnicas e de negócios, mas fica atrás dos líderes em engenharia de software. Em código, há relatos pessoais com o Claude: Andrej Karpathy contou uma sessão de 7 horas com cerca de 45 mil linhas de código, e Simon Willison contou 194 commits com coautoria do Fable 5.2.", "Na infraestrutura, os números são grandes. A FCC aprovou a constelação Starmind da SpaceX, com até 1 milhão de satélites de data center orbital, enquanto a própria SpaceX tenta aprovar um campus de até 6 GW no Arizona. Ao mesmo tempo, segundo a SemiAnalysis, os chips próprios da Amazon (Trainium3) e do Google (TPU) apareceram pela primeira vez no benchmark aberto InferenceX/AgentX, ao lado de NVIDIA e AMD. Para empresas que operam no Brasil, há dois pontos. A regra de exportação dos EUA de 16/11 exige licença para chips avançados vendidos a empresas sediadas no Brasil, o que afeta o custo de GPU local. E no WhatsApp, a conta de atendimento muda conforme a empresa usa o Meta Business Agent, cobrado por token, ou uma IA de terceiros, que paga a tarifa de mensagem de serviço."], "em_3_linhas": ["Provas matemáticas com IA viraram o assunto da semana: a prova da Hipótese de Riemann feita com o Claude foi verificada em Lean, o Google subiu seis papers que, segundo a empresa, foram gerados por agentes com um único prompt, e Scott Aaronson disse ter fontes de que as labs guardam \"bombshells\" em criptografia (rumor; o post não fala em RSA).", "No ranking GDPx da SemiAnalysis, o GPT-6.2 Astra lidera com 19,3% e o Gemini 4 Neon fica em sexto. Na opinião de Dylan Patel, fundador da SemiAnalysis, o Astra fica atrás dos líderes em engenharia de software.", "Na infraestrutura, a FCC aprovou até 1 milhão de satélites de data center da SpaceX e, segundo a SemiAnalysis, o Trainium3 da Amazon e as TPUs do Google estrearam no benchmark aberto InferenceX/AgentX, ao lado de NVIDIA e AMD."], "timeline": [{"quando": "25/11 07h21", "o_que": "Google sobe em silêncio no GitHub seis papers que, segundo a empresa, foram gerados pelo framework agêntico Cogentic com Gemini 4, ainda sem as formalizações em Lean.", "ref": "google-cogentic-seis-papers"}, {"quando": "25/11 13h26", "o_que": "Anthropic detalha como migrou sua Messages API de Python para Rust usando agentes Claude sobre tráfego espelhado.", "ref": "anthropic-messages-api-rust"}, {"quando": "25/11 14h07", "o_que": "SpaceX volta a defender seu campus de supercomputação de até 6 GW e US$ 50 bi ou mais em Cochise County, no Arizona.", "ref": "spacex-cochise-arizona-6gw"}, {"quando": "25/11 14h12", "o_que": "Sam Altman anuncia testes do Private Inference, com computação confidencial, para um grupo pequeno de clientes.", "ref": "openai-private-inference-teste"}, {"quando": "25/11 14h24", "o_que": "Zvi Mowshowitz publica balanço da prova da Hipótese de Riemann feita por Levent Alpöge com Claude e verificada em Lean.", "ref": "zvi-riemann-alpoge-claude"}, {"quando": "25/11 ~15h22", "o_que": "FCC aprova a constelação Starmind da SpaceX com até 1 milhão de satélites de data center orbital.", "ref": "fcc-aprova-starmind-spacex"}, {"quando": "25/11 15h31", "o_que": "SemiAnalysis divulga os primeiros resultados do Trainium3 da AWS no benchmark aberto InferenceX/AgentX.", "ref": "trainium3-tpu-inferencex"}, {"quando": "25/11 16h01", "o_que": "Scott Aaronson escreve no blog Shtetl-Optimized sobre as provas de IA e diz ter fontes de que as labs guardam \"bombshells\" em criptografia (rumor).", "ref": "aaronson-singularidade-bombshells-cripto"}, {"quando": "25/11 21h05", "o_que": "SemiAnalysis publica o ranking GDPx com GPT-6.2 Astra em 1º, Claude Fable 5.2 em 2º e Gemini 4 Neon em 6º.", "ref": "semianalysis-gdpx-astra-fable-neon"}, {"quando": "25/11 23h31", "o_que": "Andrej Karpathy relata sessão de 7 horas em que o Claude Opus 5.5 gerou cerca de 45 mil linhas de código integrando 31 fontes públicas.", "ref": "karpathy-opus-civilization-map"}, {"quando": "26/11 00h21", "o_que": "Dylan Patel opina sobre o GDPx: o Astra 6.2 brilha em áreas técnicas e de negócios, mas vai mal em engenharia de software frente aos líderes.", "ref": "dylan-patel-astra-ruim-em-codigo"}, {"quando": "26/11 05h22", "o_que": "SemiAnalysis anuncia resultados de TPU do Google no benchmark aberto InferenceX/AgentX.", "ref": "trainium3-tpu-inferencex"}], "quem_ta_fazendo": [{"lab": "OpenAI", "movimento": "Lidera o ranking GDPx da SemiAnalysis com o GPT-6.2 Astra (19,3%) (fato). Publicou dois preprints matemáticos datados de 24/11 no repositório openai/math e, segundo a empresa, começou a testar o Private Inference com um grupo pequeno de clientes.", "status": "segundo a empresa", "refs": ["semianalysis-gdpx-astra-fable-neon", "aaronson-singularidade-bombshells-cripto", "openai-private-inference-teste"]}, {"lab": "Anthropic", "movimento": "A prova da Hipótese de Riemann que Levent Alpöge fez com o Claude recebeu nota conjunta de confiança do Lean FRO e da Mathlib Initiative (fato). Publicou VP != VNP com prova em Lean que, segundo a própria empresa, nenhum matemático humano revisou. Segundo a empresa, migrou a Messages API para Rust, com cerca de 70% menos CPU por requisição.", "status": "segundo a empresa", "refs": ["zvi-riemann-alpoge-claude", "anthropic-vp-vnp-formal-math", "anthropic-messages-api-rust"]}, {"lab": "Google Research / Google DeepMind", "movimento": "Subiu seis papers que, segundo a empresa, foram gerados pelo framework agêntico Cogentic com Gemini 4, ainda sem formalização Lean publicada. Teve resultados de TPU anunciados pela SemiAnalysis no InferenceX/AgentX e viu o Gemini 4 Neon ficar em 6º no GDPx, mesmo com Logan Kilpatrick e Demis Hassabis promovendo o modelo.", "status": "segundo a empresa", "refs": ["google-cogentic-seis-papers", "semianalysis-gdpx-astra-fable-neon", "trainium3-tpu-inferencex"]}, {"lab": "SpaceX / xAI", "movimento": "Teve aprovada pela FCC a Starmind, a primeira constelação de data center orbital autorizada pela agência. Segundo a TechCrunch e a Via Satellite, parte das camadas fica em espera até a entrega do plano final de detritos. No Arizona, ainda busca aprovação do condado para um campus que, segundo a empresa, terá até 6 GW.", "status": "fato", "refs": ["fcc-aprova-starmind-spacex", "spacex-cochise-arizona-6gw"]}, {"lab": "Amazon (AWS)", "movimento": "Segundo a SemiAnalysis, enviou pela primeira vez resultados do Trainium3 UltraServer ao benchmark AgentX/InferenceX. Na conta da SemiAnalysis, o desempenho por dólar é 2,28x o do GB300 NVL72.", "status": "segundo a empresa", "refs": ["trainium3-tpu-inferencex"]}, {"lab": "Microsoft", "movimento": "Mustafa Suleyman usou o debate no X para promover o Humanist AI Code of Conduct e rebater a tese de excesso de capacidade em chips citando o paradoxo de Jevons.", "status": "opinião", "refs": ["suleyman-humanist-code-e-chips"]}, {"lab": "China (DeepSeek / Alibaba / Moonshot)", "movimento": "A DeepSeek atualizou repositórios de kernels, entre eles o DeepGEMM-Ascend para as NPUs Huawei Ascend. A Alibaba anunciou mais capacidade multilíngue no Qwen-Audio-3.1, com foco em dialetos chineses. O Qwen4-Max ficou como melhor modelo chinês no GDPx, com 7,44%.", "status": "fato", "refs": ["china-deepseek-ascend-qwen-audio", "china-gdpx-preco-por-token"]}], "historias": [{"id": "riemann-lean-aaronson-singularidade", "titulo": "A semana em que a IA entregou provas verificadas em Lean e reacendeu rumores sobre criptografia", "chamada": "A prova da Hipótese de Riemann feita com o Claude recebeu nota conjunta de confiança do Lean FRO e da Mathlib Initiative. Já Scott Aaronson disse estar praticamente certo, por várias fontes, de que as labs guardam \"bombshells\" na área de algoritmos e que alguns deles vão quebrar sistemas criptográficos em uso. Isso é rumor, não fato confirmado.", "corpo": ["Em 25/11, Zvi Mowshowitz publicou um balanço longo da prova da Hipótese de Riemann que Levent Alpöge, da Anthropic, fez com o Claude. A prova saiu em 20/11 como uma biblioteca Lean de cerca de 17 milhões de linhas, que depende só da Mathlib. O fato confirmado de maior peso é a nota conjunta do Lean FRO e da Mathlib Initiative: \"We have full confidence that Alpöge's proof of the Riemann Hypothesis is correct.\" (Tradução: \"Temos total confiança de que a prova da Hipótese de Riemann feita por Alpöge está correta.\"). A verificação formal cobre a Hipótese de Riemann. A extensão para a GRH é uma alegação do autor e ainda não está formalizada. A Anthropic não tem post oficial sobre o tema no newsroom, e não achamos manifestação de Terence Tao sobre a prova.", "Outros repositórios também se mexeram. Em 23/11, entrou no repositório anthropics/formal-math da Anthropic a pasta vp-vnp, com paper e prova em Lean de VP ≠ VNP. Segundo a empresa, o README traz uma cota inferior superpolinomial para circuitos que calculam o permanente (fora da característica 2) e o polinômio de ciclos hamiltonianos. A própria Anthropic avisa que isso \"does not settle P vs NP\" (não resolve P vs NP) e faz o alerta: \"Both were written by AI models, and no human mathematician has checked the proof.\" (Tradução: \"Ambos foram escritos por modelos de IA, e nenhum matemático humano checou a prova.\"). A checagem disponível é a do Lean. Na OpenAI, dois preprints datados de 24/11 no repositório openai/math tratam do expoente de multiplicação de matrizes ω = 9/4 (agora com cota inferior) e da complexidade da transformada de Fourier.", "Na tarde de 25/11, o cientista da computação Scott Aaronson escreveu no blog Shtetl-Optimized que ainda estava digerindo as provas de VP ≠ VNP da OpenAI e da Anthropic. Ele disse que as labs agora sustentam as alegações com certificados Lean e que a sua \"working assumption\" é que essas provas estão corretas. Também deu a opinião de que sente, pela primeira vez, que uma prova de P ≠ NP não está longe: \"I now feel in my bones, for the first time ever, that a proof of P ≠ NP is not far.\" O trecho mais delicado é sobre criptografia: \"Because people have been hounding me about it: yes, I’m virtually certain, from multiple reliable sources, that the AI labs are now sitting on one or more bombshells in that area.\" (Tradução: \"Porque as pessoas têm me cobrado sobre isso: sim, estou praticamente certo, por várias fontes confiáveis, de que as labs de IA estão agora sentadas sobre um ou mais resultados bombásticos nessa área.\"). Ele completou: \"And yes, some of those algorithms will break currently deployed cryptosystems.\" (Tradução: \"E sim, alguns desses algoritmos vão quebrar sistemas criptográficos em uso hoje.\"). É fato que ele escreveu isso, mas o conteúdo é rumor: fala de resultados que não foram confirmados. Aaronson usou a palavra \"bombshells\", não \"bombs\", não citou RSA e não afirmou que o RSA foi quebrado. A leitura do @namcios (\"quebram RSA\", \"bitcoin despencando\") vai além do que o post diz."], "status": "fato", "por_que_importa": "Para empresas, profissionais e usuários de IA, a semana pede que se separe o que foi verificado do que é barulho. A prova da Hipótese de Riemann tem verificação formal em Lean, e o Lean FRO e a Mathlib Initiative disseram ter total confiança nela. A prova de VP ≠ VNP da Anthropic, segundo a própria empresa, só tem a checagem do Lean e nenhuma revisão humana. A fala sobre quebra de criptografia continua sendo rumor.", "refs": ["zvi-riemann-alpoge-claude", "anthropic-vp-vnp-formal-math", "aaronson-singularidade-bombshells-cripto"], "simples": ["É fato: um pesquisador da Anthropic usou o Claude para provar a Hipótese de Riemann, um famoso problema de matemática.", "É fato: os grupos que cuidam do Lean, um programa que confere provas, disseram ter total confiança de que a prova está certa.", "Segundo a Anthropic, outra prova dela saiu na mesma semana, mas nenhum matemático humano a revisou ainda.", "É rumor: um cientista disse ter fontes de que empresas de IA guardam resultados que podem quebrar a criptografia usada hoje."], "fontes": ["https://thezvi.substack.com/p/claude-and-levent-alpoge-prove-the", "https://leanprover-community.github.io/blog/posts/riemann-hypothesis/", "https://alpo.ge", "https://github.com/anthropics/formal-math/tree/main/vp-vnp", "https://github.com/anthropics/formal-math/commits/main/", "https://scottaaronson.blog/?p=10379", "https://github.com/openai/math/blob/main/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf", "https://github.com/openai/math/blob/main/preprints/The-logarithmic-exponent-of-finite-Fourier-transforms-November-24-2026/paper.pdf"]}, {"id": "google-cogentic-seis-papers-rsa", "titulo": "Google sobe seis papers feitos por agentes e alimenta rumor sobre criptografia", "chamada": "Segundo o Google, o framework Cogentic com o Gemini 4 gerou seis papers sem interação humana além do prompt inicial. Os papers alimentaram rumores sobre criptografia, mas o que eles descrevem não equivale a quebrar RSA.", "corpo": ["Às 07h21 (BRT) de 25/11, o Google subiu em silêncio seis papers para a pasta google-research/cogentic_research_papers. Segundo o próprio repositório, todos foram gerados pelo framework agêntico Cogentic, com o Gemini 4 como modelo base. O texto afirma: \"There was no human interaction other than the initial prompt for Cogentic to generate a full proof and formalization.\" (Tradução: \"Não houve nenhuma interação humana além do prompt inicial para o Cogentic gerar uma prova completa e sua formalização.\")", "Os títulos incluem fatoração de inteiros incondicional em tempo L_N[1/3, O(1)], logaritmo discreto em corpos de característica fixa, fatoração determinística subexponencial, log-rank conjecture, edge reconstruction e equilíbrio de Nash 1/5-aproximado. Os papers de fatoração e de logaritmo discreto são de algoritmos clássicos e alimentaram os rumores sobre criptografia.", "Vale segurar o freio em dois pontos. Primeiro, o título fala em tempo L[1/3], a mesma classe do Number Field Sieve, que já existe (mas é heurístico). Isso não equivale a \"quebrar RSA\". Segundo, as formalizações em Lean 4 dos seis papers ainda não foram publicadas. Segundo o commit, virão numa submissão separada. Depois, ainda em 25/11, o Google fez ajustes de README e incluiu uma citação de trabalho concorrente (commits às 16h51, 17h54 e 20h54 BRT)."], "status": "segundo a empresa", "por_que_importa": "Para empresas e usuários de IA, a pergunta sobre se a IA acabou de quebrar a criptografia usada hoje tem uma resposta clara: o resultado descrito nos títulos não equivale a quebrar RSA. A alegação do Google é outra. Segundo a empresa, um agente gerou provas completas sem interação humana além do prompt inicial. As formalizações em Lean prometidas ainda não foram publicadas.", "refs": ["google-cogentic-seis-papers", "aaronson-singularidade-bombshells-cripto"], "simples": ["Segundo o próprio Google, um sistema de IA da empresa criou seis estudos de matemática quase sozinho.", "A empresa diz que as pessoas só deram o pedido inicial para o sistema trabalhar.", "Alguns estudos tratam de contas ligadas à criptografia, mas o que eles descrevem não equivale a quebrar a criptografia RSA.", "As versões das provas no verificador Lean ainda não foram publicadas."], "fontes": ["https://github.com/google-research/google-research/commit/4a7bc8ab0bc770e71a259b7966c500496b99010a", "https://github.com/google-research/google-research/tree/master/cogentic_research_papers", "https://github.com/google-research/google-research/commit/3f540f420bfae7e6ce48365a68d0ae003feb2f87", "https://scottaaronson.blog/?p=10379", "https://github.com/openai/math/blob/main/preprints/The-matrix-multiplication-exponent-is-nine-fourths-November-24-2026/paper.pdf", "https://github.com/openai/math/blob/main/preprints/The-logarithmic-exponent-of-finite-Fourier-transforms-November-24-2026/paper.pdf"]}, {"id": "gdpx-astra-fable-neon-codigo", "titulo": "GDPx põe o GPT-6.2 Astra no topo e critica o Neon; opinião e relatos apontam o Claude no código", "chamada": "Novo ranking da SemiAnalysis coloca o modelo da OpenAI em primeiro lugar. Na opinião do fundador da consultoria, o Astra fica atrás em engenharia de software, e relatos pessoais de dois programadores mostram o Claude Fable 5.2 e o Opus 5.5 em uso intenso.", "corpo": ["A SemiAnalysis divulgou na noite de 25/11 seu ranking GDPx com os lançamentos mais recentes. O GPT-6.2 Astra, lançado em 17/11 a US$ 8 por milhão de tokens de entrada e US$ 40 de saída, ficou em 1º lugar com 19,3%. Em 2º veio o Claude Fable 5.2 (16,4%), seguido por Opus 5.5 (12%), GPT-6.2 Sol (11,5%), Gemini 4 Carbon (10,9%) e Gemini 4 Neon, em 6º lugar com 10,1%. A consultoria também apontou o custo: \"At $88 and 1.23M output tokens per task, Fable 5.2 costs 1.9x as much as 6.2 Astra\" (Tradução: \"A US$ 88 e 1,23 milhão de tokens de saída por tarefa, o Fable 5.2 custa 1,9 vez o que custa o 6.2 Astra\").", "Sobre o Google, Logan Kilpatrick e Demis Hassabis passaram o dia promovendo o Gemini 4 Neon (\"Neon usage is 📈📈📈\"), lançado em 18/11 a US$ 3/US$ 15. A SemiAnalysis, por sua vez, chamou o modelo de \"overrated\" (superestimado) e criticou o custo de operação: \"Neon is unnecessarily expensive to run because Google’s prompt caching lags behind its competitors.\" (Tradução: \"O Neon é desnecessariamente caro de rodar porque o prompt caching do Google fica atrás dos concorrentes.\"). O post é parcialmente pago.", "Para quem desenvolve software, o placar do GDPx não conta a história inteira. Na madrugada de 26/11, Dylan Patel, fundador da SemiAnalysis, deu a opinião de que o Astra impressiona em ciência de materiais, design de hardware, RSI, design de chips, finanças e jurídico, mas vai mal em engenharia de software frente aos modelos líderes. A Wccftech também registrou que o Astra não melhorou no Coding Agent Index da Artificial Analysis. Em relato pessoal, Simon Willison contou ter feito 194 commits em projetos open source com coautoria do Fable 5.2 em cerca de duas semanas. Também em relato pessoal, Andrej Karpathy descreveu uma sessão de 7 horas em que o Opus 5.5 gerou cerca de 45 mil linhas de código integrando 31 fontes públicas de dados dos EUA: \"I asked Claude to populate a Civilization-style game map with real data from the US. Opus 5.5 downloaded and parse a ton of public data and 7 hours and 45K lines of code later... it works :)\" (Tradução: \"Pedi ao Claude para preencher um mapa estilo Civilization com dados reais dos EUA. O Opus 5.5 baixou e processou uma tonelada de dados públicos e 7 horas e 45 mil linhas de código depois... funciona :)\")."], "status": "fato", "por_que_importa": "Para empresas e profissionais que escolhem um modelo de IA, o ranking ajuda, mas não basta. No GDPx, o Astra lidera e o Fable 5.2 custa 1,9 vez mais por tarefa. Na opinião de Patel, porém, o Astra fica atrás dos modelos líderes em engenharia de software, e relatos pessoais mostram o Claude em tarefas longas de código e de integração de dados, um tipo de trabalho comum também em empresas que organizam catálogos. E, segundo a SemiAnalysis, o Neon sai mais caro de rodar do que deveria porque o prompt caching do Google fica atrás dos concorrentes.", "refs": ["semianalysis-gdpx-astra-fable-neon", "dylan-patel-astra-ruim-em-codigo", "karpathy-opus-civilization-map", "simonw-194-commits-fable"], "simples": ["Fato: a consultoria SemiAnalysis testou novos modelos de IA e colocou o Astra, da OpenAI, em primeiro lugar.", "O Claude Fable 5.2 ficou em segundo lugar, mas custou quase o dobro do Astra por tarefa.", "O Neon, do Google, ficou em sexto. A consultoria disse que ele é caro para rodar.", "Na opinião do fundador da consultoria, o Astra vai mal em programação. Relatos pessoais de dois programadores mostram o Claude sendo muito usado para escrever código."], "fontes": ["https://newsletter.semianalysis.com/p/evaluating-recent-model-releases", "https://openai.com/index/introducing-gpt-6-2-astra-sol", "https://9to5google.com/2026/11/18/gemini-4-neon-announcement/", "https://x.com/dylan522p/status/2125791910543360088", "https://wccftech.com/openais-gpt-6-2-astra-becomes-the-first-model-to-achieve-a-100-score-on-arc-agi-3-while-being-8x-cheaper-than-anthropics-fable-5-2-but-actual-users-are-not-impressed/", "https://x.com/karpathy/status/2125779541952246039", "https://x.com/simonw/status/2125640464863056148"]}, {"id": "fcc-starmind-spacex-orbita-arizona", "titulo": "FCC aprova até 1 milhão de satélites de data center da SpaceX enquanto campus no Arizona enfrenta oposição local", "chamada": "Regulador americano libera a constelação orbital Starmind, com prazo até 2040, enquanto o campus terrestre de até 6 GW ainda depende do condado e enfrenta grupos contrários.", "corpo": ["Em 25/11, a FCC autorizou, pela ordem DA 26-1273, a constelação Starmind, da SpaceX. É a primeira constelação de data center orbital aprovada pela agência: até 1 milhão de satélites entre 500 e 1.002 km de altitude, com links ópticos. O cronograma é longo. O primeiro satélite precisa estar em órbita até 25/11/2033 e a constelação completa até 25/11/2040. Segundo a TechCrunch e a Via Satellite, parte das camadas orbitais fica em espera até a SpaceX entregar o plano final de detritos.", "Brendan Carr defendeu a aprovação (opinião): \"Compute campuses or data centers are essential to sustaining America's leadership in [super intelligence].\" (Tradução: \"Campi de computação ou data centers são essenciais para sustentar a liderança dos Estados Unidos em [superinteligência].\"). Amazon (Kuiper/Leo), Viasat e a American Astronomical Society tinham pedido a rejeição. Sobre esses pedidos, Carr afirma que, em muitos casos, eles tentam pôr o julgamento do governo sobre a viabilidade do negócio no lugar do julgamento do requerente e da iniciativa privada: \"We decline to do so.\" (\"Nos recusamos a fazer isso.\"). A Earthjustice criticou a ausência de revisão ambiental (NEPA). Seguem pendentes os pedidos da Starcloud, de 88 mil satélites, e do Project Sunrise da Blue Origin, de 51.600.", "Em terra, a SpaceX tem um teste mais imediato. No mesmo dia, a empresa voltou a defender nas redes seu campus de supercomputação em Cochise County, no Arizona, anunciado em 12/11: US$ 50 bilhões ou mais, até 6 GW e 24 GWh de baterias. Segundo a SpaceX, o projeto não terá usina a gás nem uso industrial de água, e vai usar resfriamento a seco em circuito fechado. A empresa promete 1.000 empregos permanentes e até 5.500 na construção, números que são estimativas dela própria. Ainda não há aprovação do condado: os comentários escritos vão até 27/11 e a audiência de zoneamento é em 9/12/2026, em Bisbee. Há grupos locais organizados contra."], "status": "fato", "por_que_importa": "Para empresas, profissionais e usuários de IA, a decisão mostra a escala da aposta em capacidade de computação: a FCC aprovou até 1 milhão de satélites de data center, e outros pedidos parecidos aguardam análise. Em terra, o caso do Arizona mostra que grandes campi de computação ainda dependem de aprovação local e podem enfrentar oposição.", "refs": ["fcc-aprova-starmind-spacex", "spacex-cochise-arizona-6gw"], "simples": ["O regulador americano FCC aprovou uma rede de satélites com data centers da SpaceX.", "A licença permite até um milhão de satélites, com prazo até 2040.", "Amazon, Viasat e um grupo de astrônomos pediram a rejeição. A Earthjustice criticou a falta de revisão ambiental.", "Em terra, um centro de supercomputação da SpaceX no Arizona ainda não tem aprovação do condado, e grupos locais são contra."], "fontes": ["https://www.cnbc.com/2026/11/25/spacex-fcc-satellite-approval.html", "https://www.satellitetoday.com/connectivity/2026/11/25/fcc-approves-spacexs-1-million-satellite-orbital-data-center-constellation/", "https://docs.fcc.gov/public/attachments/DA-26-1273A1.pdf", "https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan-to-put-ai-data-centers-in-space/", "https://x.com/SpaceX/status/2125637438710153247", "https://www.azfamily.com/2026/11/17/spacex-plans-50b-data-center-campus-cochise-county/", "https://azbigmedia.com/business/spacex-proposes-50-billion-arizona-ai-computing-campus/"]}, {"id": "trainium3-tpu-inferencex-exportacao-brasil", "titulo": "Chips próprios de Amazon e Google entram no InferenceX ao lado da NVIDIA", "chamada": "Na conta da SemiAnalysis, o Trainium3 entrega 2,28x o desempenho por dólar do GB300 NVL72 em benchmark aberto. Regra de exportação dos EUA de 16/11 cita o Brasil.", "corpo": ["Pela primeira vez, os chips próprios de Amazon e Google aparecem no mesmo benchmark aberto de inferência em que já estão NVIDIA e AMD. Na tarde de 25/11, a SemiAnalysis publicou os primeiros números do Trainium3 UltraServer, da AWS, no benchmark AgentX/InferenceX: \"Amazon has submitted its FIRST Trainium3 UltraServer results to our Agentic Inference Benchmark and has demonstrated 2.28x better perf per dollar than even GB300 NVL72, B300, and MI355\" (Tradução: \"A Amazon submeteu seus PRIMEIROS resultados do Trainium3 UltraServer ao nosso Benchmark de Inferência Agêntica e demonstrou desempenho por dólar 2,28x melhor até mesmo que GB300 NVL72, B300 e MI355\"). Na madrugada de 26/11, às 05h22, a SemiAnalysis anunciou também resultados de TPU do Google. Os resultados detalhados estão no painel da InferenceX.", "No mesmo dia, Mustafa Suleyman, da Microsoft AI, rebateu quem prevê excesso de chips citando o paradoxo de Jevons (opinião): \"Things are just getting started.\" (\"As coisas estão só começando.\").", "Para quem opera no Brasil, o pano de fundo regulatório merece atenção. Não achamos ato novo do Departamento de Comércio dos EUA em 25/11, mas segue valendo como contexto a regra interina do BIS de 16/11/2026. Ela exige licença para exportar chips e servidores de IA a data centers em qualquer país que possam fornecer computação a empresas da China e de outros países restritos. Também exige licença para chips avançados vendidos a empresas sediadas em Brasil, Indonésia, Malásia, Singapura e Tailândia, com vigência em 90 dias. Na prática, isso afeta o custo de GPU local."], "status": "segundo a empresa", "por_que_importa": "Pela primeira vez, empresas, profissionais e usuários de IA podem comparar chips próprios de Amazon e Google com NVIDIA e AMD no mesmo benchmark aberto de desempenho por dólar. Ao mesmo tempo, a regra americana de 16/11 cita o Brasil e afeta o custo de GPU local.", "refs": ["trainium3-tpu-inferencex", "suleyman-humanist-code-e-chips", "export-controls-brasil-nuvem"], "simples": ["Segundo a SemiAnalysis, que faz o teste, o chip da Amazon rendeu 2,28 vezes mais por dólar que um chip da NVIDIA.", "Pela primeira vez, chips da Amazon e do Google aparecem no mesmo teste aberto que os da NVIDIA e da AMD.", "Na opinião de um executivo da Microsoft, não há excesso de chips e tudo está só começando.", "Uma regra dos Estados Unidos de 16/11 exige licença para vender chips avançados a empresas do Brasil."], "fontes": ["https://x.com/SemiAnalysis_/status/2125658708357128703", "https://x.com/SemiAnalysis_/status/2125867835050111357", "https://inferencex.semianalysis.com/about", "https://x.com/mustafasuleyman/status/2125673700032905321", "https://x.com/mustafasuleyman/status/2125709603275243636", "https://microsoft.ai/code-of-conduct/", "https://x.com/emollick/status/2125831416491692310", "https://techcrunch.com/2026/11/16/us-tightens-ai-chip-export-controls-to-deter-chinese-companies-from-accessing-compute-remotely/", "https://www.lw.com/en/insights/us-commerce-department-adopts-rule-restricting-remote-access-to-advanced-ai-chips", "https://www.nbcnews.com/tech/tech-news/us-closes-loophole-let-chinese-companies-use-top-ai-chips-rcna609634"]}, {"id": "anthropic-rust-agentes-openai-private-inference", "titulo": "Anthropic migra API para Rust com ajuda de agentes e OpenAI testa Private Inference", "chamada": "Segundo a Anthropic, a API em Rust usa cerca de 70% menos CPU por requisição. A OpenAI diz que testa inferência com computação confidencial com um grupo pequeno de clientes.", "corpo": ["A Anthropic publicou em 25/11 o relato de como migrou sua Messages API de Python para Rust. Segundo a empresa, a API em Rust passou em cerca de 98% dos testes em abril, mas só cerca de um quarto das entradas batia no tráfego de produção. Para validar, o time usou a API em Python como oráculo e times de agentes Claude, que caçavam e corrigiam as diferenças em tráfego de produção espelhado.", "Segundo a Anthropic, a concordância de entradas com o tráfego real subiu de cerca de 25% para 99,6% no fim do processo. A empresa diz que a API em Rust usa cerca de 70% menos CPU por requisição e reduz em cerca de 20% o tempo mediano até o primeiro token. O método (tráfego espelhado, fingerprints de diferença e agentes em loop) serve de modelo para quem migra sistemas legados com IA.", "Do lado da OpenAI, Sam Altman (25/11) e Greg Brockman (26/11) anunciaram que o Private Inference está em teste com um grupo pequeno de clientes. Segundo Brockman, é inferência com computação confidencial, com controles estritos sobre prompts e respostas enquanto o modelo os processa. O produto faz parte do guarda-chuva OpenAI Private Intelligence, que também inclui Zero Data Retention com Private Safety Processing. Até a manhã de 26/11, não havia post novo no RSS do openai.com sobre isso, e a OpenAI não divulgou preço nem data de disponibilidade geral."], "status": "segundo a empresa", "por_que_importa": "Para empresas com sistemas legados, o relato da Anthropic descreve um método de migração que compara o sistema novo com o antigo em tráfego de produção espelhado, com agentes de IA corrigindo as diferenças. Os resultados são os informados pela própria empresa. Para quem usa IA com dados sensíveis, a OpenAI diz que o Private Inference terá controles estritos sobre prompts e respostas durante o processamento. Por enquanto ele está só em teste e não tem preço divulgado.", "refs": ["anthropic-messages-api-rust", "openai-private-inference-teste"], "simples": ["Segundo a Anthropic, a empresa trocou a linguagem de um sistema importante e usou agentes de IA para achar e corrigir diferenças.", "A empresa diz que o sistema novo gasta menos processamento e começa a responder mais rápido.", "Segundo a OpenAI, ela testa um modo mais privado, com controles rígidos sobre perguntas e respostas.", "Esse teste é com um grupo pequeno de clientes. A OpenAI ainda não divulgou preço nem data para todos."], "fontes": ["https://www.anthropic.com/research/migrating-api-to-rust", "https://www.anthropic.com/engineering", "https://x.com/AnthropicAI/status/2125627317263466739", "https://x.com/sama/status/2125638790593274259", "https://x.com/gdb/status/2125824585027272727", "https://openai.com/form/private-intelligence-interest/", "https://venturebeat.com/ai/openais-new-private-intelligence-targets-a-growing-enterprise-concern-who-can-see-your-ai-data/"]}, {"id": "amodei-suleyman-governanca-ia", "titulo": "Dario Amodei e Mustafa Suleyman opinam sobre controle humano da IA", "chamada": "Dario Amodei, da Anthropic, rebateu no X quem atribuiu a ele a ideia de entregar o livre-arbítrio humano à IA. Mustafa Suleyman, da Microsoft AI, apoiou a resposta e disse que slogans não são barreiras de proteção. As duas falas são opinião.", "corpo": ["Em 25/11, às 15h22, Dario Amodei respondeu no X a quem atribuiu a ele a ideia de \"entregar o livre-arbítrio humano\" à IA. Não conseguimos identificar a postagem original que ele rebatia, porque o X bloqueou a leitura. Ele disse que não acredita nisso e que é absurdo sugerir que acredita. Também disse que escreveu centenas de páginas de ensaios e que um tema constante neles é a necessidade de a IA ser governada por processos democráticos legítimos. Que ele disse isso é fato. O conteúdo é a opinião dele.", "Às 16h31, Mustafa Suleyman, da Microsoft AI, apoiou a resposta de Amodei e a usou para promover o Humanist AI Code of Conduct da Microsoft AI, publicado em 14/09/2026 com consulta pública de seis semanas. O texto do código diz que humanos precisam manter controle significativo sobre a IA. Suleyman disse que há retórica e \"vibes\" demais no debate e resumiu: \"Slogans aren't guardrails.\" (Tradução: \"Slogans não são barreiras de proteção.\"). Isso também é opinião.", "Ethan Mollick comentou o contraste: o CEO de IA da Microsoft alerta para limiares, enquanto o resto da empresa trata IA como \"normal technology\" (tecnologia normal). É a leitura dele, ou seja, opinião."], "status": "opinião", "por_que_importa": "Para empresas, profissionais e usuários de IA, mostra que líderes de grandes empresas do setor defendem em público o controle humano e a governança democrática da IA. São opiniões, não regras. Já o código de conduta da Microsoft AI é um texto público que pode ser consultado.", "refs": ["dario-livre-arbitrio-governanca", "suleyman-humanist-code-e-chips"], "simples": ["Duas pessoas conhecidas do mundo da IA deram suas opiniões sobre manter humanos no comando da IA.", "Dario Amodei, da Anthropic, negou querer entregar as escolhas humanas para a IA. Ele defendeu que a IA seja governada de forma democrática.", "Mustafa Suleyman, da Microsoft AI, concordou. Na opinião dele, frases de efeito não servem como proteção.", "Um comentarista opinou que esse alerta contrasta com o jeito como o resto da Microsoft trata a IA."], "fontes": ["https://x.com/DarioAmodei/status/2125656399392690605", "https://x.com/mustafasuleyman/status/2125673700032905321", "https://x.com/mustafasuleyman/status/2125709603275243636", "https://microsoft.ai/code-of-conduct/", "https://x.com/emollick/status/2125831416491692310"]}], "quem_falou": [{"pessoa": "Scott Aaronson", "citacao_original": "And yes, some of those algorithms will break currently deployed cryptosystems.", "traducao": "E sim, alguns desses algoritmos vão quebrar sistemas criptográficos atualmente em uso.", "etiqueta": "rumor", "link": "https://scottaaronson.blog/?p=10379", "contexto": "No blog Shtetl-Optimized, ele disse estar praticamente certo, com base em várias fontes confiáveis, de que as labs guardam \"bombshells\" (bombas) nessa área. É fato que ele escreveu isso, mas o conteúdo não foi confirmado. O post não cita RSA nem afirma que ele foi quebrado."}, {"pessoa": "Zvi Mowshowitz", "citacao_original": "The Lean and Mathlib communities have verified that the proof is correct.", "traducao": "As comunidades Lean e Mathlib verificaram que a prova está correta.", "etiqueta": "fato", "link": "https://thezvi.substack.com/p/claude-and-levent-alpoge-prove-the", "contexto": "Zvi disse isso ao resumir a prova da Hipótese de Riemann que Levent Alpöge fez com o Claude. O selo de fato vem da nota conjunta do Lean FRO e da Mathlib Initiative, que confirma a prova. A verificação formal cobre a Hipótese de Riemann. A extensão para a GRH é uma alegação do autor e ainda não está formalizada."}, {"pessoa": "Dylan Patel", "citacao_original": "While also being really bad at software engineering relative to the leading models.", "traducao": "Enquanto também é muito ruim em engenharia de software em relação aos modelos líderes.", "etiqueta": "opinião", "link": "https://x.com/dylan522p/status/2125791910543360088", "contexto": "O fundador da SemiAnalysis resumiu assim o desempenho do GPT-6.2 Astra no ranking GDPx: forte em domínios técnicos e de negócios, fraco em engenharia de software."}, {"pessoa": "Brendan Carr", "citacao_original": "Compute campuses or data centers are essential to sustaining America's leadership in [super intelligence]. By moving compute capacity beyond Earth, SpaceX and the many competitors working on their own orbital data centers are meeting the moment.", "traducao": "Campi de computação ou data centers são essenciais para sustentar a liderança dos Estados Unidos em [superinteligência]. Ao levar capacidade de computação para além da Terra, a SpaceX e os muitos concorrentes que trabalham em seus próprios data centers orbitais estão à altura do momento.", "etiqueta": "opinião", "link": "https://www.cnbc.com/2026/11/25/spacex-fcc-satellite-approval.html", "contexto": "Ele falou sobre a aprovação da constelação Starmind, da SpaceX, pela FCC. A aprovação é fato. A avaliação é opinião dele."}, {"pessoa": "Dario Amodei", "citacao_original": "No, I do not believe that we should “surrender human free will” to AI systems, and it’s absurd to suggest that I do. I have written hundreds of pages of essays and a constant theme in them is the need for AI to be governed by legitimate democratic processes.", "traducao": "Não, eu não acredito que devamos \"entregar o livre-arbítrio humano\" a sistemas de IA, e é absurdo sugerir que eu acredite nisso. Escrevi centenas de páginas de ensaios e um tema constante neles é a necessidade de a IA ser governada por processos democráticos legítimos.", "etiqueta": "opinião", "link": "https://x.com/DarioAmodei/status/2125656399392690605", "contexto": "Ele respondeu no X a quem atribuiu a ele a ideia de entregar o livre-arbítrio humano à IA. Não foi possível identificar a postagem original."}, {"pessoa": "Mustafa Suleyman", "citacao_original": "For all those people who keep predicting we're overbuilding chips / we aren't seeing jevon's paradox etc. Things are just getting started.", "traducao": "Para todas aquelas pessoas que continuam prevendo que estamos construindo chips demais ou que não estamos vendo o paradoxo de Jevons etc. As coisas estão só começando.", "etiqueta": "opinião", "link": "https://x.com/mustafasuleyman/status/2125709603275243636", "contexto": "O executivo da Microsoft AI rebateu a tese de excesso de capacidade em chips citando o paradoxo de Jevons."}], "fixos": {"chatgpt_business": {"alerta": false, "texto": "Sem novidade desde a atualização de 19/11. Fora dos EUA, só negócios de e-commerce e serviços online podem reivindicar o perfil e publicar Business Agents. Lojas físicas e restaurantes só podem reivindicar listagens que já existem nos EUA. Nenhuma das duas páginas da OpenAI cita o Brasil pelo nome nem traz lista de países, e o corpo do anúncio ainda diz que os Business Agents estão disponíveis \"in the United States\", em conflito com a nota de 19/11. A OpenAI não revisou o texto. A central de ajuda mostrava \"Updated: 10 hours ago\", mas o texto de elegibilidade segue igual, com a promessa de expandir \"to more markets and business categories\"."}, "meta_whatsapp": "Nenhuma alteração nova nesta manhã. Segue valendo a tabela em vigor desde 1/10/2026, que passou a cobrar mensagens de serviço antes gratuitas, mantendo 1.000 mensagens de serviço grátis por número por mês. No Brasil, contas elegíveis precisam migrar para faturamento em BRL (Facebook Brasil) até 30/06/2027. Segundo a Meta, a partir de 1/7/2027 ela deixa de entregar mensagens de contas elegíveis que não faturam em BRL. O Meta Business Agent cobra US$ 2,00 por milhão de tokens, inclusive dentro da janela grátis de Click-to-WhatsApp. A alteração de preço de serviço de 1/10/2026 não se aplica a AI Providers, que têm política própria. Mudanças de tarifa só acontecem em 1/1, 1/4, 1/7 ou 1/10, com pelo menos um mês de aviso. A próxima janela possível é 1/1/2027.", "china": "No ranking GDPx da SemiAnalysis, o Qwen4-Max foi o melhor modelo chinês, com 7,44%, contra 19,3% do GPT-6.2 Astra e 12% do Opus 5.5. Segundo agregadores, e não páginas oficiais, ele custa cerca de US$ 1,50/US$ 4,50 por milhão de tokens, e o Kimi K3.1 Pro, US$ 2/US$ 10. O Kimi K3.1 Pro foi pior no GDPx do que em outros benchmarks, e o DeepSeek v4.1 Flash só aparece na ponta barata da fronteira custo-desempenho. O preço dele varia entre as fontes e não foi confirmado. Na engenharia, a DeepSeek atualizou nesta madrugada seus repositórios de kernels FlashMLA, DeepSelect, DeepGEMM e DeepGEMM-Ascend. Este último é para as NPUs Huawei Ascend, a alternativa chinesa à NVIDIA diante do controle de exportação. A Alibaba anunciou mais capacidade multilíngue no Qwen-Audio-3.1, com foco em dialetos chineses. Os agentes de código de terminal open source QwenLM/qwen-code e MoonshotAI/kimi-code tiveram pushes em 25 e 26/11.", "varejo": "Segundo a empresa, a Commerce.com lançou seu Shopping Agent para lojistas BigCommerce. Ele conversa com o cliente com acesso direto ao catálogo do lojista e mantém o contexto entre perguntas de acompanhamento. No Business Hub do ChatGPT, empresas verificadas atualizam dados, preços e estoque, e no Japão agências já vendem o serviço de cadastro e configuração (PR Times, 26/11). No WhatsApp, o Meta Business Agent cobra US$ 2,00 por milhão de tokens (a Meta estima de 4 a 5 centavos de dólar por mensagem), enquanto uma IA de terceiros paga a tarifa de mensagem de serviço."}, "resumo_simples": [{"texto": "Prova matemática feita com ajuda do Claude foi confirmada por programa verificador.", "selo": "fato"}, {"texto": "Google diz que programa criou seis estudos matemáticos com apenas um pedido.", "selo": "segundo a empresa"}, {"texto": "Ranking da SemiAnalysis põe modelo da OpenAI em primeiro lugar.", "selo": "fato"}, {"texto": "Agência americana aprova plano da SpaceX para satélites com centros de dados.", "selo": "fato"}, {"texto": "Segundo a SemiAnalysis, chips de Amazon e Google estreiam em teste aberto de desempenho e custo.", "selo": "segundo a empresa"}, {"texto": "Anthropic diz usar menos processador após reescrever um sistema, e OpenAI diz testar modo privado com poucos clientes.", "selo": "segundo a empresa"}, {"texto": "Opinião: Dario Amodei diz que a IA deve seguir regras democráticas, e Mustafa Suleyman concorda.", "selo": "opinião"}], "edition_date": "2026-11-26", "arquivo_url": "../", "tema_visual": {"nome": "Quadro-Negro de Teoremas", "conceito": "A semana em que as IAs passaram a entregar provas formais é tratada como uma aula de seminário: um quadro-negro verde-ardósia com giz branco, amarelo e azul, onde cada notícia vira um lema numerado. Os resultados de matemática ocupam o centro do quadro, e o resto do dia (rankings, satélites, chips) aparece nas margens, como anotações de giz ao redor da demonstração principal.", "paleta": {"bg": "#1E2B24", "surface": "#263630", "surface2": "#2F4139", "text": "#F2EFE6", "muted": "#B8C2B5", "accent": "#F2D16B", "accent2": "#9CCBE8", "border": "#4A5E53"}, "tipografia": {"titulo": "\"Chalkboard SE\", \"Marker Felt\", \"Bradley Hand\", cursive", "corpo": "\"Iowan Old Style\", Palatino, \"Palatino Linotype\", Georgia, serif", "mono": "\"SF Mono\", Menlo, ui-monospace, monospace"}, "layout": {"estilo": "quadro-negro", "descricao": "A página inteira imita um quadro-negro com moldura de madeira escura: uma borda de 10px em #4A5E53 e uma textura sutil de pó de giz em #263630. A capa é o 'Teorema do Dia': o título em giz amarelo, a frase-resumo como enunciado em itálico e uma caixa de 'Demonstração' em mono com um trecho de pseudocódigo Lean. A caixa fecha com o símbolo ∎ alinhado à direita. Logo abaixo da manchete e do subtítulo vem o Fio do dia, a primeira seção de conteúdo, em coluna larga de leitura. Depois, 'Em 3 linhas' aparece como 'Hipóteses H1, H2, H3', em lista numerada com marcadores à mão. As histórias seguem numa grade de duas colunas (uma no celular). Cada cartão é um 'Lema n.º' com numeração grande em giz azul, um sublinhado irregular feito à mão e o selo de status ('fato', 'segundo a empresa', 'opinião') escrito como uma nota de giz circulada. A linha do tempo é uma reta numérica horizontal com setas e marcações de data, como um eixo desenhado no quadro (vertical no celular). Quem falou vira 'Comentários da plateia', com aspas grandes em giz e o nome em versalete. Quem tá fazendo fica numa faixa tipo 'canto do quadro', com densidade alta e réguas tracejadas. Os fixos vão no rodapé como 'Notação e convenções', em mono pequeno. Pequenos elementos gráficos espalhados pela página: ≠, ∀, ∴ e setas de giz entre seções.", "ordem_secoes": ["capa", "fio_do_dia", "em_3_linhas", "historias", "linha_do_tempo", "quem_falou", "quem_ta_fazendo", "fixos"]}, "imagens": {"estilo": "Hand-drawn chalk illustration on a matte slate-green blackboard (#1E2B24), with dusty white chalk strokes (#F2EFE6), yellow chalk highlights (#F2D16B) and pale blue chalk accents (#9CCBE8). Abstract mathematical imagery: interlocking proof trees, algebraic circuit diagrams, complex-plane spirals and orbital arcs, with visible smudges and eraser marks for texture. No text, letters or numbers, no logos, no human faces."}}, "imagens": {"capa": "img/capa.jpg", "riemann-lean-aaronson-singularidade": "img/riemann-lean-aaronson-singularidade.jpg", "google-cogentic-seis-papers-rsa": "img/google-cogentic-seis-papers-rsa.jpg", "gdpx-astra-fable-neon-codigo": "img/gdpx-astra-fable-neon-codigo.jpg", "fcc-starmind-spacex-orbita-arizona": "img/fcc-starmind-spacex-orbita-arizona.jpg", "trainium3-tpu-inferencex-exportacao-brasil": "img/trainium3-tpu-inferencex-exportacao-bras.jpg", "anthropic-rust-agentes-openai-private-inference": "img/anthropic-rust-agentes-openai-private-in.jpg", "amodei-suleyman-governanca-ia": "img/amodei-suleyman-governanca-ia.jpg"}, "gerado_em": "26/11/2026 09:20 (horário de Brasília)"}</script>
+<script>
+(function () {
+  'use strict';
+  var doc = document, root = doc.documentElement, SVGNS = 'http://www.w3.org/2000/svg';
+  var ED = {};
+  try { ED = JSON.parse(doc.getElementById('edition').textContent || '{}'); } catch (e) { ED = {}; }
+  if (!ED || typeof ED !== 'object' || Array.isArray(ED)) ED = {};
+
+  /* ---- tema do dia: paleta e tipografia como variáveis CSS ---- */
+  var TV = obj(ED.tema_visual), PAL = obj(TV.paleta), TIP = obj(TV.tipografia);
+  var VARS = { bg: '--bg', surface: '--surface', surface2: '--surface2', text: '--text', muted: '--muted', accent: '--accent', accent2: '--accent2', border: '--border' };
+  Object.keys(VARS).forEach(function (k) { if (isStr(PAL[k])) root.style.setProperty(VARS[k], PAL[k].trim()); });
+  var FVARS = { titulo: '--f-titulo', corpo: '--f-corpo', mono: '--f-mono' };
+  Object.keys(FVARS).forEach(function (k) { if (isStr(TIP[k])) root.style.setProperty(FVARS[k], TIP[k].trim()); });
+  if (isStr(PAL.bg)) { var mt = doc.querySelector('meta[name="theme-color"]'); if (mt) mt.setAttribute('content', PAL.bg.trim()); }
+
+  /* ---- utilitários ---- */
+  function obj(x) { return (x && typeof x === 'object' && !Array.isArray(x)) ? x : {}; }
+  function arr(x) { return Array.isArray(x) ? x : []; }
+  function isStr(x) { return typeof x === 'string' && x.trim() !== ''; }
+  function s(x) { return x == null ? '' : String(x); }
+  function el(tag, cls, text) {
+    var e = doc.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null && text !== '') e.textContent = String(text);
+    return e;
+  }
+  function svgEl(tag, attrs) {
+    var e = doc.createElementNS(SVGNS, tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+    return e;
+  }
+  function safeHref(u, httpOnly) {
+    if (!isStr(u)) return null;
+    var t = u.trim(), c = t.replace(/[\u0000-\u0020]/g, '').toLowerCase();
+    if (/^(javascript|data|vbscript|file):/.test(c)) return null;
+    if (httpOnly && !/^https?:\/\//i.test(t)) return null;
+    return t;
+  }
+  function host(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } }
+  function hash(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function rng(seed) {
+    var a = seed || 1;
+    return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  }
+  function slug(x) { return s(x).toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'x'; }
+  function has(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+  function reduz() { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+
+  /* ---- selos ---- */
+  function partes(status) { return s(status).split(/\s*[+\/;,|]\s*/).map(function (x) { return x.trim(); }).filter(Boolean); }
+  function seloTipo(p) {
+    var t = p.toLowerCase();
+    if (t.indexOf('rumor') > -1) return 'rumor';
+    if (t.indexOf('fato') > -1) return 'fato';
+    if (t.indexOf('segundo') > -1) return 'segundo';
+    if (t.indexOf('reportagem') > -1) return 'reportagem';
+    return 'neutro';
+  }
+  function selos(status) {
+    var ps = partes(status);
+    if (!ps.length) return null;
+    var w = el('span', 'selos');
+    ps.forEach(function (p) { w.appendChild(el('span', 'selo s-' + seloTipo(p), p)); });
+    return w;
+  }
+  function legenda() {
+    var d = el('p', 'legenda');
+    d.appendChild(el('span', null, 'Selos:'));
+    [['fato', 'fato'], ['segundo', 'segundo a empresa'], ['reportagem', 'reportagem'], ['rumor', 'rumor'], ['neutro', 'opinião / relato']].forEach(function (x) {
+      d.appendChild(el('span', 'selo s-' + x[0], x[1]));
+    });
+    return d;
+  }
+
+  /* ---- datas e leitura ---- */
+  var DIAS = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+  var MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+  var DM = /^(\d{4})-(\d{2})-(\d{2})/.exec(s(ED.edition_date));
+  function dataExtenso() {
+    if (!DM) return s(ED.edition_date);
+    var d = new Date(+DM[1], +DM[2] - 1, +DM[3]);
+    return DIAS[d.getDay()] + ', ' + (+DM[3]) + ' de ' + MESES[+DM[2] - 1] + ' de ' + DM[1];
+  }
+  function dataCurta() { return DM ? DM[3] + '/' + DM[2] + '/' + DM[1] : s(ED.edition_date); }
+  function palavras(x, k) {
+    if (k === 'tema_visual' || k === 'imagens' || k === 'fontes' || k === 'link' || k === 'arquivo_url' || k === 'refs' || k === 'id' || k === 'ref') return 0;
+    if (typeof x === 'string') return x.split(/\s+/).filter(Boolean).length;
+    if (Array.isArray(x)) return x.reduce(function (a, v) { return a + palavras(v); }, 0);
+    if (x && typeof x === 'object') return Object.keys(x).reduce(function (a, kk) { return a + palavras(x[kk], kk); }, 0);
+    return 0;
+  }
+  var MINUTOS = Math.max(1, Math.round(palavras(ED) / 220));
+
+  /* ---- histórias: índice ---- */
+  var IMGS = obj(ED.imagens);
+  var HIST = arr(ED.historias).filter(function (h) { return h && typeof h === 'object'; });
+  var STORY = Object.create(null);
+  HIST.forEach(function (h, i) {
+    var id = s(h.id);
+    var info = { num: i + 1, dom: 'lema-' + (i + 1) + '-' + slug(id) };
+    h.__dom = info.dom;
+    if (id && !(id in STORY)) STORY[id] = info;
+  });
+  function storyFor(ref) {
+    ref = s(ref);
+    if (!ref) return null;
+    if (ref in STORY) return STORY[ref];
+    for (var i = 0; i < HIST.length; i++) {
+      if (arr(HIST[i].refs).map(s).indexOf(ref) > -1) return { num: i + 1, dom: HIST[i].__dom };
+    }
+    return null;
+  }
+  function irPara(st) {
+    var c = doc.getElementById(st.dom);
+    if (!c) return;
+    c.scrollIntoView({ behavior: reduz() ? 'auto' : 'smooth', block: 'start' });
+    c.classList.remove('realce');
+    void c.offsetWidth;
+    c.classList.add('realce');
+    clearTimeout(c.__t);
+    c.__t = setTimeout(function () { c.classList.remove('realce'); }, 2800);
+    try { c.focus({ preventScroll: true }); } catch (e) { /* ignora */ }
+  }
+
+  /* ---- desenhos de giz (SVG) ---- */
+  function traco(d, cor, w, op) {
+    var p = svgEl('path', { d: d, fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+    p.style.stroke = cor; p.style.strokeWidth = String(w); p.style.opacity = String(op);
+    return p;
+  }
+  function arte(seed) {
+    var r = rng(hash('a' + s(seed)) || 7), i;
+    var svg = svgEl('svg', { viewBox: '0 0 400 250', preserveAspectRatio: 'xMidYMid slice', 'aria-hidden': 'true', focusable: 'false', 'class': 'arte' });
+    for (i = 0; i < 6; i++) {
+      var e = svgEl('ellipse', { cx: (r() * 400).toFixed(0), cy: (r() * 250).toFixed(0), rx: (40 + r() * 90).toFixed(0), ry: (14 + r() * 40).toFixed(0) });
+      e.style.fill = 'var(--text)'; e.style.opacity = (0.02 + r() * 0.03).toFixed(3);
+      svg.appendChild(e);
+    }
+    var g = svgEl('g', { 'class': 'giz' });
+    var lado = r() < 0.5;
+    var ax = lado ? 30 : 370;
+    g.appendChild(traco('M' + ax + ' 236 L' + ax + ' 18', 'var(--text)', 1, 0.25));
+    g.appendChild(traco('M14 ' + (120 + r() * 20).toFixed(0) + ' L386 ' + (118 + r() * 20).toFixed(0), 'var(--text)', 1, 0.2));
+    var cx = lado ? 265 + r() * 60 : 85 + r() * 60, cy = 85 + r() * 70, pts = [], t;
+    for (t = 0; t < 8.5 * Math.PI; t += 0.2) {
+      var rad = 1.5 + t * 2.8;
+      pts.push((cx + Math.cos(t) * rad).toFixed(1) + ' ' + (cy + Math.sin(t) * rad * 0.82).toFixed(1));
+    }
+    g.appendChild(traco('M' + pts.join(' L'), 'var(--accent2)', 1.6, 0.85));
+    for (i = 0; i < 2; i++) {
+      var rx = 95 + i * 40 + r() * 20, ry = 26 + i * 14 + r() * 8, rot = (-18 + r() * 36).toFixed(0);
+      var o = svgEl('ellipse', { cx: cx.toFixed(0), cy: cy.toFixed(0), rx: rx.toFixed(0), ry: ry.toFixed(0), fill: 'none', transform: 'rotate(' + rot + ' ' + cx.toFixed(0) + ' ' + cy.toFixed(0) + ')', 'stroke-dasharray': i ? '2 7' : '14 6' });
+      o.style.stroke = 'var(--text)'; o.style.strokeWidth = '1.2'; o.style.opacity = '0.45';
+      g.appendChild(o);
+      if (i === 1) {
+        var an = r() * Math.PI * 2;
+        var pl = svgEl('circle', { cx: (cx + Math.cos(an) * rx * 0.98).toFixed(1), cy: (cy + Math.sin(an) * ry * 0.98).toFixed(1), r: '5', transform: 'rotate(' + rot + ' ' + cx.toFixed(0) + ' ' + cy.toFixed(0) + ')' });
+        pl.style.fill = 'var(--accent)';
+        g.appendChild(pl);
+      }
+    }
+    function no(x, y, rr, cor) { var c = svgEl('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: String(rr) }); c.style.fill = cor; g.appendChild(c); }
+    var bx = lado ? 50 + r() * 30 : 230 + r() * 30, y = 222, nivel = [];
+    for (i = 0; i < 4; i++) nivel.push(bx + i * 34 + r() * 6);
+    nivel.forEach(function (x) { no(x, y, 3, 'var(--accent2)'); });
+    while (nivel.length > 1) {
+      var prox = [];
+      for (i = 0; i < nivel.length; i += 2) {
+        if (i + 1 < nivel.length) {
+          var x1 = nivel[i], x2 = nivel[i + 1], m = (x1 + x2) / 2 + (r() * 6 - 3);
+          g.appendChild(traco('M' + (x1 - 10).toFixed(1) + ' ' + (y - 17) + ' L' + (x2 + 10).toFixed(1) + ' ' + (y - 18 + r() * 2).toFixed(1), 'var(--text)', 1.7, 0.85));
+          prox.push(m);
+        } else prox.push(nivel[i]);
+      }
+      y -= 38; nivel = prox;
+      nivel.forEach(function (x) { no(x, y, nivel.length === 1 ? 5 : 3, nivel.length === 1 ? 'var(--accent)' : 'var(--accent2)'); });
+    }
+    var wv = 'M' + (lado ? 200 : 20) + ' 40';
+    for (i = 1; i <= 8; i++) wv += ' Q' + ((lado ? 200 : 20) + i * 22 - 11) + ' ' + (i % 2 ? 26 : 54) + ' ' + ((lado ? 200 : 20) + i * 22) + ' 40';
+    g.appendChild(traco(wv, 'var(--accent)', 1.3, 0.55));
+    svg.appendChild(g);
+    return svg;
+  }
+  function figura(src, alt, seed, eager, cls) {
+    var f = el('figure', 'fig' + (cls ? ' ' + cls : ''));
+    f.appendChild(arte(seed));
+    var u = safeHref(src);
+    if (u) {
+      var img = doc.createElement('img');
+      img.alt = alt;
+      img.decoding = 'async';
+      if (eager) img.setAttribute('fetchpriority', 'high'); else img.loading = 'lazy';
+      img.onerror = function () { img.hidden = true; f.classList.remove('com-img'); f.classList.add('sem-img'); };
+      img.onload = function () { f.classList.add('com-img'); };
+      img.src = u;
+      f.appendChild(img);
+    } else f.classList.add('sem-img');
+    return f;
+  }
+  function risco(seed) {
+    var r = rng(hash('r' + s(seed)) || 3), y = 7, x = 2;
+    var d = 'M2 ' + (y + r() * 2 - 1).toFixed(1);
+    while (x < 194) {
+      var nx = Math.min(196, x + 30 + r() * 22);
+      d += ' Q' + ((x + nx) / 2).toFixed(1) + ' ' + (y + (r() * 6 - 3)).toFixed(1) + ' ' + nx.toFixed(1) + ' ' + (y + (r() * 3 - 1.5)).toFixed(1);
+      x = nx;
+    }
+    d += ' M' + (24 + r() * 20).toFixed(0) + ' ' + (y + 4) + ' Q110 ' + (y + 6.5) + ' ' + (150 + r() * 30).toFixed(0) + ' ' + (y + 3.5);
+    var sv = svgEl('svg', { viewBox: '0 0 200 14', 'class': 'risco', 'aria-hidden': 'true', focusable: 'false', preserveAspectRatio: 'none' });
+    sv.appendChild(svgEl('path', { d: d, pathLength: '100' }));
+    return sv;
+  }
+
+  /* ---- estrutura de seções ---- */
+  var secN = 0, GL = ['∴', '∀', '≠', '⇒', '∃', '≡'], dn = 0;
+  function section(id, cls) { var x = el('section', 'sec' + (cls ? ' ' + cls : '')); x.id = id; return x; }
+  function secHead(sec, eyebrow, title, glyph, small) {
+    secN++;
+    var hd = el('div', 'sec-head'), tt = el('div', 'sec-tt');
+    var h2 = el('h2', 'sec-title' + (small ? ' sm' : ''), title);
+    h2.id = sec.id + '-h';
+    sec.setAttribute('aria-labelledby', h2.id);
+    tt.appendChild(el('p', 'eyebrow', '§ ' + secN + ' · ' + eyebrow));
+    tt.appendChild(h2);
+    hd.appendChild(tt);
+    if (glyph) { var g = el('span', 'glifo', glyph); g.setAttribute('aria-hidden', 'true'); hd.appendChild(g); }
+    sec.appendChild(hd);
+    return hd;
+  }
+  function divisor() {
+    var d = el('div', 'divisor');
+    d.setAttribute('aria-hidden', 'true');
+    d.appendChild(el('span', 'div-linha'));
+    d.appendChild(el('span', 'div-g', GL[dn++ % GL.length]));
+    var sv = svgEl('svg', { viewBox: '0 0 64 40', 'class': 'div-seta', focusable: 'false' });
+    sv.appendChild(svgEl('path', { d: 'M4 6 C 22 2, 40 10, 50 31' }));
+    sv.appendChild(svgEl('path', { d: 'M40 25 L 50 32 L 54 21' }));
+    d.appendChild(sv);
+    d.appendChild(el('span', 'div-linha curta'));
+    return d;
+  }
+
+  /* ---- Lean decorativo da capa ---- */
+  function leanCode() {
+    var tag = DM ? DM[1] + '_' + DM[2] + '_' + DM[3] : 'hoje';
+    var c = { fato: 0, segundo: 0, reportagem: 0, rumor: 0, neutro: 0 };
+    HIST.forEach(function (h) {
+      var vistos = {};
+      partes(h.status).forEach(function (p) { var t = seloTipo(p); if (!vistos[t]) { vistos[t] = 1; c[t]++; } });
+    });
+    var L = [
+      [['kw', 'theorem '], ['fn', 'radar_' + tag], ['', ' :']],
+      [['', '    ∀ n ∈ '], ['ty', 'lemas'], ['', ', rotulado n ∧ (n.fato → '], ['ty', 'verificado'], ['', ' n) := '], ['kw', 'by']],
+      [['', '  '], ['kw', 'intro'], ['', ' n hn  '], ['cm', '-- ' + HIST.length + ' lemas no quadro']],
+      [['', '  '], ['kw', 'rcases'], ['', ' n.status '], ['kw', 'with'], ['', ' fato | segundo | rumor']],
+      [['', '  · '], ['kw', 'exact'], ['', ' lean_check n  '], ['cm', '-- ' + c.fato + ' × fato']],
+      [['', '  · '], ['kw', 'exact'], ['', ' alegacao n    '], ['cm', '-- ' + c.segundo + ' × segundo a empresa']],
+      [['', '  · '], ['kw', 'sorry'], ['', '               '], ['cm', '-- ' + c.rumor + ' × rumor, não confirmado']]
+    ];
+    var pre = el('pre'), code = el('code');
+    L.forEach(function (linha, i) {
+      linha.forEach(function (tk) { if (tk[0]) code.appendChild(el('span', tk[0], tk[1])); else code.appendChild(doc.createTextNode(tk[1])); });
+      if (i < L.length - 1) code.appendChild(doc.createTextNode('\n'));
+    });
+    pre.appendChild(code);
+    return pre;
+  }
+
+  /* ---- capa ---- */
+  function bCapa() {
+    var h = doc.getElementById('capa');
+    var mast = el('div', 'mast');
+    var marca = el('p', 'marca');
+    var ic = el('span', null, '∮'); ic.setAttribute('aria-hidden', 'true');
+    marca.appendChild(ic);
+    marca.appendChild(doc.createTextNode('Radar dos bastidores'));
+    var meta = el('p', 'mast-meta');
+    var tm = el('time', null, dataExtenso());
+    if (DM) tm.setAttribute('datetime', DM[0]);
+    meta.appendChild(tm);
+    meta.appendChild(el('span', 'ponto', '·'));
+    meta.appendChild(doc.createTextNode('≈ ' + MINUTOS + ' min de leitura'));
+    mast.appendChild(marca); mast.appendChild(meta);
+    h.appendChild(mast);
+
+    var wrap = el('div', 'capa-wrap'), grid = el('div', 'capa-grid'), txt = el('div', 'capa-txt');
+    var lab = el('p', 'teo-label');
+    lab.appendChild(el('b', null, 'Teorema do Dia'));
+    lab.appendChild(doc.createTextNode(' (' + dataCurta() + ')'));
+    txt.appendChild(lab);
+    txt.appendChild(el('h1', 'manchete', s(ED.manchete) || 'Radar dos bastidores'));
+    if (isStr(ED.subtitulo)) {
+      var en = el('p', 'enunciado');
+      en.appendChild(el('span', 'enun-l', 'Enunciado.'));
+      en.appendChild(doc.createTextNode(ED.subtitulo));
+      txt.appendChild(en);
+    }
+    grid.appendChild(txt);
+    grid.appendChild(figura(IMGS.capa, 'Ilustração em giz num quadro-negro verde: árvores de prova, espirais no plano complexo e arcos de órbita que abrem a edição de ' + dataExtenso(), 'capa', true, 'fig-capa'));
+    wrap.appendChild(grid);
+    h.appendChild(wrap);
+
+    var demo = el('div', 'demo');
+    var dt = el('p', 'demo-t');
+    dt.appendChild(el('em', null, 'Demonstração.'));
+    dt.appendChild(el('span', null, 'esboço em Lean'));
+    demo.appendChild(dt);
+    demo.appendChild(leanCode());
+    var q = el('p', 'qed', '∎'); q.setAttribute('aria-hidden', 'true');
+    demo.appendChild(q);
+    h.appendChild(demo);
+  }
+
+  /* ---- resumo: dock direito ---- */
+  function bResumo() {
+    var aside = doc.getElementById('resumo');
+    var backdrop = doc.getElementById('resumo-backdrop');
+    var R = arr(ED.resumo_simples).filter(function (x) { return x && (isStr(x.texto) || isStr(x)); });
+    var handle = el('button', 'resumo-handle');
+    handle.type = 'button';
+    handle.id = 'resumo-toggle';
+    handle.setAttribute('data-role', 'resumo-toggle');
+    handle.setAttribute('aria-controls', 'resumo-corpo');
+    handle.setAttribute('aria-expanded', 'false');
+    handle.appendChild(el('span', 'rt-txt', 'Resumo'));
+    if (R.length) handle.appendChild(el('span', 'rt-n', String(R.length)));
+    doc.body.appendChild(handle);
+
+    aside.appendChild(el('h2', null, 'Resumo simples'));
+    var corpo = el('div', 'resumo-corpo');
+    corpo.id = 'resumo-corpo';
+    corpo.appendChild(el('p', 'rs-sub', 'O dia em frases curtas, cada uma com seu selo.'));
+    var ol = el('ol', 'resumo-lista');
+    R.forEach(function (it) {
+      var li = el('li');
+      var texto = typeof it === 'string' ? it : s(it.texto);
+      var sl = selos(typeof it === 'string' ? '' : it.selo);
+      if (sl) li.appendChild(sl);
+      li.appendChild(el('span', null, texto));
+      ol.appendChild(li);
+    });
+    corpo.appendChild(ol);
+    corpo.appendChild(legenda());
+    aside.appendChild(corpo);
+
+    function set(open) {
+      handle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      aside.classList.toggle('is-open', open);
+      corpo.hidden = !open;
+      if (backdrop) backdrop.hidden = !open;
+      handle.style.right = open ? 'min(360px, calc(100vw - 52px))' : '0';
+    }
+    function toggle() { set(handle.getAttribute('aria-expanded') !== 'true'); }
+    handle.addEventListener('click', toggle);
+    if (backdrop) backdrop.addEventListener('click', function () { set(false); });
+    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+    set(false);
+  }
+
+  /* ---- em 3 linhas ---- */
+  function bEm3() {
+    var L = arr(ED.em_3_linhas).filter(isStr);
+    if (!L.length) return null;
+    var sec = section('em-3-linhas', 'hipoteses');
+    secHead(sec, 'Em 3 linhas', 'Hipóteses', '∀');
+    var ol = el('ol', 'hip');
+    L.forEach(function (t, i) {
+      var li = el('li');
+      var m = el('span', 'hmark'); m.setAttribute('aria-hidden', 'true');
+      m.appendChild(doc.createTextNode('H'));
+      m.appendChild(el('sub', null, String(i + 1)));
+      var p = el('p');
+      p.appendChild(el('span', 'sr', 'Hipótese ' + (i + 1) + ': '));
+      p.appendChild(doc.createTextNode(t));
+      li.appendChild(m); li.appendChild(p);
+      ol.appendChild(li);
+    });
+    sec.appendChild(ol);
+    sec.appendChild(el('p', 'hip-conc', '∴ dadas H1' + (L.length > 1 ? '–H' + L.length : '') + ', seguem os lemas abaixo ↓'));
+    return sec;
+  }
+
+  /* ---- histórias / lemas ---- */
+  function bHist() {
+    if (!HIST.length) return null;
+    var sec = section('historias', 'lemas-sec');
+    var hd = secHead(sec, 'Histórias do dia', 'Lemas', '≠');
+    var tools = el('div', 'sec-tools');
+    var all = el('button', 'btn btn-mini', 'abrir tudo');
+    all.type = 'button';
+    all.setAttribute('aria-pressed', 'false');
+    tools.appendChild(all);
+    hd.insertBefore(tools, hd.lastChild);
+    sec.appendChild(legenda());
+    var wrap = el('div', 'lemas-wrap'), grid = el('div', 'lemas');
+    wrap.style.marginTop = '16px';
+    var setters = [];
+    HIST.forEach(function (h, i) { grid.appendChild(card(h, i, setters)); });
+    wrap.appendChild(grid);
+    sec.appendChild(wrap);
+    all.addEventListener('click', function () {
+      var abrir = all.getAttribute('aria-pressed') !== 'true';
+      setters.forEach(function (f) { f(abrir); });
+      all.setAttribute('aria-pressed', abrir ? 'true' : 'false');
+      all.textContent = abrir ? 'fechar tudo' : 'abrir tudo';
+    });
+    return sec;
+  }
+  function card(h, i, setters) {
+    var dom = h.__dom;
+    var a = el('article', 'lema' + (i === 0 ? ' lema-principal' : ''));
+    a.id = dom;
+    a.tabIndex = -1;
+    a.setAttribute('aria-labelledby', dom + '-t');
+
+    var head = el('div', 'lema-head');
+    var num = el('p', 'lema-num');
+    num.appendChild(el('small', null, 'Lema n.º'));
+    num.appendChild(el('b', null, String(i + 1)));
+    head.appendChild(num);
+    var sl = selos(h.status);
+    if (sl) head.appendChild(sl);
+    a.appendChild(head);
+
+    var t = el('h3', 'lema-title', s(h.titulo));
+    t.id = dom + '-t';
+    a.appendChild(t);
+    a.appendChild(risco(h.id || i));
+    a.appendChild(figura(has(IMGS, s(h.id)) ? IMGS[s(h.id)] : null, 'Ilustração em giz para o lema: ' + s(h.titulo), s(h.id) || String(i), false));
+    if (isStr(h.chamada)) a.appendChild(el('p', 'chamada', h.chamada));
+
+    var act = el('div', 'lema-actions');
+    var bEx = el('button', 'btn btn-explica', 'Explica simples');
+    bEx.type = 'button';
+    bEx.setAttribute('data-role', 'explica');
+    bEx.setAttribute('aria-expanded', 'false');
+    bEx.setAttribute('aria-controls', dom + '-s');
+    var bLer = el('button', 'btn btn-ler', 'Ler a demonstração');
+    bLer.type = 'button';
+    bLer.setAttribute('aria-expanded', 'false');
+    bLer.setAttribute('aria-controls', dom + '-d');
+    act.appendChild(bEx); act.appendChild(bLer);
+    a.appendChild(act);
+
+    var box = el('div', 'simples-box');
+    box.id = dom + '-s';
+    box.setAttribute('data-role', 'simples-box');
+    box.setAttribute('role', 'region');
+    box.setAttribute('aria-label', 'Explica simples: ' + s(h.titulo));
+    box.hidden = true;
+    a.appendChild(box);
+
+    var det = el('div', 'lema-detalhe');
+    det.id = dom + '-d';
+    det.hidden = true;
+    arr(h.corpo).filter(isStr).forEach(function (p) { det.appendChild(el('p', null, p)); });
+    if (isStr(h.por_que_importa)) {
+      var pq = el('div', 'pqi');
+      pq.appendChild(el('p', 'pqi-t', '∴ Por que importa'));
+      pq.appendChild(el('p', null, h.por_que_importa));
+      det.appendChild(pq);
+    }
+    var fs = arr(h.fontes).map(function (u) { return safeHref(u, true); }).filter(Boolean);
+    if (fs.length) {
+      det.appendChild(el('h4', 'fontes-t', 'Fontes'));
+      var ul = el('ul', 'fontes');
+      fs.forEach(function (u) {
+        var li = el('li'), lk = el('a', null, host(u));
+        lk.href = u; lk.target = '_blank'; lk.rel = 'noopener'; lk.title = u;
+        lk.appendChild(el('span', 'sr', ' (abre em nova aba)'));
+        li.appendChild(lk); ul.appendChild(li);
+      });
+      det.appendChild(ul);
+    }
+    var q = el('p', 'qed', '∎'); q.setAttribute('aria-hidden', 'true');
+    det.appendChild(q);
+    a.appendChild(det);
+
+    function setEx(open) {
+      bEx.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) {
+        box.textContent = '';
+        var top = el('div', 'sb-top');
+        top.appendChild(el('span', 'sb-label', 'Em palavras simples'));
+        var s2 = selos(h.status);
+        if (s2) top.appendChild(s2);
+        box.appendChild(top);
+        var ol = el('ol');
+        arr(h.simples).filter(isStr).forEach(function (f) { ol.appendChild(el('li', null, f)); });
+        box.appendChild(ol);
+        box.hidden = false;
+      } else {
+        box.hidden = true;
+        box.textContent = '';
+      }
+    }
+    function setDet(open) {
+      bLer.setAttribute('aria-expanded', open ? 'true' : 'false');
+      bLer.textContent = open ? 'Fechar demonstração' : 'Ler a demonstração';
+      det.hidden = !open;
+    }
+    bEx.addEventListener('click', function () { setEx(bEx.getAttribute('aria-expanded') !== 'true'); });
+    bLer.addEventListener('click', function () { setDet(bLer.getAttribute('aria-expanded') !== 'true'); });
+    setters.push(setDet);
+    return a;
+  }
+
+  /* ---- linha do tempo ---- */
+  function bTL() {
+    var T = arr(ED.timeline).filter(function (o) { return o && typeof o === 'object'; });
+    if (!T.length) return null;
+    var sec = section('linha-do-tempo', 'tl-sec');
+    secHead(sec, 'Linha do tempo', 'A reta do dia', '→');
+    sec.appendChild(el('p', 'tl-hint', 'Toque num marco para destacá-lo; os que apontam para um lema levam até ele.'));
+    var wrap = el('div', 'tl-wrap'), sc = el('div', 'tl-scroll');
+    sc.tabIndex = 0;
+    sc.setAttribute('role', 'region');
+    sc.setAttribute('aria-label', 'Linha do tempo com ' + T.length + ' marcos');
+    var ol = el('ol', 'eixo');
+    T.forEach(function (ev) {
+      var li = el('li', 'marco');
+      var st = storyFor(ev.ref);
+      var tk = el('span', 'tick'); tk.setAttribute('aria-hidden', 'true');
+      li.appendChild(tk);
+      var b = el('button', 'marco-btn');
+      b.type = 'button';
+      b.setAttribute('aria-pressed', 'false');
+      b.appendChild(el('span', 'marco-data', s(ev.quando)));
+      if (st) b.appendChild(el('span', 'marco-ref', '→ Lema n.º ' + st.num));
+      li.appendChild(b);
+      li.appendChild(el('p', 'marco-txt', s(ev.o_que)));
+      b.addEventListener('click', function () {
+        var ativos = ol.querySelectorAll('.marco.ativo');
+        for (var k = 0; k < ativos.length; k++) {
+          ativos[k].classList.remove('ativo');
+          var bb = ativos[k].querySelector('.marco-btn');
+          if (bb) bb.setAttribute('aria-pressed', 'false');
+        }
+        li.classList.add('ativo');
+        b.setAttribute('aria-pressed', 'true');
+        if (st) irPara(st);
+      });
+      ol.appendChild(li);
+    });
+    sc.appendChild(ol);
+    wrap.appendChild(sc);
+    sec.appendChild(wrap);
+    return sec;
+  }
+
+  /* ---- quem falou ---- */
+  function bQF() {
+    var Q = arr(ED.quem_falou).filter(function (q) { return q && typeof q === 'object' && (isStr(q.traducao) || isStr(q.citacao_original)); });
+    if (!Q.length) return null;
+    var sec = section('quem-falou', 'plateia-sec');
+    secHead(sec, 'Quem falou', 'Comentários da plateia', '“');
+    var wrap = el('div', 'plateia-wrap'), grid = el('div', 'plateia');
+    Q.forEach(function (q, i) {
+      var c = el('figure', 'coment');
+      var asp = el('span', 'aspas', '“'); asp.setAttribute('aria-hidden', 'true');
+      c.appendChild(asp);
+      var temO = isStr(q.citacao_original), temT = isStr(q.traducao);
+      var bq = el('blockquote', 'fala');
+      bq.id = 'fala-' + (i + 1);
+      var p = el('p', null, temT ? q.traducao : q.citacao_original);
+      bq.appendChild(p);
+      var lk = safeHref(q.link, true);
+      if (lk) bq.setAttribute('cite', lk);
+      c.appendChild(bq);
+      var cap = el('figcaption', 'autor');
+      cap.appendChild(el('span', 'pessoa', s(q.pessoa)));
+      var sl = selos(q.etiqueta);
+      if (sl) cap.appendChild(sl);
+      c.appendChild(cap);
+      var tools = el('div', 'coment-tools');
+      var ver = el('span', 'versao', temT ? 'tradução' : 'original');
+      tools.appendChild(ver);
+      if (temO && temT) {
+        var bt = el('button', 'btn btn-mini', 'ver original');
+        bt.type = 'button';
+        bt.setAttribute('aria-pressed', 'false');
+        bt.setAttribute('aria-controls', bq.id);
+        bt.addEventListener('click', function () {
+          var orig = bt.getAttribute('aria-pressed') !== 'true';
+          bt.setAttribute('aria-pressed', orig ? 'true' : 'false');
+          p.textContent = orig ? q.citacao_original : q.traducao;
+          bt.textContent = orig ? 'ver tradução' : 'ver original';
+          ver.textContent = orig ? 'original' : 'tradução';
+        });
+        tools.appendChild(bt);
+      }
+      if (lk) {
+        var a = el('a', 'ext', 'fonte: ' + host(lk));
+        a.href = lk; a.target = '_blank'; a.rel = 'noopener';
+        a.appendChild(el('span', 'sr', ' (abre em nova aba)'));
+        tools.appendChild(a);
+      }
+      c.appendChild(tools);
+      if (isStr(q.contexto)) c.appendChild(el('p', 'ctx', q.contexto));
+      grid.appendChild(c);
+    });
+    wrap.appendChild(grid);
+    sec.appendChild(wrap);
+    return sec;
+  }
+
+  /* ---- fio do dia ---- */
+  function bFio() {
+    var F = arr(ED.fio_do_dia).filter(isStr);
+    if (!F.length) return null;
+    var sec = section('fio-do-dia', 'fio');
+    secHead(sec, 'A narrativa', 'Fio do dia', '∴');
+    F.forEach(function (p) { sec.appendChild(el('p', null, p)); });
+    return sec;
+  }
+
+  /* ---- quem tá fazendo ---- */
+  function bQTF() {
+    var Q = arr(ED.quem_ta_fazendo).filter(function (x) { return x && typeof x === 'object' && (isStr(x.lab) || isStr(x.movimento)); });
+    if (!Q.length) return null;
+    var sec = section('quem-ta-fazendo', 'labs');
+    secHead(sec, 'Canto do quadro', 'Quem tá fazendo', '∃', true);
+    Q.forEach(function (q) {
+      var d = el('div', 'lab');
+      var hh = el('div', 'lab-h');
+      hh.appendChild(el('h3', null, s(q.lab)));
+      var sl = selos(q.status);
+      if (sl) hh.appendChild(sl);
+      d.appendChild(hh);
+      if (isStr(q.movimento)) d.appendChild(el('p', null, q.movimento));
+      var vistos = {}, refs = el('div', 'refs');
+      arr(q.refs).forEach(function (r) {
+        var st = storyFor(r);
+        if (!st || vistos[st.dom]) return;
+        vistos[st.dom] = 1;
+        var b = el('button', 'ref-btn', '→ Lema n.º ' + st.num);
+        b.type = 'button';
+        b.addEventListener('click', function () { irPara(st); });
+        refs.appendChild(b);
+      });
+      if (refs.childNodes.length) d.appendChild(refs);
+      sec.appendChild(d);
+    });
+    return sec;
+  }
+
+  /* ---- fixos ---- */
+  var FX = obj(ED.fixos);
+  var FX_LAB = { chatgpt_business: 'ChatGPT Business', meta_whatsapp: 'Meta · WhatsApp', china: 'China', varejo: 'Varejo' };
+  function fxTexto(v) { return typeof v === 'string' ? v : s(obj(v).texto); }
+  function fxAlerta(v) { return obj(v).alerta === true; }
+  function bFixos() {
+    var keys = Object.keys(FX).filter(function (k) { return isStr(fxTexto(FX[k])) || fxAlerta(FX[k]); });
+    if (!keys.length) return null;
+    var sec = section('fixos', 'notacao');
+    secHead(sec, 'Fixos', 'Notação e convenções', '≡');
+    var wrap = el('div', 'notacao-wrap'), dl = el('dl');
+    keys.forEach(function (k) {
+      var v = FX[k], al = fxAlerta(v);
+      var item = el('div', 'fx' + (al ? ' fx-alerta' : ''));
+      item.appendChild(el('dt', null, (al ? '🚨 ' : '') + (FX_LAB[k] || k.replace(/_/g, ' '))));
+      item.appendChild(el('dd', null, fxTexto(v)));
+      dl.appendChild(item);
+    });
+    wrap.appendChild(dl);
+    sec.appendChild(wrap);
+    return sec;
+  }
+  function bAlerta() {
+    var slot = doc.getElementById('alerta-slot');
+    Object.keys(FX).forEach(function (k) {
+      if (!fxAlerta(FX[k])) return;
+      var d = el('div', 'alerta');
+      d.setAttribute('role', 'alert');
+      d.appendChild(el('span', 'ico', '🚨'));
+      var p = el('p');
+      p.style.margin = '0';
+      p.appendChild(el('strong', null, 'Alerta · ' + (FX_LAB[k] || k.replace(/_/g, ' ')) + ': '));
+      p.appendChild(doc.createTextNode(fxTexto(FX[k]) + ' '));
+      var a = el('a', null, 'ver em Notação e convenções');
+      a.href = '#fixos';
+      p.appendChild(a);
+      d.appendChild(p);
+      slot.appendChild(d);
+    });
+  }
+
+  /* ---- rodapé ---- */
+  function bRodape() {
+    var f = doc.getElementById('rodape');
+    f.appendChild(el('p', 'fim', '∎ fim da aula'));
+    f.appendChild(el('p', null, 'Pesquisa verificada, redação Gemini 4 Neon, página Claude, imagens ChatGPT'));
+    if (isStr(ED.gerado_em)) f.appendChild(el('p', null, 'Gerado em ' + ED.gerado_em));
+    var p = el('p'), a = el('a', null, 'Edições anteriores');
+    var href = safeHref(ED.arquivo_url);
+    if (href) a.href = href;
+    p.appendChild(a);
+    f.appendChild(p);
+  }
+
+  /* ---- barra de navegação do rodapé ---- */
+  function bNav() {
+    var nav = doc.getElementById('tabbar');
+    if (!nav) return;
+    var ICO = {
+      fio: 'M4 6h16M4 11h16M4 16h11M4 21h7',
+      linha: 'M6 3v18M11 6h9M11 12h9M11 18h6',
+      labs: 'M5 5h6v6H5zM13 5h6v6h-6zM5 13h6v6H5zM13 13h6v6h-6z',
+      historias: 'M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM8 8h8M8 12h8M8 16h5',
+      falas: 'M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z'
+    };
+    var items = [
+      { id: 'fio-do-dia', label: 'Fio', icon: ICO.fio },
+      { id: 'linha-do-tempo', label: 'Linha', icon: ICO.linha },
+      { id: 'quem-ta-fazendo', label: 'Labs', icon: ICO.labs },
+      { id: 'historias', label: 'Histórias', icon: ICO.historias },
+      { id: 'quem-falou', label: 'Falas', icon: ICO.falas }
+    ];
+    var tabs = [];
+    items.forEach(function (it) {
+      var a = el('a', 'tab');
+      a.href = '#' + it.id;
+      a.setAttribute('data-sec', it.id);
+      var svg = svgEl('svg', { viewBox: '0 0 24 24', 'aria-hidden': 'true', focusable: 'false' });
+      svg.appendChild(svgEl('path', { d: it.icon }));
+      a.appendChild(svg);
+      a.appendChild(el('span', null, it.label));
+      a.addEventListener('click', function (e) {
+        var sec = doc.getElementById(it.id);
+        if (!sec) return;
+        e.preventDefault();
+        var html = doc.documentElement, prev = html.style.scrollBehavior;
+        html.style.scrollBehavior = 'auto';
+        var y = sec.getBoundingClientRect().top + (window.pageYOffset || html.scrollTop || 0);
+        window.scrollTo(0, Math.max(0, y - 8));
+        html.style.scrollBehavior = prev;
+        try { history.replaceState(null, '', '#' + it.id); } catch (err) {}
+      });
+      nav.appendChild(a);
+      tabs.push({ tab: a, id: it.id });
+    });
+    function onScroll() {
+      var line = window.innerHeight * 0.42, cur = null;
+      tabs.forEach(function (o) {
+        var sec = doc.getElementById(o.id);
+        if (sec && sec.getBoundingClientRect().top < line) cur = o;
+      });
+      tabs.forEach(function (o) {
+        var on = o === cur;
+        o.tab.classList.toggle('on', on);
+        if (on) o.tab.setAttribute('aria-current', 'location'); else o.tab.removeAttribute('aria-current');
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ---- montagem na ordem do dia ---- */
+  var PADRAO = ['capa', 'fio_do_dia', 'em_3_linhas', 'historias', 'linha_do_tempo', 'quem_falou', 'quem_ta_fazendo', 'fixos'];
+  var ordem = ['capa', 'fio_do_dia'];
+  arr(obj(TV.layout).ordem_secoes).map(s).forEach(function (k) { if (PADRAO.indexOf(k) > -1 && ordem.indexOf(k) < 0) ordem.push(k); });
+  PADRAO.forEach(function (k) { if (ordem.indexOf(k) < 0) ordem.push(k); });
+  var B = { em_3_linhas: bEm3, historias: bHist, linha_do_tempo: bTL, quem_falou: bQF, fio_do_dia: bFio, quem_ta_fazendo: bQTF, fixos: bFixos };
+
+  var tituloDoc = 'Radar dos bastidores · ' + dataCurta() + (isStr(ED.manchete) ? ' · ' + ED.manchete : '');
+  doc.title = tituloDoc;
+
+  bAlerta();
+  bCapa();
+  bResumo();
+
+  var main = doc.getElementById('quadro');
+  function add(node) { if (main.childNodes.length) main.appendChild(divisor()); main.appendChild(node); }
+  var CANTO = ['quem_ta_fazendo'];
+  ordem = ordem.filter(function (k) { return k !== 'capa'; });
+  for (var i = 0; i < ordem.length; i++) {
+    var k = ordem[i];
+    if (CANTO.indexOf(k) > -1) {
+      var grupo = [k];
+      if (i + 1 < ordem.length && CANTO.indexOf(ordem[i + 1]) > -1) { grupo.push(ordem[i + 1]); i++; }
+      var secs = grupo.map(function (g) { return B[g](); }).filter(Boolean);
+      if (!secs.length) continue;
+      var cw = el('div', 'canto-wrap');
+      cw.appendChild(el('p', 'canto-label', '✎ canto do quadro · anotações densas'));
+      var c = el('div', 'canto');
+      secs.forEach(function (x) { c.appendChild(x); });
+      cw.appendChild(c);
+      add(cw);
+    } else {
+      var sec = B[k] ? B[k]() : null;
+      if (sec) add(sec);
+    }
+  }
+  bRodape();
+  bNav();
+})();
+</script>
+</body>
+</html>
