@@ -1,0 +1,516 @@
+{
+ "manchete": "Preprint de gravidade feito com IA segundo o autor, rumor de P = NP e aperto de chips sobre a China",
+ "subtitulo": "No feriado americano de Thanksgiving, os bastidores da IA tiveram ciência ainda não revisada, uma disputa de custo entre chips e restrições dos EUA que também incluem o Brasil.",
+ "fio_do_dia": [
+  "O feriado de Thanksgiving nos Estados Unidos deixou a quinta-feira (26/11) fraca em anúncios oficiais e fechou as bolsas americanas. A coleta automática não registrou novos envios nos repositórios públicos de provas matemáticas da OpenAI, da Anthropic e do Google durante a janela. A conferência direta pela API do GitHub falhou, então esse dado vem só da coleta. Mesmo assim, houve movimento em três frentes: ciência, infraestrutura de chips e geopolítica.",
+  "O assunto mais comentado começou com um preprint publicado no arXiv em 25/11 por Venkatesa Chandrasekaran, autor único. O texto propõe uma quantização algébrica da gravidade no vácuo em quatro dimensões, sem campos de matéria. O resumo no arXiv não menciona IA. Segundo relato do autor publicado pela Interesting Engineering, o trabalho usou cerca de 400 milhões de tokens do GPT-6 Astra ao longo de meses. O preprint não tem revisão por pares. Um post no X falou em 'maior problema em aberto da física resolvido', o que a fonte não sustenta. Sam Altman elogiou o pesquisador no X. É opinião dele, e o post não diz que o paper resolveu algum problema do milênio. Também circulou no X um rumor de prova de P = NP. Segundo checagens independentes, nenhum laboratório, paper ou repositório público afirma essa prova. Na opinião de Scott Aaronson, a prova que está perto é a de P ≠ NP, o oposto do rumor, e ele disse que não quer espalhar rumores não verificados.",
+  "Na disputa por poder de computação, uma reportagem da Reuters com fontes anônimas diz que o GLM-5.5 da Z.AI e o Kimi K4 da Moonshot podem atrasar para 2027. Segundo essas fontes, as causas são a falta de acesso a computação e as barreiras anti-destilação da OpenAI e da Anthropic. As empresas não responderam oficialmente na matéria. A regra americana de acesso remoto a chips está em vigor desde 19/11. Ela também colocou o Brasil na lista de países que precisam de licença para chips avançados, com exceção para compradores com sede nos EUA. No mesmo dia da reportagem, a Moonshot anunciou créditos gratuitos de API no programa Kimi for Science (segundo a empresa). Na madrugada de 27/11, a coleta registrou pushes da DeepSeek em cinco repositórios de infraestrutura. Um deles é o DeepEP-Ascend, voltado a chips Huawei Ascend. O conteúdo dos commits não foi lido. Também houve um teste da Amazon. Segundo a submissão da própria empresa ao benchmark AgentX da SemiAnalysis, o Trainium3 rendeu no pico 2,28x mais desempenho por dólar que o NVIDIA GB300. A vantagem é de custo, não de velocidade. Horas depois, a SemiAnalysis postou que o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar do GB300.",
+  "Na NVIDIA, Jensen Huang foi reconduzido ao cargo de CEO em 23/11. Segundo a CNBC, o vice-presidente americano Vance disse que o procurador-geral Todd Blanche lhe garantiu que Huang não está sob investigação. Já a Reuters, citada pela CNBC, diz que o Departamento de Justiça não fez investigação formal antes da volta dele. A Anthropic estreou na bolsa em 19/11 a US$ 83 por ação, segundo a CNBC. Em 24/11 a ação fechou perto de US$ 81, abaixo do preço do IPO, segundo o Motley Fool. No espaço, o Space Bureau da FCC deu aprovação condicional em 25/11 para até 1 milhão de satélites de computação da SpaceX. O plano de detritos acima de 600 km ainda não foi aprovado. Sobre o uso diário de IA, Simon Willison republicou um texto de Jack Despain Zhou que, na opinião do autor, aponta uma grande 'desindividualização' causada pela IA. Ethan Mollick, também em tom de opinião, disse que já é possível oferecer barato o equivalente a uma boa ajuda humana personalizada a qualquer pessoa com celular."
+ ],
+ "resumo_simples": [
+  {
+   "texto": "Segundo o próprio autor, um estudo de física ainda sem revisão foi feito com ajuda de um modelo da OpenAI.",
+   "selo": "segundo a empresa"
+  },
+  {
+   "texto": "É boato: circula nas redes que uma grande prova de matemática foi feita, mas nenhum laboratório afirma isso.",
+   "selo": "rumor"
+  },
+  {
+   "texto": "Segundo reportagem, a falta de chips e regras de empresas americanas podem atrasar modelos de IA chineses. O Brasil também entrou na lista de países que precisam de licença para esses chips.",
+   "selo": "reportagem"
+  },
+  {
+   "texto": "Segundo a Amazon, em um teste prévio, seu chip rende mais por dólar que um sistema da NVIDIA.",
+   "selo": "segundo a empresa"
+  },
+  {
+   "texto": "Segundo a imprensa, o chefe da NVIDIA voltou ao cargo e a ação da Anthropic caiu abaixo do preço de estreia.",
+   "selo": "reportagem"
+  },
+  {
+   "texto": "Um órgão do governo americano aprovou, com condições, satélites de computação da SpaceX.",
+   "selo": "fato"
+  },
+  {
+   "texto": "É opinião: autores dizem que textos com o mesmo estilo de IA estão em todo lugar e desanimam quem recebe.",
+   "selo": "opinião"
+  }
+ ],
+ "em_3_linhas": [
+  "Preprint no arXiv propõe uma quantização algébrica da gravidade no vácuo e, segundo relato do autor, teve ajuda do GPT-6 Astra. Ele ainda não tem revisão por pares, e nenhum lab, paper ou repositório público afirma a prova de P = NP do rumor.",
+  "Reportagem da Reuters com fontes anônimas diz que restrições de chips e barreiras anti-destilação podem atrasar a Z.AI e a Moonshot. A regra americana inclui o Brasil, e a DeepSeek teve pushes em repositórios, um deles voltado a chips Huawei Ascend.",
+  "Segundo a submissão da própria Amazon ao AgentX, o Trainium3 teve vantagem de custo sobre o GB300. Depois, a SemiAnalysis postou que o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar do GB300."
+ ],
+ "timeline": [
+  {
+   "quando": "25/11 15h58",
+   "o_que": "Venkatesa Chandrasekaran publica no arXiv o preprint de quantização algébrica da gravidade no vácuo (2611.34924).",
+   "ref": "gravidade-quantica-gpt6-astra"
+  },
+  {
+   "quando": "25/11 17h28",
+   "o_que": "CNBC noticia que o vice-presidente Vance disse que o procurador-geral Todd Blanche lhe garantiu que Jensen Huang não está sob investigação.",
+   "ref": "nvidia-huang-vance-doj"
+  },
+  {
+   "quando": "25/11 17h56",
+   "o_que": "TechCrunch relata aprovação condicional da FCC para a constelação Starmind da SpaceX, de até 1 milhão de satélites de computação.",
+   "ref": "fcc-starmind-sem-novidade"
+  },
+  {
+   "quando": "26/11 12h01",
+   "o_que": "Zvi Mowshowitz publica a edição semanal AI #196, com notas sobre OpenAI, Anthropic, Cursor e Grok.",
+   "ref": "zvi-ai-196"
+  },
+  {
+   "quando": "26/11 12h09",
+   "o_que": "Simon Willison republica no blog um trecho de Jack Despain Zhou que fala em uma grande 'desindividualização' causada pela IA.",
+   "ref": "willison-desindividualizacao"
+  },
+  {
+   "quando": "26/11 13h29",
+   "o_que": "Sam Altman elogia Venkatesa Chandrasekaran no X. Diz que ele foi um dos primeiros a acreditar que o modelo da época poderia resolver problemas do prêmio do milênio, mas o post não afirma que algum foi resolvido.",
+   "ref": "altman-ven-millennium"
+  },
+  {
+   "quando": "26/11 14h02",
+   "o_que": "Gary Marcus anuncia que sai do X 'at least for a while' e que fica no Substack.",
+   "ref": "marcus-sai-do-x"
+  },
+  {
+   "quando": "26/11 15h16",
+   "o_que": "Greg Brockman divulga no X uma demonstração do GPT-6.2 gerando aulas interativas de história.",
+   "ref": "brockman-gpt62-aulas"
+  },
+  {
+   "quando": "26/11 17h50",
+   "o_que": "SemiAnalysis posta que a submissão da própria Amazon ao benchmark mostra o Trainium3 com até 2,28x mais desempenho por dólar que o NVIDIA GB300.",
+   "ref": "trainium3-agentx-228x"
+  },
+  {
+   "quando": "26/11 18h36",
+   "o_que": "Post no X espalha o rumor de prova de P = NP. Segundo checagens independentes, nenhum lab, paper ou repositório público afirma essa prova.",
+   "ref": "rumor-p-igual-np"
+  },
+  {
+   "quando": "27/11 00h22",
+   "o_que": "Moonshot AI anuncia o programa Kimi for Science, com créditos gratuitos de API para pesquisa científica.",
+   "ref": "kimi-for-science"
+  },
+  {
+   "quando": "27/11 01h44",
+   "o_que": "Coleta registra pushes da DeepSeek até 06h19 em cinco repositórios de infraestrutura, incluindo o DeepEP-Ascend para chips Huawei Ascend.",
+   "ref": "deepseek-deepep-ascend"
+  },
+  {
+   "quando": "27/11 05h44",
+   "o_que": "SemiAnalysis posta que o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar do GB300.",
+   "ref": "trainium3-agentx-228x"
+  }
+ ],
+ "quem_ta_fazendo": [
+  {
+   "lab": "OpenAI",
+   "movimento": "Repercutiu um preprint de gravidade quântica que, segundo relato do autor, foi feito com o GPT-6 Astra. Sam Altman elogiou o autor no X (opinião), e Greg Brockman divulgou uma demonstração do GPT-6.2 para aulas de história. Na janela, a coleta automática não registrou pushes em openai/math.",
+   "status": "segundo a empresa",
+   "refs": [
+    "gravidade-quantica-gpt6-astra",
+    "altman-ven-millennium",
+    "brockman-gpt62-aulas",
+    "github-provas-sem-push"
+   ]
+  },
+  {
+   "lab": "Anthropic",
+   "movimento": "Estreou na Nasdaq em 19/11 sob o código ANT a US$ 83, segundo a CNBC. Em 24/11 a ação fechou perto de US$ 81, segundo o Motley Fool. A coleta não registrou push em anthropics/formal-math na janela. Zvi Mowshowitz citou a migração da Messages API de Python para Rust, mas a página da empresa não foi aberta.",
+   "status": "reportagem",
+   "refs": [
+    "anthropic-acao-abaixo-ipo",
+    "github-provas-sem-push",
+    "zvi-ai-196"
+   ]
+  },
+  {
+   "lab": "Amazon",
+   "movimento": "Enviou ao benchmark AgentX da SemiAnalysis resultados prévios do Trainium3 UltraServer. Segundo a submissão, o chip teve até 2,28x mais desempenho por dólar que o NVIDIA GB300. A vantagem é de custo, não de velocidade. Na FCC, a Amazon se opôs ao pedido da constelação Starmind da SpaceX.",
+   "status": "segundo a empresa",
+   "refs": [
+    "trainium3-agentx-228x",
+    "fcc-starmind-sem-novidade"
+   ]
+  },
+  {
+   "lab": "NVIDIA",
+   "movimento": "Reconduziu Jensen Huang a CEO em 23/11. A CNBC noticiou que o vice-presidente Vance disse não haver investigação do DOJ contra ele, e a Reuters diz que não houve investigação formal antes da volta. Huang tem uma entrevista fechada prevista na Câmara sobre a Megaspeed. Em hardware, a SemiAnalysis postou que o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar do GB300.",
+   "status": "reportagem",
+   "refs": [
+    "nvidia-huang-vance-doj",
+    "trainium3-agentx-228x"
+   ]
+  },
+  {
+   "lab": "DeepSeek",
+   "movimento": "A coleta registrou pushes na madrugada de 27/11 em cinco repositórios de infraestrutura: TileKernels, DeepEP-Ascend, DeepEP, DeepJIT e 3FS. O DeepEP-Ascend é a biblioteca de comunicação para treino e inferência em chips Huawei Ascend. O conteúdo dos commits não foi lido.",
+   "status": "fato",
+   "refs": [
+    "deepseek-deepep-ascend"
+   ]
+  },
+  {
+   "lab": "Moonshot AI / Z.AI",
+   "movimento": "Fontes anônimas citadas pela Reuters dizem que o GLM-5.5 da Z.AI e o Kimi K4 da Moonshot podem atrasar para 2027, por falta de acesso a computação e por barreiras anti-destilação. No mesmo dia, a Moonshot abriu o programa Kimi for Science com créditos gratuitos de API (segundo a empresa).",
+   "status": "reportagem",
+   "refs": [
+    "reuters-china-atraso-modelos",
+    "kimi-for-science"
+   ]
+  },
+  {
+   "lab": "SpaceX",
+   "movimento": "Recebeu em 25/11 aprovação condicional do Space Bureau da FCC para a constelação Starmind, de até 1 milhão de satélites de computação. Tem 7 anos para o primeiro satélite operacional e 14 anos para a constelação inteira. O plano de detritos acima de 600 km ainda não foi aprovado.",
+   "status": "fato",
+   "refs": [
+    "fcc-starmind-sem-novidade"
+   ]
+  },
+  {
+   "lab": "Meta",
+   "movimento": "Não mudou em novembro as regras nem as tarifas da plataforma de mensagens do WhatsApp, que valem desde 01/10/2026. O Meta Business Agent está listado a US$ 2,00 por milhão de tokens desde 01/07/2026. No Brasil, contas elegíveis precisam migrar para faturamento em reais até 30/06/2027.",
+   "status": "fato",
+   "refs": [
+    "fixo-meta",
+    "varejo-agente-catalogo-whatsapp"
+   ]
+  }
+ ],
+ "historias": [
+  {
+   "id": "gravidade-quantica-gpt6-astra",
+   "titulo": "Preprint de gravidade quântica usa GPT-6 Astra segundo autor, mas segue sem revisão",
+   "chamada": "Um físico publicou sozinho no arXiv um estudo sobre gravidade no vácuo. Um post no X exagerou o alcance de um texto que ainda não foi revisado.",
+   "corpo": [
+    "O físico Venkatesa Chandrasekaran publicou como autor único no arXiv (2611.34924), em 25/11, o preprint intitulado 'An algebraic quantization of gravity from the null cone'. O campo de comentários do arXiv registra 54 páginas mais apêndices e 34 figuras. Os sites que falam em 83 páginas provavelmente contam os apêndices. No resumo, o autor escreve: \"We propose a background independent quantization of vacuum general relativity on four dimensional Lorentzian spacetimes.\" (Tradução: \"Propomos uma quantização independente de fundo da relatividade geral no vácuo em espaços-tempos lorentzianos quadridimensionais.\")",
+    "O resumo no arXiv não cita inteligência artificial. A informação de que o trabalho usou cerca de 400 milhões de tokens do GPT-6 Astra ao longo de meses vem do relato do próprio autor, segundo reportagem da Interesting Engineering. A imprensa também diverge sobre a afiliação dele: vários veículos o chamam de físico de Stanford, enquanto a Interesting Engineering o descreve como físico da OpenAI.",
+    "As fontes consultadas registram o limite atual do trabalho: \"The paper remains a preprint and still requires independent scrutiny.\" (Tradução: \"O artigo continua sendo um preprint e ainda requer escrutínio independente.\") Além de não ter revisão por pares, o estudo cobre apenas gravidade no vácuo em quatro dimensões, sem campos de matéria. Por isso, a ideia de que o maior problema em aberto da física foi resolvido, espalhada num post do perfil @namcios no X em 26/11 às 09:02, não se sustenta na fonte. No dia 26/11, Sam Altman elogiou Chandrasekaran no X e disse que ele foi um dos primeiros a acreditar que o modelo da época poderia resolver problemas do prêmio do milênio. Isso é opinião de Altman, e o post não afirma que algum desses problemas foi resolvido pelo estudo. Segundo o The Decoder, a prova de Navier-Stokes alegada pela OpenAI segue em disputa pública."
+   ],
+   "status": "segundo a empresa",
+   "por_que_importa": "O caso mostra a distância entre publicar um preprint e obter validação científica independente. Para profissionais, empresas e usuários de IA, reforça a necessidade de checar a fonte primária antes de tratar manchetes virais sobre IA como fato consolidado.",
+   "simples": [
+    "Segundo o próprio autor, o estudo usou o GPT-6 Astra, da OpenAI; o resumo do estudo não fala de IA.",
+    "Preprint é um estudo publicado antes de outros cientistas conferirem se tudo está certo.",
+    "O estudo trata só de gravidade no espaço vazio, sem matéria, em quatro dimensões.",
+    "Ainda falta a revisão de outros pesquisadores para saber se a conta funciona."
+   ],
+   "refs": [
+    "gravidade-quantica-gpt6-astra",
+    "altman-ven-millennium"
+   ],
+   "fontes": [
+    "https://arxiv.org/abs/2611.34924",
+    "https://interestingengineering.com/ai-robotics/quantum-gravity-theory-black-hole-gpt-6-astra",
+    "https://x.com/namcios/status/2125923251712848318",
+    "https://x.com/sama/status/2125990371897557278",
+    "https://the-decoder.com/openais-millennium-proof-dispute-raises-the-question-of-whether-researchers-can-trust-ai-labs/"
+   ]
+  },
+  {
+   "id": "rumor-p-igual-np-e-provas",
+   "titulo": "Rumor de P = NP circula no X, mas nenhum laboratório afirma ter a prova",
+   "chamada": "Rumor: checagens independentes não acham prova pública. Scott Aaronson, em opinião, aposta no oposto, e a coleta automática não registrou atualização nos repositórios de provas.",
+   "corpo": [
+    "Rumor: circula no X desde 24 e 25/11 a alegação de que laboratórios de IA teriam provado que P = NP. Um post do perfil @namcios em 26/11 repetiu a alegação. Segundo checagens independentes, nenhum laboratório, paper ou repositório público afirma essa prova. Uma newsletter cita um pesquisador, Justin Perry, que alega ter uma prova de 45 mil páginas não publicada. Não há corroboração.",
+    "Uma frase de Scott Aaronson costuma aparecer junto com o rumor. Ela vem de um comentário de 24/11 no blog dele: \"I've now heard many, many rumors that one or both labs are sitting on Factoring in P. I don't know how much to credit this.\" (Tradução: \"Já ouvi muitos, muitos rumores de que um ou ambos os laboratórios estão guardando fatoração em P. Não sei quanto crédito dar a isso.\") A frase fala de fatoração em P, não de P = NP. Ela foi achada por busca, e o comentário não foi aberto nesta rodada. Segundo cobertura secundária, Aaronson pediu depois para não ser citado como autoridade para o rumor, mas essa nota não foi vista na fonte.",
+    "No post de 25/11, que ganhou atualizações em 26/11, Aaronson dá a opinião dele, que vai no sentido oposto ao rumor, porque ele aposta em P ≠ NP: \"Yes, I do now think that AI is climbing the mountain that leads to P≠NP.\" (Tradução: \"Sim, agora penso que a IA está subindo a montanha que leva a P≠NP.\") Ele diz estar \"virtually certain\" (praticamente certo) de que os laboratórios guardam resultados de impacto em criptografia. Isso também é opinião dele, não fato confirmado. Ele se recusa a repetir rumores: \"I do not wish to be responsible for spreading unverified rumors.\" (Tradução: \"Não quero ser responsável por espalhar rumores não verificados.\")",
+    "A coleta automática não registrou push nos repositórios openai/math, anthropics/formal-math e google-research/cogentic_research_papers entre 26/11 às 05:27 e a manhã de 27/11. A conferência direta pela API do GitHub falhou nesta rodada, então o dado vem só da coleta. Segundo Zvi Mowshowitz, a Anthropic provou VP ≠ VNP, o que não resolve P vs NP. Zvi também relata que a Anthropic reduziu a prova em Lean da Hipótese de Riemann de 17,4 milhões para 76 mil linhas. A fonte dele é um post no X, não o repositório."
+   ],
+   "status": "rumor",
+   "por_que_importa": "Rumores sobre avanços em matemática e criptografia podem causar alarme sem motivo em tecnologia e segurança digital. Empresas e equipes técnicas decidem melhor quando separam boatos de redes sociais do que está publicado em repositórios que dá para auditar.",
+   "simples": [
+    "Isto é um boato: nenhum laboratório afirmou ter essa prova.",
+    "O boato diz que empresas de IA resolveram um famoso problema de matemática e computação, o P vs NP.",
+    "Nenhum estudo público afirma essa prova. Um sistema automático também não viu atualização nos arquivos públicos de provas das empresas.",
+    "Na opinião do cientista Scott Aaronson, o resultado certo é o oposto. Ele disse que não quer espalhar boatos."
+   ],
+   "refs": [
+    "rumor-p-igual-np",
+    "aaronson-update-p-neq-np",
+    "github-provas-sem-push"
+   ],
+   "fontes": [
+    "https://scottaaronson.blog/?p=10362",
+    "https://scottaaronson.blog/?p=10379",
+    "https://fourweekmba.com/ai-270k-view-post-says-labs-solved-p-vs-np-we-found-no-record/",
+    "https://thezvi.substack.com/p/ai-196-the-return",
+    "https://x.com/namcios/status/2126067487758291355",
+    "https://scottaaronson.blog/",
+    "https://github.com/openai/math",
+    "https://github.com/anthropics/formal-math",
+    "https://github.com/google-research/google-research/tree/master/cogentic_research_papers"
+   ]
+  },
+  {
+   "id": "china-chips-e-atraso-modelos",
+   "titulo": "Restrições dos EUA e barreiras anti-destilação ameaçam atrasar modelos chineses, diz Reuters",
+   "chamada": "Segundo fontes anônimas ouvidas pela Reuters, Z.AI e Moonshot enfrentam atrasos. A nova regra americana de chips inclui o Brasil, e a DeepSeek atualizou repositórios, entre eles um para chips Huawei Ascend.",
+   "corpo": [
+    "Segundo reportagem da Reuters publicada em 26/11 com fontes anônimas, restrições americanas a chips avançados e barreiras anti-destilação da Anthropic e da OpenAI ameaçam atrasar a próxima geração de modelos chineses. A Z.AI lançou na segunda (23/11) o GLM-5.4, de 750 bilhões de parâmetros. Ela planejava lançar o GLM-5.5 (cerca de 3 trilhões de parâmetros) em novembro e não lançou. Segundo a reportagem, ele pode ficar para o primeiro trimestre de 2027 ou depois. Na Moonshot AI, o ciclo de seis meses pode passar de doze meses se a empresa perder computação alugada no exterior. A matéria diz: \"Its next flagship model, Kimi K4, could be delayed until around the middle of next year, the person estimated.\" (Tradução: \"Seu próximo modelo principal, o Kimi K4, pode atrasar até por volta da metade do ano que vem, estimou a pessoa.\") As fontes também dizem que a Moonshot teria passado a destilar modelos do Google e da Meta. A matéria não traz resposta oficial das empresas.",
+    "A Reuters mostra esses atrasos como os primeiros efeitos da regra de acesso remoto do Departamento de Comércio dos EUA (BIS). A regra é oficial: foi publicada em 16/11 e está em vigor desde 19/11. Ela exige licença para exportar chips avançados a qualquer data center no mundo que dê a empresas com sede na China ou Macau mais de 12 milhões de TPP agregados. A Reuters descreve esse limite como equivalente a cerca de 750 Nvidia H100. Segundo a reportagem, \"Operators already providing covered computing services before the rule took effect have 90 days to obtain licences.\" (Tradução: \"Operadores que já prestavam os serviços de computação cobertos antes de a regra entrar em vigor têm 90 dias para obter licenças.\") O prazo vai até cerca de 17/02/2027. A norma revoga formalmente o AI Diffusion Rule e seus controles de pesos de modelo. Ela também coloca o Brasil, ao lado de Indonésia, Malásia, Singapura e Tailândia, na lista de países que passam a precisar de licença para chips avançados, com exceção para compradores com sede nos EUA.",
+    "Na madrugada de 27/11, a coleta registrou pushes da DeepSeek em cinco repositórios de infraestrutura: TileKernels, DeepEP-Ascend, DeepEP, DeepJIT e 3FS. O DeepEP-Ascend se descreve assim: \"A high-performance communication library for machine learning training and inference on Huawei Ascend NPUs.\" (Tradução: \"Uma biblioteca de comunicação de alto desempenho para treinamento e inferência de aprendizado de máquina em NPUs Huawei Ascend.\") O conteúdo dos commits não foi lido. Na mesma janela, QwenLM/qwen-code e MoonshotAI/kimi-code também receberam pushes. Segundo a empresa, a Moonshot abriu o programa Kimi for Science, com créditos gratuitos de API para pesquisa científica. A imprensa fala em até 150 mil yuans (cerca de US$ 20 mil) em créditos e em prazo da primeira rodada em 08/12/2026."
+   ],
+   "status": "reportagem",
+   "por_que_importa": "Com o Brasil na lista, exportar chips avançados para data centers no país passa a exigir licença, exceto para compradores com sede nos EUA. Isso interessa a empresas e profissionais que usam ou planejam infraestrutura de IA no Brasil. Além disso, a DeepSeek mantém uma versão de sua biblioteca para chips Huawei Ascend, movimento que coincide com a nova regra americana.",
+   "simples": [
+    "Uma reportagem com fontes anônimas diz que empresas chinesas podem atrasar seus novos modelos de IA.",
+    "Os Estados Unidos passaram a exigir licença para enviar chips potentes a vários países.",
+    "O Brasil entrou nessa lista, junto com países da Ásia.",
+    "A chinesa DeepSeek atualizou códigos, entre eles um feito para chips da Huawei."
+   ],
+   "refs": [
+    "reuters-china-atraso-modelos",
+    "bis-regra-acesso-remoto-brasil",
+    "deepseek-deepep-ascend",
+    "kimi-for-science"
+   ],
+   "fontes": [
+    "https://www.taipeitimes.com/News/biz/archives/2026/11/27/2003868457",
+    "https://www.dailymaverick.co.za/article/2026-11-26-us-chip-curbs-distillation-crackdown-threaten-chinese-ai-model-development-sources-say/",
+    "https://www.sidley.com/en/insights/newsupdates/2026/11/new-export-controls-on-advanced-chips-close-remote-compute-access-loopholes-five-key-takeaways",
+    "https://www.lw.com/en/insights/us-commerce-department-adopts-rule-restricting-remote-access-to-advanced-ai-chips",
+    "https://www.chinatalk.media/p/the-remote-access-rule-will-slow",
+    "https://github.com/deepseek-ai/DeepEP-Ascend",
+    "https://github.com/deepseek-ai/TileKernels",
+    "https://github.com/QwenLM/qwen-code",
+    "https://github.com/MoonshotAI/kimi-code",
+    "https://x.com/Kimi_Moonshot/status/2126154696947871760",
+    "https://pandaily.com/moonshot-kimi-for-science-research-program",
+    "https://runtimewire.com/article/moonshot-offers-researchers-up-to-20-000-in-kimi-credits-for-scientific-projects"
+   ]
+  },
+  {
+   "id": "trainium3-versus-nvidia-rubin",
+   "titulo": "Submissão da Amazon mostra prévia do Trainium3 contra GB300, e SemiAnalysis destaca Vera Rubin",
+   "chamada": "Segundo números enviados pela própria Amazon, a vantagem do Trainium3 é de custo por dólar, não de velocidade. Os resultados ainda são prévios, e a SemiAnalysis também publicou números do Vera Rubin NVL72 da NVIDIA contra o GB300.",
+   "corpo": [
+    "Em 26/11, às 17:50 BRT, a SemiAnalysis divulgou no X o resultado de uma submissão da própria Amazon ao seu benchmark AgentX: \"ALERT🚨: Amazon's Trainium3 UltraServer submission to our Agentic Inference Benchmark has demonstrated 2.28x better perf per dollar than even NVIDIA's GB300 NVL72.\" (Tradução: \"ALERTA: A submissão do Trainium3 UltraServer da Amazon ao nosso Agentic Inference Benchmark demonstrou desempenho por dólar 2,28x melhor até do que o GB300 NVL72 da NVIDIA.\") Na página do InferenceX, o resultado aparece como 'Preview Results'. Os números só aparecem em posts no X e em sites secundários, e não há artigo na newsletter da SemiAnalysis sobre isso.",
+    "Segundo o site N Globe, os 2,28x são o pico entre pontos de interatividade, com custo modelado de US$ 1,05 por chip-hora no Trainium3 contra US$ 2,31 no GB300. O mesmo site diz que a vazão por chip foi só cerca de 4% maior, ou seja, a vantagem é de custo, não de velocidade. Também há divergência sobre o modelo servido no teste: GLM-5.2 no cartão do InferenceX, GLM-5.3 na cobertura secundária.",
+    "Horas depois, em 27/11 às 05:44 BRT, a SemiAnalysis postou números do Vera Rubin NVL72 da NVIDIA comparado ao GB300: \"Rubin's lead grows with interactivity. Same TokenSpeed engine on both racks: Vera Rubin NVL72 gets 2-6.5x GB300 NVL72's tokens per $ TCO\" (Tradução: \"A liderança do Rubin cresce com a interatividade. Mesmo motor TokenSpeed nos dois racks: o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar de custo total de propriedade do GB300 NVL72.\")"
+   ],
+   "status": "segundo a empresa",
+   "por_que_importa": "Para empresas e profissionais que rodam agentes de IA, o número mais citado aqui mede custo por dólar, não velocidade. Ele vem de uma submissão da própria Amazon, aparece como prévia e ainda não tem artigo detalhado da SemiAnalysis. Por isso, convém tratá-lo como alegação ainda sem confirmação independente.",
+   "simples": [
+    "Segundo um teste enviado pela própria Amazon, e ainda prévio, o chip Trainium3 rendeu até 2,28 vezes mais por dólar que o GB300 da NVIDIA.",
+    "Ele não foi muito mais rápido. O ganho vem do custo estimado por hora de uso, que é menor.",
+    "Horas depois, a SemiAnalysis publicou que o Vera Rubin, outro sistema da NVIDIA, rende de 2 a 6,5 vezes mais por dólar que o GB300."
+   ],
+   "refs": [
+    "trainium3-agentx-228x"
+   ],
+   "fontes": [
+    "https://x.com/SemiAnalysis_/status/2126055957838848156",
+    "https://x.com/SemiAnalysis_/status/2126235662009389501",
+    "https://inferencex.semianalysis.com/",
+    "https://nglobenews.com/en/article/us-amazon-trainium3-agentx-benchmark-nvidia-gb300-2026-11-26"
+   ]
+  },
+  {
+   "id": "nvidia-huang-e-acao-anthropic",
+   "titulo": "NVIDIA lida com volta de Jensen Huang enquanto ação da Anthropic recua abaixo do IPO",
+   "chamada": "Reportagens mostram dúvidas sobre a volta do CEO da NVIDIA e a ação da Anthropic abaixo do preço do IPO.",
+   "corpo": [
+    "Na NVIDIA, as atenções continuam na governança. Jensen Huang voltou ao cargo de CEO na segunda, 23/11, depois de o conselho citar 'input from senior levels of the United States government' (contribuição de altos escalões do governo americano). Segundo reportagem da CNBC de 25/11, o vice-presidente Vance disse que o procurador-geral Todd Blanche lhe garantiu que Huang não está sob investigação. A reportagem traz a frase: \"I haven't seen any evidence again that he committed a crime.\" (Tradução: \"Não vi, de novo, nenhuma evidência de que ele cometeu um crime.\") É uma declaração, não um resultado de investigação. A mesma reportagem cita a Reuters: o Departamento de Justiça não fez investigação formal sobre Huang antes de Trump pressionar pela volta dele ao cargo.",
+    "O conselho da NVIDIA abriu uma investigação independente em 08/11, e a CNBC não informa o andamento. Huang tem entrevista a portas fechadas com comitês da Câmara americana sobre a Megaspeed na terça. A CNBC não dá a data; 01/12 é uma inferência. Em 26/11, no X, Gary Marcus criticou a recontratação de Huang antes de uma investigação formal, o que é opinião dele.",
+    "No mercado, segundo a CNBC, a Anthropic estreou na Nasdaq em 19/11 sob o código ANT, a US$ 83 por ação, e levantou US$ 81,3 bilhões. Segundo análise do Motley Fool publicada em 26/11, a ação abriu a US$ 111,50 e em 24/11 fechou perto de US$ 81, abaixo do preço do IPO. Esses valores vêm de resumo de busca, e as páginas da CNBC e do Motley Fool não foram abertas. As bolsas americanas ficaram fechadas em 26/11 por causa do Thanksgiving, então não houve pregão novo na janela."
+   ],
+   "status": "reportagem",
+   "por_que_importa": "Para empresas, profissionais e usuários de IA, os dois casos mostram que governança, atenção do governo e reação dos investidores também pesam sobre as grandes empresas do setor, além da tecnologia.",
+   "simples": [
+    "Isto vem de reportagens: a chefia da NVIDIA e a ação da Anthropic tiveram uma semana agitada.",
+    "O chefe da NVIDIA, Jensen Huang, voltou ao cargo em 23/11.",
+    "Dois dias depois, o vice-presidente dos EUA disse que ouviu do governo que Huang não é investigado.",
+    "A ação da Anthropic fechou perto de US$ 81 em 24/11, abaixo dos US$ 83 do lançamento na bolsa.",
+    "Na bolsa de valores, investidores compram e vendem pequenos pedaços de empresas."
+   ],
+   "refs": [
+    "nvidia-huang-vance-doj",
+    "anthropic-acao-abaixo-ipo",
+    "marcus-sai-do-x"
+   ],
+   "fontes": [
+    "https://www.cnbc.com/2026/11/25/vance-jensen-huang-nvidia-doj-investigation.html",
+    "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors",
+    "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director",
+    "https://www.cnbc.com/2026/11/19/anthropic-ipo-ant-live-updates.html",
+    "https://fool.com/investing/2026/11/26/anthropic-stock-fell-below-its-ipo-price-is-it-a-buy-or-is-more-downside-just-ahead",
+    "https://x.com/GaryMarcus/status/2125998651504029792",
+    "https://x.com/GaryMarcus/status/2125997210185998668",
+    "https://garymarcus.substack.com/feed"
+   ]
+  },
+  {
+   "id": "fcc-aprova-constelacao-starmind",
+   "titulo": "FCC dá aval condicional para constelação Starmind de até 1 milhão de satélites",
+   "chamada": "Órgão americano libera com condições o projeto da SpaceX de satélites de computação, com prazos longos. O plano para lixo espacial ainda não foi aprovado.",
+   "corpo": [
+    "O Space Bureau da FCC deu aprovação condicional em 25/11 à constelação Starmind, da SpaceX. O projeto prevê até 1 milhão de satélites de computação, entre 500 e 1.002 quilômetros de altitude. Uma frase de Brendan Carr citada sobre o projeto diz que ele \"opens a bold new frontier for the computing infrastructure needed to power America's leadership and growth.\" (Tradução: \"abre uma nova e ousada fronteira para a infraestrutura de computação necessária para impulsionar a liderança e o crescimento da América.\") É fato que a frase foi dita, mas o conteúdo é a opinião dele.",
+    "A autorização impõe prazos longos: a SpaceX tem sete anos para pôr o primeiro satélite operacional em órbita e catorze anos para a constelação inteira. O plano de detritos espaciais acima de 600 quilômetros ainda não foi aprovado.",
+    "Amazon, Viasat e a American Astronomical Society se opuseram ao pedido. A Amazon chamou a proposta de \"lofty ambition rather than a real plan\". Dentro da janela desta edição não houve ato novo: Carr só postou mensagens de Thanksgiving. A ordem (DA 26-1273, segundo a imprensa) não foi aberta nesta rodada."
+   ],
+   "status": "fato",
+   "por_que_importa": "O projeto quer levar computação para a órbita, mas o horizonte é longo: 7 anos para o primeiro satélite e 14 para a constelação inteira. A aprovação tem condições, o plano de detritos ainda está pendente e houve oposição de concorrentes e de astrônomos.",
+   "simples": [
+    "O órgão americano de comunicações deu um aval com condições para um projeto da SpaceX.",
+    "O plano prevê até um milhão de satélites de computação em volta da Terra.",
+    "A empresa tem sete anos para lançar o primeiro e catorze para montar tudo.",
+    "O plano contra lixo espacial ainda não foi aprovado. Amazon, Viasat e um grupo de astrônomos foram contra."
+   ],
+   "refs": [
+    "fcc-starmind-sem-novidade"
+   ],
+   "fontes": [
+    "https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan-to-put-ai-data-centers-in-space/",
+    "https://docs.fcc.gov/public/attachments/DA-26-1273A1.pdf",
+    "https://x.com/BrendanCarrFCC/status/2125938615511646279"
+   ]
+  },
+  {
+   "id": "fadiga-do-texto-generico-de-ia",
+   "titulo": "Críticas ao texto padronizado de IA e otimismo com ajuda personalizada",
+   "chamada": "Simon Willison republica uma crítica à perda de estilo próprio causada pela IA. Ethan Mollick, por sua vez, vê chance de oferecer ajuda personalizada barata a qualquer pessoa com celular. As duas posições são opiniões.",
+   "corpo": [
+    "Em 26/11, Simon Willison republicou no blog dele um trecho de Jack Despain Zhou, do texto 'Spitting in the Face of Glaude'. A frase é de Zhou, não de Willison: \"Among the many already existing effects of AI has been a great de-individualization.\" (Tradução: \"Entre os muitos efeitos já existentes da IA está uma grande desindividualização.\") Trata-se de opinião. O texto argumenta que o estilo de escrita do Claude já aparece em vídeos, palestras e e-mails de prospecção. Às 14:03 do mesmo dia, Willison reclamou no X de e-mails que abrem resumindo um post dele e disse que eles \"are so depressing\" (são deprimentes).",
+    "Ethan Mollick, da Wharton, publicou no X às 23:32 de 26/11 a opinião de que problemas difíceis de educação, saúde e desenvolvimento podem ter ficado tratáveis e que falta ambição para atacá-los. Ele escreveu: \"We have the ability to cheaply provide the equivalent of very good personalized human help in any language to anyone with a cellphone.\" (Tradução: \"Temos a capacidade de oferecer, de forma barata, o equivalente a uma ajuda humana personalizada muito boa em qualquer idioma para qualquer pessoa com um celular.\") A única fonte é o post dele.",
+    "Também em 26/11, Greg Brockman, da OpenAI, divulgou no X uma demonstração do GPT-6.2 gerando aulas interativas de história, com o texto: \"GPT-6.2 for interactive lessons for history class:\" (Tradução: \"GPT-6.2 para aulas interativas de história:\"). É informação da própria empresa. O post traz só um link, e o feed oficial da OpenAI não tem publicação correspondente. O item mais recente do feed é de 24/11."
+   ],
+   "status": "opinião",
+   "por_que_importa": "Para quem usa IA para produzir conteúdo e e-mails de prospecção, as críticas de Zhou e Willison mostram que o texto genérico já é reconhecido e pode ser rejeitado. Mollick, por outro lado, acha que a IA pode servir como ajuda personalizada barata em educação, saúde e desenvolvimento. Nos dois casos, são opiniões.",
+   "simples": [
+    "Esta história junta opiniões de especialistas e uma divulgação da OpenAI.",
+    "Na opinião de um autor citado por Simon Willison, o jeito de escrever do Claude já aparece em vídeos, palestras e e-mails.",
+    "Ethan Mollick acha que já dá para oferecer ajuda personalizada e barata a qualquer pessoa com celular.",
+    "Segundo a própria OpenAI, o GPT-6.2 consegue criar aulas interativas de história. A empresa só postou um link."
+   ],
+   "refs": [
+    "willison-desindividualizacao",
+    "mollick-ajuda-personalizada",
+    "brockman-gpt62-aulas"
+   ],
+   "fontes": [
+    "https://simonwillison.net/2026/Nov/26/jack-despain-zhou/",
+    "https://x.com/simonw/status/2125998873252605954",
+    "https://x.com/emollick/status/2126142028060795261",
+    "https://www.oneusefulthing.org/feed",
+    "https://x.com/gdb/status/2126017271114195036",
+    "https://openai.com/news/rss.xml"
+   ]
+  }
+ ],
+ "quem_falou": [
+  {
+   "pessoa": "Sam Altman",
+   "citacao_original": "Ven was one of the earliest believers that we could use our then-current model to solve millenium prize problems.",
+   "traducao": "Ven foi um dos primeiros a acreditar que poderíamos usar nosso modelo daquela época para resolver problemas do prêmio do milênio.",
+   "etiqueta": "opinião",
+   "link": "https://x.com/sama/status/2125990371897557278",
+   "contexto": "Elogio público a Venkatesa Chandrasekaran no X, em 26/11, um dia depois do preprint de gravidade quântica feito com GPT-6 Astra. O post não afirma que algum problema do milênio foi resolvido pelo paper de Ven."
+  },
+  {
+   "pessoa": "Scott Aaronson",
+   "citacao_original": "I now feel in my bones, for the first time ever, that a proof of P ≠ NP is not far.",
+   "traducao": "Agora sinto nos ossos, pela primeira vez na vida, que uma prova de P ≠ NP não está longe.",
+   "etiqueta": "opinião",
+   "link": "https://scottaaronson.blog/?p=10379",
+   "contexto": "Post de 25/11 no blog dele, com atualizações em 26/11. É fato que ele escreveu isso, mas o conteúdo é a opinião dele. Ele aposta em P ≠ NP, o oposto do boato de P = NP que circula no X."
+  },
+  {
+   "pessoa": "Jack Despain Zhou (republicado por Simon Willison)",
+   "citacao_original": "Among the many already existing effects of AI has been a great de-individualization.",
+   "traducao": "Entre os muitos efeitos já existentes da IA está uma grande desindividualização.",
+   "etiqueta": "opinião",
+   "link": "https://simonwillison.net/2026/Nov/26/jack-despain-zhou/",
+   "contexto": "Trecho de Jack Despain Zhou republicado por Simon Willison no blog em 26/11. A frase é de Zhou, não de Willison. O argumento é que o estilo de texto do Claude já aparece em vídeos, palestras e e-mails de prospecção."
+  },
+  {
+   "pessoa": "Ethan Mollick",
+   "citacao_original": "We have the ability to cheaply provide the equivalent of very good personalized human help in any language to anyone with a cellphone.",
+   "traducao": "Temos a capacidade de oferecer, de forma barata, o equivalente a uma ajuda humana personalizada muito boa em qualquer idioma para qualquer pessoa com um celular.",
+   "etiqueta": "opinião",
+   "link": "https://x.com/emollick/status/2126142028060795261",
+   "contexto": "Post no X em 26/11. Mollick diz que problemas difíceis de educação, saúde e desenvolvimento podem ter ficado tratáveis e que falta ambição para atacá-los."
+  },
+  {
+   "pessoa": "Gary Marcus",
+   "citacao_original": "Saying it contains garbage and isn't elegant is not the same as saying it is incorrect.",
+   "traducao": "Dizer que contém lixo e não é elegante não é a mesma coisa que dizer que está incorreto.",
+   "etiqueta": "relato pessoal",
+   "link": "https://x.com/GaryMarcus/status/2125997210185998668",
+   "contexto": "Post no X em 26/11. Marcus reclamou de ser citado como se negasse a prova da Hipótese de Riemann e disse que criticou a elegância, não a correção. Minutos depois anunciou que sai do X, pelo menos por um tempo, e fica só no Substack."
+  },
+  {
+   "pessoa": "Brendan Carr",
+   "citacao_original": "opens a bold new frontier for the computing infrastructure needed to power America's leadership and growth.",
+   "traducao": "abre uma nova e ousada fronteira para a infraestrutura de computação necessária para impulsionar a liderança e o crescimento dos Estados Unidos.",
+   "etiqueta": "opinião",
+   "link": "https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan-to-put-ai-data-centers-in-space/",
+   "contexto": "Frase sobre a aprovação condicional, dada em 25/11 pelo Space Bureau da FCC, à constelação Starmind da SpaceX, com até 1 milhão de satélites de computação. A aprovação é fato. A frase é a avaliação de Carr."
+  }
+ ],
+ "fixos": {
+  "chatgpt_business": {
+   "alerta": false,
+   "texto": "Sem mudança desde 19/11/2026. Segundo as páginas da OpenAI, e-commerces e serviços online fora dos EUA podem reivindicar o negócio e publicar agentes. Lojas físicas e restaurantes só podem reivindicar uma listagem que já existe nos EUA. Nenhuma das páginas cita o Brasil nem traz lista de países, e o texto principal do anúncio ainda fala em Business Agents nos EUA."
+  },
+  "meta_whatsapp": "Sem mudança de preço ou regra em novembro. A tabela vale desde 01/10/2026, com cobrança por mensagem entregue, por categoria. Há uma franquia de 1.000 mensagens de serviço por mês por número, sem acúmulo (esse detalhe vem de um resumo da página). Mudanças de tarifa só entram em 1º de janeiro, abril, julho ou outubro, com pelo menos um mês de aviso. Por isso, vale checar de novo perto de 01/12/2026 para saber se haverá mudança em janeiro. No Brasil, contas elegíveis precisam migrar para faturamento em reais até 30/06/2027. A partir de 01/07/2027, a Meta deixará de entregar mensagens de contas elegíveis que não faturam em BRL.",
+  "china": "Reportagem da Reuters com fontes anônimas, sem resposta oficial das empresas, diz que a falta de acesso a computação e as barreiras anti-destilação da OpenAI e da Anthropic podem atrasar dois modelos. O GLM-5.5 da Z.AI pode ficar para o 1º trimestre de 2027 ou depois, e o Kimi K4 da Moonshot para o meio do ano que vem. No mesmo dia, a Moonshot abriu o programa Kimi for Science, com créditos gratuitos de API para pesquisa (segundo a empresa). A imprensa fala em até 150 mil yuans, cerca de US$ 20 mil. Na madrugada de 27/11, a coleta registrou pushes da DeepSeek em cinco repositórios de infraestrutura, incluindo o DeepEP-Ascend, voltado a chips Huawei Ascend. QwenLM/qwen-code e MoonshotAI/kimi-code também receberam pushes.",
+  "varejo": "Na janela, não foi encontrado nenhum lançamento de busca em catálogo, cotação automática ou orçamento por WhatsApp para o varejo. Como referência, a página de preços da Meta lista o Meta Business Agent a US$ 2,00 por milhão de tokens desde 01/07/2026. Segundo o Olhar Digital, o Business AI do WhatsApp Business chegou ao Brasil em 24/02/2026, com recomendação de produtos do Catálogo. No exemplo da Meta para 10.000 mensagens de IA no Brasil, a conta usa 0,68 centavo por mensagem de utilidade ou autenticação."
+ },
+ "edition_date": "2026-11-27",
+ "arquivo_url": "../",
+ "tema_visual": {
+  "nome": "Cone de Luz em Preprint",
+  "conceito": "A página imita um preprint de física teórica impresso em papel creme, com diagramas de cone de luz e de Penrose como base gráfica. A tinta azul-noite e o vermelho de correção de revisor mostram a distância entre o que já foi publicado e o que ainda falta verificar.",
+  "paleta": {
+   "bg": "#F3F0E8",
+   "surface": "#FBF9F4",
+   "surface2": "#E9E4D8",
+   "text": "#1A1A2E",
+   "muted": "#4A4A5E",
+   "accent": "#B3261E",
+   "accent2": "#1F4E8C",
+   "border": "#CFC7B5"
+  },
+  "tipografia": {
+   "titulo": "Didot, \"Bodoni 72\", \"Times New Roman\", serif",
+   "corpo": "\"Iowan Old Style\", Palatino, Georgia, serif",
+   "mono": "\"SF Mono\", Menlo, ui-monospace, monospace"
+  },
+  "layout": {
+   "estilo": "preprint",
+   "descricao": "Artigo científico em duas colunas no desktop e uma no celular, com margens largas. Na margem esquerda corre na vertical um identificador em mono no estilo arXiv (ex.: radar:2611.27v1). A capa funciona como cabeçalho de paper: manchete centralizada em Didot, linha de 'autores' com as fontes e um bloco 'Abstract' com moldura fina, onde ficam o subtítulo e o Fio do dia. As seções são numeradas (§1, §2...) com versalete. Cada cartão de história é um parágrafo numerado como equação, com o número (1), (2) alinhado à direita. O status aparece entre colchetes em mono e vermelho ([preprint], [rumor], [segundo a empresa]), e as fontes vão em notas de rodapé sobrescritas. Entre as seções há réguas diagonais a 45° que cruzam e formam um pequeno cone de luz. A linha do tempo é um eixo vertical t com marcas, e 'Quem falou' vira uma coluna de citações recuadas com fio lateral azul. A densidade é média-alta, com muito respiro de margem e nada de cartões com sombra.",
+   "ordem_secoes": [
+    "capa",
+    "fio_do_dia",
+    "em_3_linhas",
+    "historias",
+    "quem_falou",
+    "linha_do_tempo",
+    "quem_ta_fazendo",
+    "fixos"
+   ]
+  },
+  "imagens": {
+   "estilo": "Precise scientific ink line art on warm cream paper (#F3F0E8), depicting light cones, null geodesics, Penrose conformal diagrams and abstract algebraic lattices drawn in deep navy ink (#1A1A2E) and steel blue (#1F4E8C), with sparse vermilion (#B3261E) annotation marks like a referee's corrections. The look of a hand-plotted 1970s physics journal figure, with fine hatching, subtle paper grain and generous negative space. No text, no letters or equations, no logos, no human faces."
+  }
+ },
+ "imagens": {
+  "capa": "img/capa.jpg",
+  "gravidade-quantica-gpt6-astra": "img/gravidade-quantica-gpt6-astra.jpg",
+  "rumor-p-igual-np-e-provas": "img/rumor-p-igual-np-e-provas.jpg",
+  "china-chips-e-atraso-modelos": "img/china-chips-e-atraso-modelos.jpg",
+  "trainium3-versus-nvidia-rubin": "img/trainium3-versus-nvidia-rubin.jpg",
+  "nvidia-huang-e-acao-anthropic": "img/nvidia-huang-e-acao-anthropic.jpg",
+  "fcc-aprova-constelacao-starmind": "img/fcc-aprova-constelacao-starmind.jpg",
+  "fadiga-do-texto-generico-de-ia": "img/fadiga-do-texto-generico-de-ia.jpg"
+ },
+ "gerado_em": "27/11/2026 07:55 (horário de Brasília)"
+}

@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F3F0E8">
+<meta name="color-scheme" content="light">
+<title>Radar dos bastidores</title>
+<style>
+:root{
+  --bg:#F3F0E8;--surface:#FBF9F4;--surface2:#E9E4D8;--text:#1A1A2E;--muted:#4A4A5E;
+  --accent:#B3261E;--accent2:#1F4E8C;--border:#CFC7B5;
+  --f-titulo:Didot,"Bodoni 72","Times New Roman",serif;
+  --f-corpo:"Iowan Old Style",Palatino,Georgia,serif;
+  --f-mono:"SF Mono",Menlo,ui-monospace,monospace;
+  --st-fato:var(--accent2);--st-segundo:#7A5418;--st-rep:#2E6B5E;--st-rumor:var(--accent);--st-neutro:var(--muted);
+  --tab-w:34px;--nav-h:58px;
+}
+@supports (color:color-mix(in srgb,red,blue)){
+  :root{--st-segundo:color-mix(in srgb,#8A5A14 80%,var(--text));--st-rep:color-mix(in srgb,#2F7262 80%,var(--text))}
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;background:var(--bg)}
+body{
+  margin:0;color:var(--text);font-family:var(--f-corpo);font-size:18px;line-height:1.62;
+  background-color:var(--bg);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .16  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  padding-bottom:calc(var(--nav-h) + 36px + env(safe-area-inset-bottom));
+  overflow-wrap:break-word;
+}
+::selection{background:color-mix(in srgb,var(--accent2) 22%,transparent)}
+a{color:var(--accent2);text-decoration-thickness:1px;text-underline-offset:3px;transition:color .2s,text-decoration-color .2s}
+a:hover{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--text);color:var(--surface);padding:8px 12px;font-family:var(--f-mono);font-size:13px;z-index:2000}
+.skip:focus{top:12px}
+
+.paper{max-width:1100px;margin:0 auto;padding:0 calc(var(--tab-w) + 10px) 0 18px;overflow-x:clip}
+@media (min-width:900px){.paper{padding:0 calc(var(--tab-w) + 56px) 0 120px}}
+
+/* arXiv-like vertical identifier */
+.arxiv{display:none}
+@media (min-width:900px){
+  .arxiv{display:block;position:fixed;left:30px;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;
+    font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;color:var(--muted);white-space:nowrap;z-index:5;pointer-events:none}
+  .arxiv b{color:var(--accent);font-weight:500}
+}
+
+/* ---------- capa ---------- */
+.capa{padding:22px 0 6px;text-align:center}
+.capa-meta{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 14px;font-family:var(--f-mono);font-size:12px;color:var(--muted);
+  border-bottom:1px solid var(--text);padding-bottom:8px;letter-spacing:.02em;text-align:left}
+.capa-meta .rev{color:var(--accent)}
+.capa-meta2{border-top:1px solid var(--border);margin-top:3px;height:0}
+.kicker{margin:26px 0 0;font-variant:small-caps;letter-spacing:.16em;font-size:15px;color:var(--muted)}
+.manchete{font-family:var(--f-titulo);font-weight:400;font-size:clamp(31px,7.4vw,62px);line-height:1.07;letter-spacing:-.005em;margin:.35em auto .45em;max-width:20ch;text-wrap:balance}
+.autores{font-variant:small-caps;letter-spacing:.05em;font-size:16px;margin:0 auto;max-width:60ch;line-height:1.5}
+.autores sup{font-family:var(--f-mono);font-size:10px;color:var(--accent2);margin-left:1px}
+.afil{font-style:italic;font-size:14px;color:var(--muted);margin:6px auto 0;max-width:60ch}
+.datas{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);margin:16px 0 0;letter-spacing:.02em}
+.datas span{white-space:nowrap}
+.datas .sep{color:var(--border);margin:0 .5em}
+.subtitulo{font-size:clamp(18px,2.4vw,21px);font-style:italic;line-height:1.5;max-width:54ch;margin:22px auto 0;color:var(--text);text-wrap:pretty}
+.capa .figw{margin:28px 0 0}
+.capa .fig-box{aspect-ratio:16/10}
+@media (min-width:760px){.capa .fig-box{aspect-ratio:21/9}}
+
+/* figures */
+.figw{margin:0}
+.fig-box{position:relative;overflow:hidden;border:1px solid var(--border);background:var(--surface)}
+.fig-box .art{position:absolute;inset:0;width:100%;height:100%;display:block}
+.fig-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .6s ease}
+.fig-box.has-img img{opacity:1}
+.figw figcaption{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);text-align:left;margin-top:6px;letter-spacing:.02em}
+.figw figcaption b{color:var(--text);font-weight:600}
+.art .bgp{fill:var(--surface)}
+.art .grid line{stroke:var(--border);stroke-width:.45}
+.art .ink{stroke:var(--text);stroke-width:1.3;fill:none;stroke-linecap:round}
+.art .steel{stroke:var(--accent2);stroke-width:.8;fill:none}
+.art .dash{stroke-dasharray:3 3}
+.art .red{stroke:var(--accent);stroke-width:1.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.art .redf{fill:var(--accent)}
+.art .knot{fill:var(--surface);stroke:var(--text);stroke-width:1.1}
+.art .hl{stroke:var(--accent2);stroke-width:.7}
+.art .dot{fill:var(--border)}
+
+/* ---------- cone separators ---------- */
+.cone{display:flex;align-items:center;margin:46px 0 38px;color:var(--muted)}
+.cone::before,.cone::after{content:"";flex:1;height:1px;background:var(--border)}
+.cone svg{flex:none;width:96px;height:48px;overflow:visible}
+.cone .c-l{stroke:var(--text);stroke-width:1;fill:none}
+.cone .c-e{stroke:var(--accent2);stroke-width:.8;fill:none;stroke-dasharray:2 2.5}
+.cone .c-p{fill:var(--accent);transform-origin:48px 24px;transition:transform .4s}
+.cone:hover .c-p{transform:scale(1.6)}
+
+/* ---------- sections ---------- */
+.sec{scroll-margin-top:14px}
+.sec-h{display:flex;align-items:baseline;flex-wrap:wrap;gap:.2em .6em;margin:0 0 20px;border-bottom:1px solid var(--border);padding-bottom:8px}
+.sec-h h2{margin:0;font-family:var(--f-corpo);font-weight:600;font-variant:small-caps;letter-spacing:.07em;font-size:clamp(22px,3vw,27px);line-height:1.2}
+.sec-n{font-family:var(--f-titulo);font-size:clamp(24px,3.2vw,30px);color:var(--accent2);line-height:1}
+.sec-k{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-left:auto;letter-spacing:.04em}
+.vazio{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+
+/* fio do dia = abstract */
+.abstract{position:relative;border:1px solid var(--text);background:var(--surface);padding:30px 20px 18px;margin-top:34px}
+.abstract::before{content:"";position:absolute;inset:4px;border:1px solid var(--border);pointer-events:none}
+.abs-h{position:absolute;top:0;left:50%;transform:translate(-50%,-55%);background:var(--bg);padding:0 14px;display:flex;align-items:baseline;gap:.5em;white-space:nowrap}
+.abs-h h2{margin:0;font-weight:600;font-variant:small-caps;letter-spacing:.12em;font-size:20px}
+.abs-h .sec-n{font-size:22px}
+.abs-h .sec-k{margin:0}
+.fio p{margin:0 0 .9em;text-wrap:pretty;hyphens:auto;-webkit-hyphens:auto}
+.fio p:first-child::first-letter{font-family:var(--f-titulo);float:left;font-size:3.3em;line-height:.82;padding:.06em .08em 0 0;color:var(--accent2)}
+@media (min-width:700px){.abstract{padding:36px 38px 22px}.fio p{text-align:justify}}
+@media (min-width:1000px){.fio{column-count:2;column-gap:44px;column-rule:1px solid var(--border)}.fio p{break-inside:avoid-column}}
+
+/* em 3 linhas */
+.props{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.props li{display:grid;grid-template-columns:2.6em minmax(0,1fr);gap:0 6px}
+.props .rn{font-family:var(--f-mono);font-size:14px;color:var(--accent);padding-top:.25em}
+.props p{margin:0;text-wrap:pretty}
+@media (min-width:1000px){.props{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}.props li{grid-template-columns:1fr;border-top:1px solid var(--text);padding-top:10px}}
+
+/* stamps */
+.stamps{display:inline-flex;flex-wrap:wrap;gap:6px;vertical-align:middle}
+.stamp{--c:var(--st-neutro);font-family:var(--f-mono);font-size:12px;line-height:1.35;letter-spacing:.01em;color:var(--c);padding:2px 5px 1px;white-space:nowrap;
+  background:color-mix(in srgb,var(--c) 9%,transparent);border-bottom:1px solid var(--c)}
+.stamp::before{content:"["}.stamp::after{content:"]"}
+.st-fato{--c:var(--st-fato);border-bottom-style:double;border-bottom-width:3px}
+.st-segundo{--c:var(--st-segundo)}
+.st-rep{--c:var(--st-rep)}
+.st-rumor{--c:var(--st-rumor);border-bottom-style:dashed}
+.st-neutro{--c:var(--st-neutro);border-bottom-style:dotted}
+.legenda{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:13px;color:var(--muted);margin:0 0 6px}
+.legenda .lt{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;margin-right:2px}
+
+/* buttons */
+.btn{font-family:var(--f-mono);font-size:13px;letter-spacing:.01em;background:transparent;color:var(--accent2);border:1px solid currentColor;border-radius:0;
+  padding:9px 13px;min-height:42px;cursor:pointer;transition:background .2s,color .2s;-webkit-tap-highlight-color:transparent}
+.btn:hover{background:color-mix(in srgb,var(--accent2) 9%,transparent)}
+.btn[aria-expanded="true"]{background:var(--accent2);color:var(--surface)}
+.btn-explica{color:var(--accent)}
+.btn-explica:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.btn-explica[aria-expanded="true"]{background:var(--accent);color:var(--surface)}
+.btn-explica::before{content:"✎ "}
+.btn-more::after{content:" ▾";display:inline-block;transition:transform .25s}
+.btn-more[aria-expanded="true"]::after{transform:rotate(180deg)}
+
+/* historias */
+.hist-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+.eq{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:14px;padding:28px 0 26px;border-top:1px solid var(--border);scroll-margin-top:14px;position:relative}
+.eq:first-of-type{border-top:1px solid var(--text)}
+.eq-main{grid-column:1;grid-row:1;min-width:0;display:flow-root}
+.eq-no{grid-column:2;grid-row:1;font-family:var(--f-titulo);font-size:24px;color:var(--muted);padding-top:2px;transition:color .3s}
+.eq-title{font-family:var(--f-titulo);font-weight:400;font-size:clamp(24px,3.6vw,33px);line-height:1.14;margin:10px 0 12px;text-wrap:balance}
+.eq .figw{margin:4px 0 16px}
+.eq .fig-box{aspect-ratio:4/3}
+@media (min-width:760px){.eq .figw{float:right;width:42%;margin:6px 0 14px 26px}}
+.eq-lede{margin:0 0 16px;font-size:1.04em;text-wrap:pretty}
+.eq-lede sup{font-family:var(--f-mono);font-size:11px;line-height:0;margin-left:1px}
+.eq-lede sup a{text-decoration:none;padding:0 1px}
+.eq-actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 4px}
+.simples-box{margin:16px 0 4px;border-left:2px solid var(--accent);background:var(--surface);padding:14px 16px 10px;animation:rise .3s ease}
+.sb-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-bottom:8px}
+.sb-l{font-variant:small-caps;letter-spacing:.08em;font-size:14px;color:var(--muted)}
+.simples-box ul{margin:0;padding-left:1.1em}
+.simples-box li{margin:0 0 .45em}
+.simples-box li::marker{color:var(--accent)}
+.eq-body{margin-top:18px;animation:rise .35s ease}
+.eq-body>p{margin:0 0 .9em;hyphens:auto;-webkit-hyphens:auto}
+@media (min-width:700px){.eq-body>p{text-align:justify}}
+.remark{margin:18px 0;padding:12px 0 12px 16px;border-left:1px solid var(--accent2);font-style:italic}
+.remark b{font-style:normal;font-variant:small-caps;letter-spacing:.06em;color:var(--accent2);margin-right:.35em}
+.refs h4{margin:18px 0 6px;font-variant:small-caps;letter-spacing:.1em;font-size:15px;font-weight:600}
+.refs ol{list-style:none;margin:0;padding:0;font-size:14px}
+.refs li{display:grid;grid-template-columns:2.4em minmax(0,1fr);border-top:1px dotted var(--border);padding:5px 0;scroll-margin-top:80px}
+.refs li:target,.refs li.lit{background:color-mix(in srgb,var(--accent2) 8%,transparent)}
+.refs .fn{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.refs a{font-family:var(--f-mono);font-size:12.5px;overflow-wrap:anywhere}
+.eq.hit{outline:1px dashed var(--accent);outline-offset:8px;animation:hit 2.6s ease}
+.eq.hit .eq-no{color:var(--accent)}
+@keyframes hit{0%{background:color-mix(in srgb,var(--accent) 11%,transparent)}100%{background:transparent}}
+@keyframes rise{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* quem falou */
+.quotes{display:grid;gap:30px;max-width:74ch}
+@media (min-width:900px){.quotes{margin-left:40px}}
+.q{margin:0;padding:2px 0 2px 20px;border-left:2px solid var(--accent2)}
+.q blockquote{margin:0;font-size:clamp(19px,2.3vw,22px);line-height:1.45;font-style:italic;position:relative}
+.q blockquote p{margin:0}
+.q blockquote p::before{content:"“";font-family:var(--f-titulo);color:var(--accent2);margin-right:.08em}
+.q blockquote p::after{content:"”";font-family:var(--f-titulo);color:var(--accent2);margin-left:.04em}
+.q figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:10px}
+.q-p{font-variant:small-caps;letter-spacing:.07em;font-weight:600}
+.q-p::before{content:"— ";font-weight:400;color:var(--muted)}
+.q-ctrl{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px}
+.seg{display:inline-flex;border:1px solid var(--accent2)}
+.seg button{font-family:var(--f-mono);font-size:12px;background:transparent;color:var(--accent2);border:0;padding:7px 11px;min-height:36px;cursor:pointer;transition:background .2s,color .2s}
+.seg button+button{border-left:1px solid var(--accent2)}
+.seg button[aria-pressed="true"]{background:var(--accent2);color:var(--surface)}
+.q-link{font-family:var(--f-mono);font-size:12.5px}
+.q-ctx{font-size:15px;color:var(--muted);margin:10px 0 0;line-height:1.55}
+
+/* linha do tempo */
+.tl{position:relative;list-style:none;margin:0;padding:34px 0 26px 52px}
+.tl::before{content:"";position:absolute;left:20px;top:12px;bottom:6px;width:1px;background:var(--text)}
+.tl::after{content:"";position:absolute;left:15.5px;bottom:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:9px solid var(--text)}
+.tl-axis{position:absolute;left:8px;top:-8px;font-family:var(--f-titulo);font-style:italic;font-size:24px;line-height:1;color:var(--text)}
+.tl-axis small{font-family:var(--f-mono);font-style:normal;font-size:11px;color:var(--muted);margin-left:12px;letter-spacing:.04em}
+.tl-i{position:relative;margin:0 0 6px}
+.tl-i::before{content:"";position:absolute;left:-38px;top:1.05em;width:13px;height:1px;background:var(--text)}
+.tl-i::after{content:"";position:absolute;left:-36px;top:calc(1.05em - 4px);width:7px;height:7px;border-radius:50%;background:var(--surface);border:1px solid var(--text);transition:background .2s,transform .2s}
+.tl-i.ok::after{border-color:var(--accent)}
+.tl-i.ok:hover::after,.tl-i.ok:focus-within::after{background:var(--accent);transform:scale(1.3)}
+.tl-b{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;width:100%;text-align:left;font:inherit;color:inherit;background:transparent;border:0;border-bottom:1px dashed var(--border);padding:8px 6px 12px 0;cursor:default}
+button.tl-b{cursor:pointer;transition:background .2s}
+button.tl-b:hover{background:color-mix(in srgb,var(--accent2) 6%,transparent)}
+.tl-q{font-family:var(--f-mono);font-size:13px;color:var(--accent2);letter-spacing:.02em}
+.tl-t{font-size:17px;line-height:1.5}
+.tl-r{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+.tl-r.nota{color:var(--muted)}
+@media (min-width:900px){.tl{padding-left:64px}.tl::before{left:26px}.tl::after{left:21.5px}.tl-axis{left:14px}.tl-i::before{left:-38px;width:12px}.tl-b{grid-template-columns:9.5em minmax(0,1fr) auto;gap:16px;align-items:baseline}}
+
+/* quem tá fazendo */
+.labs{display:grid;gap:0}
+@media (min-width:820px){.labs{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:36px}}
+.lab{border-top:1px solid var(--text);padding:14px 0 20px}
+.lab-h{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 12px}
+.lab-h h3{margin:0;font-family:var(--f-titulo);font-weight:400;font-size:26px;line-height:1.1}
+.lab p{margin:8px 0 0;font-size:16.5px;line-height:1.58}
+.lab-refs{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.lab-refs a{margin-right:6px}
+
+/* fixos */
+.alerta{display:flex;gap:12px;align-items:flex-start;background:var(--accent);color:var(--surface);padding:14px 16px;margin:0 0 22px;border:1px solid var(--text)}
+.alerta .ic{font-size:22px;line-height:1.2}
+.alerta b{display:block;font-family:var(--f-mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.alerta span{font-size:15.5px}
+.apx{display:grid;gap:24px}
+@media (min-width:820px){.apx{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 36px}}
+.ap{border-top:1px solid var(--border);padding-top:10px}
+.ap h3{margin:0 0 6px;font-variant:small-caps;letter-spacing:.07em;font-size:18px;font-weight:600}
+.ap h3 .al{font-family:var(--f-titulo);font-variant:normal;letter-spacing:0;color:var(--accent2);margin-right:.35em;font-size:20px}
+.ap p{margin:0;font-size:15.5px;line-height:1.6;color:var(--text)}
+.ap.on{border-top:2px solid var(--accent)}
+
+/* créditos */
+.creditos{margin-top:60px;border-top:3px double var(--text);padding:16px 0 10px;font-family:var(--f-mono);font-size:12.5px;color:var(--muted);line-height:1.7}
+.creditos p{margin:0 0 4px}
+.creditos .tt{font-family:var(--f-titulo);font-size:20px;color:var(--text);letter-spacing:.01em}
+
+/* tab bar */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:900;background:var(--surface);border-top:1px solid var(--text);padding-bottom:env(safe-area-inset-bottom)}
+@supports (color:color-mix(in srgb,red,blue)){.tabbar{background:color-mix(in srgb,var(--surface) 93%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}}
+.tabbar::before{content:"";position:absolute;left:0;right:0;top:3px;height:1px;background:var(--border)}
+.tabbar ul{list-style:none;margin:0 auto;padding:0 4px;display:flex;max-width:720px}
+.tabbar li{flex:1;min-width:0}
+.tabbar a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:var(--nav-h);padding:8px 2px 6px;color:var(--muted);text-decoration:none;font-size:14.5px;line-height:1.15;transition:color .2s}
+.tabbar a::before{content:attr(data-sym);font-family:var(--f-mono);font-size:10.5px;color:var(--accent2);margin-bottom:2px}
+.tabbar a:hover{color:var(--text)}
+.tabbar a.is-on{color:var(--text);font-weight:600}
+.tabbar a::after{content:"";position:absolute;top:-1px;left:30%;right:30%;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .25s}
+.tabbar a.is-on::after{transform:scaleX(1)}
+
+/* resumo dock */
+.dock{position:fixed;right:0;top:calc(50% - 66px);width:var(--tab-w);height:132px;z-index:1000}
+.dock-tab{position:absolute;inset:0;z-index:2;width:100%;height:100%;writing-mode:vertical-rl;background:var(--text);color:var(--surface);border:1px solid var(--text);border-right:0;border-radius:3px 0 0 3px;
+  font-family:var(--f-mono);font-size:12.5px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,width .2s}
+.dock-tab::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.dock-tab:hover{background:var(--accent2)}
+.dock-tab[aria-expanded="true"]{background:var(--accent)}
+.dock-tab[aria-expanded="true"]::before{background:var(--surface)}
+.dock-drawer{position:fixed;top:0;bottom:0;right:0;z-index:1;width:min(430px,calc(100vw - 12px));background:var(--surface);border-left:1px solid var(--text);
+  overflow-y:auto;overscroll-behavior:contain;padding:26px calc(var(--tab-w) + 18px) calc(26px + env(safe-area-inset-bottom)) 22px;
+  opacity:0;transform:translateX(16px);transition:opacity .22s ease,transform .28s cubic-bezier(.2,.7,.2,1)}
+.dock-drawer.is-open{opacity:1;transform:none}
+.dock-drawer::before{content:"";position:absolute;top:0;bottom:0;left:4px;width:1px;background:var(--border)}
+.rs-k{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);letter-spacing:.06em;margin:0}
+.rs-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid var(--text);padding-bottom:10px;margin-bottom:6px}
+.rs-h h2{font-family:var(--f-titulo);font-weight:400;font-size:30px;line-height:1.1;margin:4px 0 0;outline:none}
+.rs-x{font-family:var(--f-mono);font-size:20px;line-height:1;background:transparent;border:1px solid var(--border);color:var(--text);width:40px;height:40px;cursor:pointer;flex:none}
+.rs-x:hover{border-color:var(--accent);color:var(--accent)}
+.rs-list{list-style:none;margin:0;padding:0;counter-reset:rs}
+.rs-list li{counter-increment:rs;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;padding:12px 0;border-bottom:1px dotted var(--border)}
+.rs-list li::after{content:"(" counter(rs) ")";grid-column:2;grid-row:1 / span 2;font-family:var(--f-titulo);color:var(--muted);font-size:17px}
+.rs-list .stamps{grid-column:1}
+.rs-list p{grid-column:1;margin:0;font-size:16.5px;line-height:1.5}
+.rs-foot{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin:14px 0 0}
+.backdrop{position:fixed;inset:0;z-index:990;background:rgba(26,26,46,.36);opacity:0;transition:opacity .22s}
+@supports (color:color-mix(in srgb,red,blue)){.backdrop{background:color-mix(in srgb,var(--text) 36%,transparent)}}
+.backdrop.is-open{opacity:1}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#fio-do-dia">Pular para o conteúdo</a>
+<div class="arxiv" id="arxiv" aria-hidden="true"></div>
+
+<div class="paper">
+  <header id="capa" class="capa"></header>
+
+  <main id="conteudo">
+    <section id="fio-do-dia" class="sec" aria-labelledby="t-fio">
+      <div class="abstract">
+        <header class="abs-h"><span class="sec-n">§1</span><h2 id="t-fio">Fio do dia</h2><span class="sec-k">abstract</span></header>
+        <div class="fio" data-fill="fio"></div>
+      </div>
+    </section>
+
+    <div class="cone" aria-hidden="true"></div>
+    <section id="em-3-linhas" class="sec" aria-labelledby="t-em3">
+      <header class="sec-h"><span class="sec-n">§2</span><h2 id="t-em3">Em 3 linhas</h2><span class="sec-k">resultados principais</span></header>
+      <div data-fill="em3"></div>
+    </section>
+
+    <div class="cone" aria-hidden="true"></div>
+    <section id="historias" class="sec" aria-labelledby="t-hist">
+      <header class="sec-h"><span class="sec-n">§3</span><h2 id="t-hist">Histórias</h2><span class="sec-k">resultados e alegações</span></header>
+      <div data-fill="historias"></div>
+    </section>
+
+    <div class="cone" aria-hidden="true"></div>
+    <section id="quem-falou" class="sec" aria-labelledby="t-falou">
+      <header class="sec-h"><span class="sec-n">§4</span><h2 id="t-falou">Quem falou</h2><span class="sec-k">citações</span></header>
+      <div data-fill="falou"></div>
+    </section>
+
+    <div class="cone" aria-hidden="true"></div>
+    <section id="linha-do-tempo" class="sec" aria-labelledby="t-tl">
+      <header class="sec-h"><span class="sec-n">§5</span><h2 id="t-tl">Linha do tempo</h2><span class="sec-k">eixo t · horário de Brasília</span></header>
+      <div data-fill="timeline"></div>
+    </section>
+
+    <div class="cone" aria-hidden="true"></div>
+    <section id="quem-ta-fazendo" class="sec" aria-labelledby="t-labs">
+      <header class="sec-h"><span class="sec-n">§6</span><h2 id="t-labs">Quem tá fazendo</h2><span class="sec-k">movimentos por laboratório</span></header>
+      <div data-fill="labs"></div>
+    </section>
+
+    <div class="cone" aria-hidden="true"></div>
+    <section id="fixos" class="sec" aria-labelledby="t-fixos">
+      <header class="sec-h"><span class="sec-n">§7</span><h2 id="t-fixos">Fixos</h2><span class="sec-k">apêndices permanentes</span></header>
+      <div data-fill="fixos"></div>
+    </section>
+  </main>
+
+  <footer class="creditos" id="creditos"></footer>
+</div>
+
+<nav id="tabbar" data-role="nav" class="tabbar" aria-label="Atalhos das seções">
+  <ul>
+    <li><a href="#fio-do-dia" data-sym="§1">Fio</a></li>
+    <li><a href="#historias" data-sym="§3">Histórias</a></li>
+    <li><a href="#quem-falou" data-sym="§4">Falas</a></li>
+    <li><a href="#linha-do-tempo" data-sym="§5">Linha</a></li>
+    <li><a href="#quem-ta-fazendo" data-sym="§6">Labs</a></li>
+  </ul>
+</nav>
+
+<div class="dock" data-role="resumo" id="resumo">
+  <button type="button" class="dock-tab" data-role="resumo-toggle" aria-expanded="false" aria-controls="resumo-gaveta">Resumo</button>
+  <div class="dock-drawer" id="resumo-gaveta" role="dialog" aria-labelledby="resumo-titulo" hidden>
+    <div class="rs-h">
+      <div>
+        <p class="rs-k">nota do revisor · leitura rápida</p>
+        <h2 id="resumo-titulo" tabindex="-1">Resumo simples</h2>
+      </div>
+      <button type="button" class="rs-x" aria-label="Fechar resumo">×</button>
+    </div>
+    <ol class="rs-list" id="rs-list"></ol>
+    <p class="rs-foot">Cada item traz o selo do seu grau de confirmação.</p>
+  </div>
+</div>
+<div class="backdrop" data-role="resumo-backdrop" hidden></div>
+
+<script id="edition" type="application/json">{"manchete": "Preprint de gravidade feito com IA segundo o autor, rumor de P = NP e aperto de chips sobre a China", "subtitulo": "No feriado americano de Thanksgiving, os bastidores da IA tiveram ciência ainda não revisada, uma disputa de custo entre chips e restrições dos EUA que também incluem o Brasil.", "fio_do_dia": ["O feriado de Thanksgiving nos Estados Unidos deixou a quinta-feira (26/11) fraca em anúncios oficiais e fechou as bolsas americanas. A coleta automática não registrou novos envios nos repositórios públicos de provas matemáticas da OpenAI, da Anthropic e do Google durante a janela. A conferência direta pela API do GitHub falhou, então esse dado vem só da coleta. Mesmo assim, houve movimento em três frentes: ciência, infraestrutura de chips e geopolítica.", "O assunto mais comentado começou com um preprint publicado no arXiv em 25/11 por Venkatesa Chandrasekaran, autor único. O texto propõe uma quantização algébrica da gravidade no vácuo em quatro dimensões, sem campos de matéria. O resumo no arXiv não menciona IA. Segundo relato do autor publicado pela Interesting Engineering, o trabalho usou cerca de 400 milhões de tokens do GPT-6 Astra ao longo de meses. O preprint não tem revisão por pares. Um post no X falou em 'maior problema em aberto da física resolvido', o que a fonte não sustenta. Sam Altman elogiou o pesquisador no X. É opinião dele, e o post não diz que o paper resolveu algum problema do milênio. Também circulou no X um rumor de prova de P = NP. Segundo checagens independentes, nenhum laboratório, paper ou repositório público afirma essa prova. Na opinião de Scott Aaronson, a prova que está perto é a de P ≠ NP, o oposto do rumor, e ele disse que não quer espalhar rumores não verificados.", "Na disputa por poder de computação, uma reportagem da Reuters com fontes anônimas diz que o GLM-5.5 da Z.AI e o Kimi K4 da Moonshot podem atrasar para 2027. Segundo essas fontes, as causas são a falta de acesso a computação e as barreiras anti-destilação da OpenAI e da Anthropic. As empresas não responderam oficialmente na matéria. A regra americana de acesso remoto a chips está em vigor desde 19/11. Ela também colocou o Brasil na lista de países que precisam de licença para chips avançados, com exceção para compradores com sede nos EUA. No mesmo dia da reportagem, a Moonshot anunciou créditos gratuitos de API no programa Kimi for Science (segundo a empresa). Na madrugada de 27/11, a coleta registrou pushes da DeepSeek em cinco repositórios de infraestrutura. Um deles é o DeepEP-Ascend, voltado a chips Huawei Ascend. O conteúdo dos commits não foi lido. Também houve um teste da Amazon. Segundo a submissão da própria empresa ao benchmark AgentX da SemiAnalysis, o Trainium3 rendeu no pico 2,28x mais desempenho por dólar que o NVIDIA GB300. A vantagem é de custo, não de velocidade. Horas depois, a SemiAnalysis postou que o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar do GB300.", "Na NVIDIA, Jensen Huang foi reconduzido ao cargo de CEO em 23/11. Segundo a CNBC, o vice-presidente americano Vance disse que o procurador-geral Todd Blanche lhe garantiu que Huang não está sob investigação. Já a Reuters, citada pela CNBC, diz que o Departamento de Justiça não fez investigação formal antes da volta dele. A Anthropic estreou na bolsa em 19/11 a US$ 83 por ação, segundo a CNBC. Em 24/11 a ação fechou perto de US$ 81, abaixo do preço do IPO, segundo o Motley Fool. No espaço, o Space Bureau da FCC deu aprovação condicional em 25/11 para até 1 milhão de satélites de computação da SpaceX. O plano de detritos acima de 600 km ainda não foi aprovado. Sobre o uso diário de IA, Simon Willison republicou um texto de Jack Despain Zhou que, na opinião do autor, aponta uma grande 'desindividualização' causada pela IA. Ethan Mollick, também em tom de opinião, disse que já é possível oferecer barato o equivalente a uma boa ajuda humana personalizada a qualquer pessoa com celular."], "resumo_simples": [{"texto": "Segundo o próprio autor, um estudo de física ainda sem revisão foi feito com ajuda de um modelo da OpenAI.", "selo": "segundo a empresa"}, {"texto": "É boato: circula nas redes que uma grande prova de matemática foi feita, mas nenhum laboratório afirma isso.", "selo": "rumor"}, {"texto": "Segundo reportagem, a falta de chips e regras de empresas americanas podem atrasar modelos de IA chineses. O Brasil também entrou na lista de países que precisam de licença para esses chips.", "selo": "reportagem"}, {"texto": "Segundo a Amazon, em um teste prévio, seu chip rende mais por dólar que um sistema da NVIDIA.", "selo": "segundo a empresa"}, {"texto": "Segundo a imprensa, o chefe da NVIDIA voltou ao cargo e a ação da Anthropic caiu abaixo do preço de estreia.", "selo": "reportagem"}, {"texto": "Um órgão do governo americano aprovou, com condições, satélites de computação da SpaceX.", "selo": "fato"}, {"texto": "É opinião: autores dizem que textos com o mesmo estilo de IA estão em todo lugar e desanimam quem recebe.", "selo": "opinião"}], "em_3_linhas": ["Preprint no arXiv propõe uma quantização algébrica da gravidade no vácuo e, segundo relato do autor, teve ajuda do GPT-6 Astra. Ele ainda não tem revisão por pares, e nenhum lab, paper ou repositório público afirma a prova de P = NP do rumor.", "Reportagem da Reuters com fontes anônimas diz que restrições de chips e barreiras anti-destilação podem atrasar a Z.AI e a Moonshot. A regra americana inclui o Brasil, e a DeepSeek teve pushes em repositórios, um deles voltado a chips Huawei Ascend.", "Segundo a submissão da própria Amazon ao AgentX, o Trainium3 teve vantagem de custo sobre o GB300. Depois, a SemiAnalysis postou que o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar do GB300."], "timeline": [{"quando": "25/11 15h58", "o_que": "Venkatesa Chandrasekaran publica no arXiv o preprint de quantização algébrica da gravidade no vácuo (2611.34924).", "ref": "gravidade-quantica-gpt6-astra"}, {"quando": "25/11 17h28", "o_que": "CNBC noticia que o vice-presidente Vance disse que o procurador-geral Todd Blanche lhe garantiu que Jensen Huang não está sob investigação.", "ref": "nvidia-huang-vance-doj"}, {"quando": "25/11 17h56", "o_que": "TechCrunch relata aprovação condicional da FCC para a constelação Starmind da SpaceX, de até 1 milhão de satélites de computação.", "ref": "fcc-starmind-sem-novidade"}, {"quando": "26/11 12h01", "o_que": "Zvi Mowshowitz publica a edição semanal AI #196, com notas sobre OpenAI, Anthropic, Cursor e Grok.", "ref": "zvi-ai-196"}, {"quando": "26/11 12h09", "o_que": "Simon Willison republica no blog um trecho de Jack Despain Zhou que fala em uma grande 'desindividualização' causada pela IA.", "ref": "willison-desindividualizacao"}, {"quando": "26/11 13h29", "o_que": "Sam Altman elogia Venkatesa Chandrasekaran no X. Diz que ele foi um dos primeiros a acreditar que o modelo da época poderia resolver problemas do prêmio do milênio, mas o post não afirma que algum foi resolvido.", "ref": "altman-ven-millennium"}, {"quando": "26/11 14h02", "o_que": "Gary Marcus anuncia que sai do X 'at least for a while' e que fica no Substack.", "ref": "marcus-sai-do-x"}, {"quando": "26/11 15h16", "o_que": "Greg Brockman divulga no X uma demonstração do GPT-6.2 gerando aulas interativas de história.", "ref": "brockman-gpt62-aulas"}, {"quando": "26/11 17h50", "o_que": "SemiAnalysis posta que a submissão da própria Amazon ao benchmark mostra o Trainium3 com até 2,28x mais desempenho por dólar que o NVIDIA GB300.", "ref": "trainium3-agentx-228x"}, {"quando": "26/11 18h36", "o_que": "Post no X espalha o rumor de prova de P = NP. Segundo checagens independentes, nenhum lab, paper ou repositório público afirma essa prova.", "ref": "rumor-p-igual-np"}, {"quando": "27/11 00h22", "o_que": "Moonshot AI anuncia o programa Kimi for Science, com créditos gratuitos de API para pesquisa científica.", "ref": "kimi-for-science"}, {"quando": "27/11 01h44", "o_que": "Coleta registra pushes da DeepSeek até 06h19 em cinco repositórios de infraestrutura, incluindo o DeepEP-Ascend para chips Huawei Ascend.", "ref": "deepseek-deepep-ascend"}, {"quando": "27/11 05h44", "o_que": "SemiAnalysis posta que o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar do GB300.", "ref": "trainium3-agentx-228x"}], "quem_ta_fazendo": [{"lab": "OpenAI", "movimento": "Repercutiu um preprint de gravidade quântica que, segundo relato do autor, foi feito com o GPT-6 Astra. Sam Altman elogiou o autor no X (opinião), e Greg Brockman divulgou uma demonstração do GPT-6.2 para aulas de história. Na janela, a coleta automática não registrou pushes em openai/math.", "status": "segundo a empresa", "refs": ["gravidade-quantica-gpt6-astra", "altman-ven-millennium", "brockman-gpt62-aulas", "github-provas-sem-push"]}, {"lab": "Anthropic", "movimento": "Estreou na Nasdaq em 19/11 sob o código ANT a US$ 83, segundo a CNBC. Em 24/11 a ação fechou perto de US$ 81, segundo o Motley Fool. A coleta não registrou push em anthropics/formal-math na janela. Zvi Mowshowitz citou a migração da Messages API de Python para Rust, mas a página da empresa não foi aberta.", "status": "reportagem", "refs": ["anthropic-acao-abaixo-ipo", "github-provas-sem-push", "zvi-ai-196"]}, {"lab": "Amazon", "movimento": "Enviou ao benchmark AgentX da SemiAnalysis resultados prévios do Trainium3 UltraServer. Segundo a submissão, o chip teve até 2,28x mais desempenho por dólar que o NVIDIA GB300. A vantagem é de custo, não de velocidade. Na FCC, a Amazon se opôs ao pedido da constelação Starmind da SpaceX.", "status": "segundo a empresa", "refs": ["trainium3-agentx-228x", "fcc-starmind-sem-novidade"]}, {"lab": "NVIDIA", "movimento": "Reconduziu Jensen Huang a CEO em 23/11. A CNBC noticiou que o vice-presidente Vance disse não haver investigação do DOJ contra ele, e a Reuters diz que não houve investigação formal antes da volta. Huang tem uma entrevista fechada prevista na Câmara sobre a Megaspeed. Em hardware, a SemiAnalysis postou que o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar do GB300.", "status": "reportagem", "refs": ["nvidia-huang-vance-doj", "trainium3-agentx-228x"]}, {"lab": "DeepSeek", "movimento": "A coleta registrou pushes na madrugada de 27/11 em cinco repositórios de infraestrutura: TileKernels, DeepEP-Ascend, DeepEP, DeepJIT e 3FS. O DeepEP-Ascend é a biblioteca de comunicação para treino e inferência em chips Huawei Ascend. O conteúdo dos commits não foi lido.", "status": "fato", "refs": ["deepseek-deepep-ascend"]}, {"lab": "Moonshot AI / Z.AI", "movimento": "Fontes anônimas citadas pela Reuters dizem que o GLM-5.5 da Z.AI e o Kimi K4 da Moonshot podem atrasar para 2027, por falta de acesso a computação e por barreiras anti-destilação. No mesmo dia, a Moonshot abriu o programa Kimi for Science com créditos gratuitos de API (segundo a empresa).", "status": "reportagem", "refs": ["reuters-china-atraso-modelos", "kimi-for-science"]}, {"lab": "SpaceX", "movimento": "Recebeu em 25/11 aprovação condicional do Space Bureau da FCC para a constelação Starmind, de até 1 milhão de satélites de computação. Tem 7 anos para o primeiro satélite operacional e 14 anos para a constelação inteira. O plano de detritos acima de 600 km ainda não foi aprovado.", "status": "fato", "refs": ["fcc-starmind-sem-novidade"]}, {"lab": "Meta", "movimento": "Não mudou em novembro as regras nem as tarifas da plataforma de mensagens do WhatsApp, que valem desde 01/10/2026. O Meta Business Agent está listado a US$ 2,00 por milhão de tokens desde 01/07/2026. No Brasil, contas elegíveis precisam migrar para faturamento em reais até 30/06/2027.", "status": "fato", "refs": ["fixo-meta", "varejo-agente-catalogo-whatsapp"]}], "historias": [{"id": "gravidade-quantica-gpt6-astra", "titulo": "Preprint de gravidade quântica usa GPT-6 Astra segundo autor, mas segue sem revisão", "chamada": "Um físico publicou sozinho no arXiv um estudo sobre gravidade no vácuo. Um post no X exagerou o alcance de um texto que ainda não foi revisado.", "corpo": ["O físico Venkatesa Chandrasekaran publicou como autor único no arXiv (2611.34924), em 25/11, o preprint intitulado 'An algebraic quantization of gravity from the null cone'. O campo de comentários do arXiv registra 54 páginas mais apêndices e 34 figuras. Os sites que falam em 83 páginas provavelmente contam os apêndices. No resumo, o autor escreve: \"We propose a background independent quantization of vacuum general relativity on four dimensional Lorentzian spacetimes.\" (Tradução: \"Propomos uma quantização independente de fundo da relatividade geral no vácuo em espaços-tempos lorentzianos quadridimensionais.\")", "O resumo no arXiv não cita inteligência artificial. A informação de que o trabalho usou cerca de 400 milhões de tokens do GPT-6 Astra ao longo de meses vem do relato do próprio autor, segundo reportagem da Interesting Engineering. A imprensa também diverge sobre a afiliação dele: vários veículos o chamam de físico de Stanford, enquanto a Interesting Engineering o descreve como físico da OpenAI.", "As fontes consultadas registram o limite atual do trabalho: \"The paper remains a preprint and still requires independent scrutiny.\" (Tradução: \"O artigo continua sendo um preprint e ainda requer escrutínio independente.\") Além de não ter revisão por pares, o estudo cobre apenas gravidade no vácuo em quatro dimensões, sem campos de matéria. Por isso, a ideia de que o maior problema em aberto da física foi resolvido, espalhada num post do perfil @namcios no X em 26/11 às 09:02, não se sustenta na fonte. No dia 26/11, Sam Altman elogiou Chandrasekaran no X e disse que ele foi um dos primeiros a acreditar que o modelo da época poderia resolver problemas do prêmio do milênio. Isso é opinião de Altman, e o post não afirma que algum desses problemas foi resolvido pelo estudo. Segundo o The Decoder, a prova de Navier-Stokes alegada pela OpenAI segue em disputa pública."], "status": "segundo a empresa", "por_que_importa": "O caso mostra a distância entre publicar um preprint e obter validação científica independente. Para profissionais, empresas e usuários de IA, reforça a necessidade de checar a fonte primária antes de tratar manchetes virais sobre IA como fato consolidado.", "simples": ["Segundo o próprio autor, o estudo usou o GPT-6 Astra, da OpenAI; o resumo do estudo não fala de IA.", "Preprint é um estudo publicado antes de outros cientistas conferirem se tudo está certo.", "O estudo trata só de gravidade no espaço vazio, sem matéria, em quatro dimensões.", "Ainda falta a revisão de outros pesquisadores para saber se a conta funciona."], "refs": ["gravidade-quantica-gpt6-astra", "altman-ven-millennium"], "fontes": ["https://arxiv.org/abs/2611.34924", "https://interestingengineering.com/ai-robotics/quantum-gravity-theory-black-hole-gpt-6-astra", "https://x.com/namcios/status/2125923251712848318", "https://x.com/sama/status/2125990371897557278", "https://the-decoder.com/openais-millennium-proof-dispute-raises-the-question-of-whether-researchers-can-trust-ai-labs/"]}, {"id": "rumor-p-igual-np-e-provas", "titulo": "Rumor de P = NP circula no X, mas nenhum laboratório afirma ter a prova", "chamada": "Rumor: checagens independentes não acham prova pública. Scott Aaronson, em opinião, aposta no oposto, e a coleta automática não registrou atualização nos repositórios de provas.", "corpo": ["Rumor: circula no X desde 24 e 25/11 a alegação de que laboratórios de IA teriam provado que P = NP. Um post do perfil @namcios em 26/11 repetiu a alegação. Segundo checagens independentes, nenhum laboratório, paper ou repositório público afirma essa prova. Uma newsletter cita um pesquisador, Justin Perry, que alega ter uma prova de 45 mil páginas não publicada. Não há corroboração.", "Uma frase de Scott Aaronson costuma aparecer junto com o rumor. Ela vem de um comentário de 24/11 no blog dele: \"I've now heard many, many rumors that one or both labs are sitting on Factoring in P. I don't know how much to credit this.\" (Tradução: \"Já ouvi muitos, muitos rumores de que um ou ambos os laboratórios estão guardando fatoração em P. Não sei quanto crédito dar a isso.\") A frase fala de fatoração em P, não de P = NP. Ela foi achada por busca, e o comentário não foi aberto nesta rodada. Segundo cobertura secundária, Aaronson pediu depois para não ser citado como autoridade para o rumor, mas essa nota não foi vista na fonte.", "No post de 25/11, que ganhou atualizações em 26/11, Aaronson dá a opinião dele, que vai no sentido oposto ao rumor, porque ele aposta em P ≠ NP: \"Yes, I do now think that AI is climbing the mountain that leads to P≠NP.\" (Tradução: \"Sim, agora penso que a IA está subindo a montanha que leva a P≠NP.\") Ele diz estar \"virtually certain\" (praticamente certo) de que os laboratórios guardam resultados de impacto em criptografia. Isso também é opinião dele, não fato confirmado. Ele se recusa a repetir rumores: \"I do not wish to be responsible for spreading unverified rumors.\" (Tradução: \"Não quero ser responsável por espalhar rumores não verificados.\")", "A coleta automática não registrou push nos repositórios openai/math, anthropics/formal-math e google-research/cogentic_research_papers entre 26/11 às 05:27 e a manhã de 27/11. A conferência direta pela API do GitHub falhou nesta rodada, então o dado vem só da coleta. Segundo Zvi Mowshowitz, a Anthropic provou VP ≠ VNP, o que não resolve P vs NP. Zvi também relata que a Anthropic reduziu a prova em Lean da Hipótese de Riemann de 17,4 milhões para 76 mil linhas. A fonte dele é um post no X, não o repositório."], "status": "rumor", "por_que_importa": "Rumores sobre avanços em matemática e criptografia podem causar alarme sem motivo em tecnologia e segurança digital. Empresas e equipes técnicas decidem melhor quando separam boatos de redes sociais do que está publicado em repositórios que dá para auditar.", "simples": ["Isto é um boato: nenhum laboratório afirmou ter essa prova.", "O boato diz que empresas de IA resolveram um famoso problema de matemática e computação, o P vs NP.", "Nenhum estudo público afirma essa prova. Um sistema automático também não viu atualização nos arquivos públicos de provas das empresas.", "Na opinião do cientista Scott Aaronson, o resultado certo é o oposto. Ele disse que não quer espalhar boatos."], "refs": ["rumor-p-igual-np", "aaronson-update-p-neq-np", "github-provas-sem-push"], "fontes": ["https://scottaaronson.blog/?p=10362", "https://scottaaronson.blog/?p=10379", "https://fourweekmba.com/ai-270k-view-post-says-labs-solved-p-vs-np-we-found-no-record/", "https://thezvi.substack.com/p/ai-196-the-return", "https://x.com/namcios/status/2126067487758291355", "https://scottaaronson.blog/", "https://github.com/openai/math", "https://github.com/anthropics/formal-math", "https://github.com/google-research/google-research/tree/master/cogentic_research_papers"]}, {"id": "china-chips-e-atraso-modelos", "titulo": "Restrições dos EUA e barreiras anti-destilação ameaçam atrasar modelos chineses, diz Reuters", "chamada": "Segundo fontes anônimas ouvidas pela Reuters, Z.AI e Moonshot enfrentam atrasos. A nova regra americana de chips inclui o Brasil, e a DeepSeek atualizou repositórios, entre eles um para chips Huawei Ascend.", "corpo": ["Segundo reportagem da Reuters publicada em 26/11 com fontes anônimas, restrições americanas a chips avançados e barreiras anti-destilação da Anthropic e da OpenAI ameaçam atrasar a próxima geração de modelos chineses. A Z.AI lançou na segunda (23/11) o GLM-5.4, de 750 bilhões de parâmetros. Ela planejava lançar o GLM-5.5 (cerca de 3 trilhões de parâmetros) em novembro e não lançou. Segundo a reportagem, ele pode ficar para o primeiro trimestre de 2027 ou depois. Na Moonshot AI, o ciclo de seis meses pode passar de doze meses se a empresa perder computação alugada no exterior. A matéria diz: \"Its next flagship model, Kimi K4, could be delayed until around the middle of next year, the person estimated.\" (Tradução: \"Seu próximo modelo principal, o Kimi K4, pode atrasar até por volta da metade do ano que vem, estimou a pessoa.\") As fontes também dizem que a Moonshot teria passado a destilar modelos do Google e da Meta. A matéria não traz resposta oficial das empresas.", "A Reuters mostra esses atrasos como os primeiros efeitos da regra de acesso remoto do Departamento de Comércio dos EUA (BIS). A regra é oficial: foi publicada em 16/11 e está em vigor desde 19/11. Ela exige licença para exportar chips avançados a qualquer data center no mundo que dê a empresas com sede na China ou Macau mais de 12 milhões de TPP agregados. A Reuters descreve esse limite como equivalente a cerca de 750 Nvidia H100. Segundo a reportagem, \"Operators already providing covered computing services before the rule took effect have 90 days to obtain licences.\" (Tradução: \"Operadores que já prestavam os serviços de computação cobertos antes de a regra entrar em vigor têm 90 dias para obter licenças.\") O prazo vai até cerca de 17/02/2027. A norma revoga formalmente o AI Diffusion Rule e seus controles de pesos de modelo. Ela também coloca o Brasil, ao lado de Indonésia, Malásia, Singapura e Tailândia, na lista de países que passam a precisar de licença para chips avançados, com exceção para compradores com sede nos EUA.", "Na madrugada de 27/11, a coleta registrou pushes da DeepSeek em cinco repositórios de infraestrutura: TileKernels, DeepEP-Ascend, DeepEP, DeepJIT e 3FS. O DeepEP-Ascend se descreve assim: \"A high-performance communication library for machine learning training and inference on Huawei Ascend NPUs.\" (Tradução: \"Uma biblioteca de comunicação de alto desempenho para treinamento e inferência de aprendizado de máquina em NPUs Huawei Ascend.\") O conteúdo dos commits não foi lido. Na mesma janela, QwenLM/qwen-code e MoonshotAI/kimi-code também receberam pushes. Segundo a empresa, a Moonshot abriu o programa Kimi for Science, com créditos gratuitos de API para pesquisa científica. A imprensa fala em até 150 mil yuans (cerca de US$ 20 mil) em créditos e em prazo da primeira rodada em 08/12/2026."], "status": "reportagem", "por_que_importa": "Com o Brasil na lista, exportar chips avançados para data centers no país passa a exigir licença, exceto para compradores com sede nos EUA. Isso interessa a empresas e profissionais que usam ou planejam infraestrutura de IA no Brasil. Além disso, a DeepSeek mantém uma versão de sua biblioteca para chips Huawei Ascend, movimento que coincide com a nova regra americana.", "simples": ["Uma reportagem com fontes anônimas diz que empresas chinesas podem atrasar seus novos modelos de IA.", "Os Estados Unidos passaram a exigir licença para enviar chips potentes a vários países.", "O Brasil entrou nessa lista, junto com países da Ásia.", "A chinesa DeepSeek atualizou códigos, entre eles um feito para chips da Huawei."], "refs": ["reuters-china-atraso-modelos", "bis-regra-acesso-remoto-brasil", "deepseek-deepep-ascend", "kimi-for-science"], "fontes": ["https://www.taipeitimes.com/News/biz/archives/2026/11/27/2003868457", "https://www.dailymaverick.co.za/article/2026-11-26-us-chip-curbs-distillation-crackdown-threaten-chinese-ai-model-development-sources-say/", "https://www.sidley.com/en/insights/newsupdates/2026/11/new-export-controls-on-advanced-chips-close-remote-compute-access-loopholes-five-key-takeaways", "https://www.lw.com/en/insights/us-commerce-department-adopts-rule-restricting-remote-access-to-advanced-ai-chips", "https://www.chinatalk.media/p/the-remote-access-rule-will-slow", "https://github.com/deepseek-ai/DeepEP-Ascend", "https://github.com/deepseek-ai/TileKernels", "https://github.com/QwenLM/qwen-code", "https://github.com/MoonshotAI/kimi-code", "https://x.com/Kimi_Moonshot/status/2126154696947871760", "https://pandaily.com/moonshot-kimi-for-science-research-program", "https://runtimewire.com/article/moonshot-offers-researchers-up-to-20-000-in-kimi-credits-for-scientific-projects"]}, {"id": "trainium3-versus-nvidia-rubin", "titulo": "Submissão da Amazon mostra prévia do Trainium3 contra GB300, e SemiAnalysis destaca Vera Rubin", "chamada": "Segundo números enviados pela própria Amazon, a vantagem do Trainium3 é de custo por dólar, não de velocidade. Os resultados ainda são prévios, e a SemiAnalysis também publicou números do Vera Rubin NVL72 da NVIDIA contra o GB300.", "corpo": ["Em 26/11, às 17:50 BRT, a SemiAnalysis divulgou no X o resultado de uma submissão da própria Amazon ao seu benchmark AgentX: \"ALERT🚨: Amazon's Trainium3 UltraServer submission to our Agentic Inference Benchmark has demonstrated 2.28x better perf per dollar than even NVIDIA's GB300 NVL72.\" (Tradução: \"ALERTA: A submissão do Trainium3 UltraServer da Amazon ao nosso Agentic Inference Benchmark demonstrou desempenho por dólar 2,28x melhor até do que o GB300 NVL72 da NVIDIA.\") Na página do InferenceX, o resultado aparece como 'Preview Results'. Os números só aparecem em posts no X e em sites secundários, e não há artigo na newsletter da SemiAnalysis sobre isso.", "Segundo o site N Globe, os 2,28x são o pico entre pontos de interatividade, com custo modelado de US$ 1,05 por chip-hora no Trainium3 contra US$ 2,31 no GB300. O mesmo site diz que a vazão por chip foi só cerca de 4% maior, ou seja, a vantagem é de custo, não de velocidade. Também há divergência sobre o modelo servido no teste: GLM-5.2 no cartão do InferenceX, GLM-5.3 na cobertura secundária.", "Horas depois, em 27/11 às 05:44 BRT, a SemiAnalysis postou números do Vera Rubin NVL72 da NVIDIA comparado ao GB300: \"Rubin's lead grows with interactivity. Same TokenSpeed engine on both racks: Vera Rubin NVL72 gets 2-6.5x GB300 NVL72's tokens per $ TCO\" (Tradução: \"A liderança do Rubin cresce com a interatividade. Mesmo motor TokenSpeed nos dois racks: o Vera Rubin NVL72 entrega de 2 a 6,5x os tokens por dólar de custo total de propriedade do GB300 NVL72.\")"], "status": "segundo a empresa", "por_que_importa": "Para empresas e profissionais que rodam agentes de IA, o número mais citado aqui mede custo por dólar, não velocidade. Ele vem de uma submissão da própria Amazon, aparece como prévia e ainda não tem artigo detalhado da SemiAnalysis. Por isso, convém tratá-lo como alegação ainda sem confirmação independente.", "simples": ["Segundo um teste enviado pela própria Amazon, e ainda prévio, o chip Trainium3 rendeu até 2,28 vezes mais por dólar que o GB300 da NVIDIA.", "Ele não foi muito mais rápido. O ganho vem do custo estimado por hora de uso, que é menor.", "Horas depois, a SemiAnalysis publicou que o Vera Rubin, outro sistema da NVIDIA, rende de 2 a 6,5 vezes mais por dólar que o GB300."], "refs": ["trainium3-agentx-228x"], "fontes": ["https://x.com/SemiAnalysis_/status/2126055957838848156", "https://x.com/SemiAnalysis_/status/2126235662009389501", "https://inferencex.semianalysis.com/", "https://nglobenews.com/en/article/us-amazon-trainium3-agentx-benchmark-nvidia-gb300-2026-11-26"]}, {"id": "nvidia-huang-e-acao-anthropic", "titulo": "NVIDIA lida com volta de Jensen Huang enquanto ação da Anthropic recua abaixo do IPO", "chamada": "Reportagens mostram dúvidas sobre a volta do CEO da NVIDIA e a ação da Anthropic abaixo do preço do IPO.", "corpo": ["Na NVIDIA, as atenções continuam na governança. Jensen Huang voltou ao cargo de CEO na segunda, 23/11, depois de o conselho citar 'input from senior levels of the United States government' (contribuição de altos escalões do governo americano). Segundo reportagem da CNBC de 25/11, o vice-presidente Vance disse que o procurador-geral Todd Blanche lhe garantiu que Huang não está sob investigação. A reportagem traz a frase: \"I haven't seen any evidence again that he committed a crime.\" (Tradução: \"Não vi, de novo, nenhuma evidência de que ele cometeu um crime.\") É uma declaração, não um resultado de investigação. A mesma reportagem cita a Reuters: o Departamento de Justiça não fez investigação formal sobre Huang antes de Trump pressionar pela volta dele ao cargo.", "O conselho da NVIDIA abriu uma investigação independente em 08/11, e a CNBC não informa o andamento. Huang tem entrevista a portas fechadas com comitês da Câmara americana sobre a Megaspeed na terça. A CNBC não dá a data; 01/12 é uma inferência. Em 26/11, no X, Gary Marcus criticou a recontratação de Huang antes de uma investigação formal, o que é opinião dele.", "No mercado, segundo a CNBC, a Anthropic estreou na Nasdaq em 19/11 sob o código ANT, a US$ 83 por ação, e levantou US$ 81,3 bilhões. Segundo análise do Motley Fool publicada em 26/11, a ação abriu a US$ 111,50 e em 24/11 fechou perto de US$ 81, abaixo do preço do IPO. Esses valores vêm de resumo de busca, e as páginas da CNBC e do Motley Fool não foram abertas. As bolsas americanas ficaram fechadas em 26/11 por causa do Thanksgiving, então não houve pregão novo na janela."], "status": "reportagem", "por_que_importa": "Para empresas, profissionais e usuários de IA, os dois casos mostram que governança, atenção do governo e reação dos investidores também pesam sobre as grandes empresas do setor, além da tecnologia.", "simples": ["Isto vem de reportagens: a chefia da NVIDIA e a ação da Anthropic tiveram uma semana agitada.", "O chefe da NVIDIA, Jensen Huang, voltou ao cargo em 23/11.", "Dois dias depois, o vice-presidente dos EUA disse que ouviu do governo que Huang não é investigado.", "A ação da Anthropic fechou perto de US$ 81 em 24/11, abaixo dos US$ 83 do lançamento na bolsa.", "Na bolsa de valores, investidores compram e vendem pequenos pedaços de empresas."], "refs": ["nvidia-huang-vance-doj", "anthropic-acao-abaixo-ipo", "marcus-sai-do-x"], "fontes": ["https://www.cnbc.com/2026/11/25/vance-jensen-huang-nvidia-doj-investigation.html", "https://nvidianews.nvidia.com/news/statement-from-nvidia-board-of-directors", "https://nvidianews.nvidia.com/news/nvidia-board-reinstates-jensen-huang-as-president-ceo-and-board-director", "https://www.cnbc.com/2026/11/19/anthropic-ipo-ant-live-updates.html", "https://fool.com/investing/2026/11/26/anthropic-stock-fell-below-its-ipo-price-is-it-a-buy-or-is-more-downside-just-ahead", "https://x.com/GaryMarcus/status/2125998651504029792", "https://x.com/GaryMarcus/status/2125997210185998668", "https://garymarcus.substack.com/feed"]}, {"id": "fcc-aprova-constelacao-starmind", "titulo": "FCC dá aval condicional para constelação Starmind de até 1 milhão de satélites", "chamada": "Órgão americano libera com condições o projeto da SpaceX de satélites de computação, com prazos longos. O plano para lixo espacial ainda não foi aprovado.", "corpo": ["O Space Bureau da FCC deu aprovação condicional em 25/11 à constelação Starmind, da SpaceX. O projeto prevê até 1 milhão de satélites de computação, entre 500 e 1.002 quilômetros de altitude. Uma frase de Brendan Carr citada sobre o projeto diz que ele \"opens a bold new frontier for the computing infrastructure needed to power America's leadership and growth.\" (Tradução: \"abre uma nova e ousada fronteira para a infraestrutura de computação necessária para impulsionar a liderança e o crescimento da América.\") É fato que a frase foi dita, mas o conteúdo é a opinião dele.", "A autorização impõe prazos longos: a SpaceX tem sete anos para pôr o primeiro satélite operacional em órbita e catorze anos para a constelação inteira. O plano de detritos espaciais acima de 600 quilômetros ainda não foi aprovado.", "Amazon, Viasat e a American Astronomical Society se opuseram ao pedido. A Amazon chamou a proposta de \"lofty ambition rather than a real plan\". Dentro da janela desta edição não houve ato novo: Carr só postou mensagens de Thanksgiving. A ordem (DA 26-1273, segundo a imprensa) não foi aberta nesta rodada."], "status": "fato", "por_que_importa": "O projeto quer levar computação para a órbita, mas o horizonte é longo: 7 anos para o primeiro satélite e 14 para a constelação inteira. A aprovação tem condições, o plano de detritos ainda está pendente e houve oposição de concorrentes e de astrônomos.", "simples": ["O órgão americano de comunicações deu um aval com condições para um projeto da SpaceX.", "O plano prevê até um milhão de satélites de computação em volta da Terra.", "A empresa tem sete anos para lançar o primeiro e catorze para montar tudo.", "O plano contra lixo espacial ainda não foi aprovado. Amazon, Viasat e um grupo de astrônomos foram contra."], "refs": ["fcc-starmind-sem-novidade"], "fontes": ["https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan-to-put-ai-data-centers-in-space/", "https://docs.fcc.gov/public/attachments/DA-26-1273A1.pdf", "https://x.com/BrendanCarrFCC/status/2125938615511646279"]}, {"id": "fadiga-do-texto-generico-de-ia", "titulo": "Críticas ao texto padronizado de IA e otimismo com ajuda personalizada", "chamada": "Simon Willison republica uma crítica à perda de estilo próprio causada pela IA. Ethan Mollick, por sua vez, vê chance de oferecer ajuda personalizada barata a qualquer pessoa com celular. As duas posições são opiniões.", "corpo": ["Em 26/11, Simon Willison republicou no blog dele um trecho de Jack Despain Zhou, do texto 'Spitting in the Face of Glaude'. A frase é de Zhou, não de Willison: \"Among the many already existing effects of AI has been a great de-individualization.\" (Tradução: \"Entre os muitos efeitos já existentes da IA está uma grande desindividualização.\") Trata-se de opinião. O texto argumenta que o estilo de escrita do Claude já aparece em vídeos, palestras e e-mails de prospecção. Às 14:03 do mesmo dia, Willison reclamou no X de e-mails que abrem resumindo um post dele e disse que eles \"are so depressing\" (são deprimentes).", "Ethan Mollick, da Wharton, publicou no X às 23:32 de 26/11 a opinião de que problemas difíceis de educação, saúde e desenvolvimento podem ter ficado tratáveis e que falta ambição para atacá-los. Ele escreveu: \"We have the ability to cheaply provide the equivalent of very good personalized human help in any language to anyone with a cellphone.\" (Tradução: \"Temos a capacidade de oferecer, de forma barata, o equivalente a uma ajuda humana personalizada muito boa em qualquer idioma para qualquer pessoa com um celular.\") A única fonte é o post dele.", "Também em 26/11, Greg Brockman, da OpenAI, divulgou no X uma demonstração do GPT-6.2 gerando aulas interativas de história, com o texto: \"GPT-6.2 for interactive lessons for history class:\" (Tradução: \"GPT-6.2 para aulas interativas de história:\"). É informação da própria empresa. O post traz só um link, e o feed oficial da OpenAI não tem publicação correspondente. O item mais recente do feed é de 24/11."], "status": "opinião", "por_que_importa": "Para quem usa IA para produzir conteúdo e e-mails de prospecção, as críticas de Zhou e Willison mostram que o texto genérico já é reconhecido e pode ser rejeitado. Mollick, por outro lado, acha que a IA pode servir como ajuda personalizada barata em educação, saúde e desenvolvimento. Nos dois casos, são opiniões.", "simples": ["Esta história junta opiniões de especialistas e uma divulgação da OpenAI.", "Na opinião de um autor citado por Simon Willison, o jeito de escrever do Claude já aparece em vídeos, palestras e e-mails.", "Ethan Mollick acha que já dá para oferecer ajuda personalizada e barata a qualquer pessoa com celular.", "Segundo a própria OpenAI, o GPT-6.2 consegue criar aulas interativas de história. A empresa só postou um link."], "refs": ["willison-desindividualizacao", "mollick-ajuda-personalizada", "brockman-gpt62-aulas"], "fontes": ["https://simonwillison.net/2026/Nov/26/jack-despain-zhou/", "https://x.com/simonw/status/2125998873252605954", "https://x.com/emollick/status/2126142028060795261", "https://www.oneusefulthing.org/feed", "https://x.com/gdb/status/2126017271114195036", "https://openai.com/news/rss.xml"]}], "quem_falou": [{"pessoa": "Sam Altman", "citacao_original": "Ven was one of the earliest believers that we could use our then-current model to solve millenium prize problems.", "traducao": "Ven foi um dos primeiros a acreditar que poderíamos usar nosso modelo daquela época para resolver problemas do prêmio do milênio.", "etiqueta": "opinião", "link": "https://x.com/sama/status/2125990371897557278", "contexto": "Elogio público a Venkatesa Chandrasekaran no X, em 26/11, um dia depois do preprint de gravidade quântica feito com GPT-6 Astra. O post não afirma que algum problema do milênio foi resolvido pelo paper de Ven."}, {"pessoa": "Scott Aaronson", "citacao_original": "I now feel in my bones, for the first time ever, that a proof of P ≠ NP is not far.", "traducao": "Agora sinto nos ossos, pela primeira vez na vida, que uma prova de P ≠ NP não está longe.", "etiqueta": "opinião", "link": "https://scottaaronson.blog/?p=10379", "contexto": "Post de 25/11 no blog dele, com atualizações em 26/11. É fato que ele escreveu isso, mas o conteúdo é a opinião dele. Ele aposta em P ≠ NP, o oposto do boato de P = NP que circula no X."}, {"pessoa": "Jack Despain Zhou (republicado por Simon Willison)", "citacao_original": "Among the many already existing effects of AI has been a great de-individualization.", "traducao": "Entre os muitos efeitos já existentes da IA está uma grande desindividualização.", "etiqueta": "opinião", "link": "https://simonwillison.net/2026/Nov/26/jack-despain-zhou/", "contexto": "Trecho de Jack Despain Zhou republicado por Simon Willison no blog em 26/11. A frase é de Zhou, não de Willison. O argumento é que o estilo de texto do Claude já aparece em vídeos, palestras e e-mails de prospecção."}, {"pessoa": "Ethan Mollick", "citacao_original": "We have the ability to cheaply provide the equivalent of very good personalized human help in any language to anyone with a cellphone.", "traducao": "Temos a capacidade de oferecer, de forma barata, o equivalente a uma ajuda humana personalizada muito boa em qualquer idioma para qualquer pessoa com um celular.", "etiqueta": "opinião", "link": "https://x.com/emollick/status/2126142028060795261", "contexto": "Post no X em 26/11. Mollick diz que problemas difíceis de educação, saúde e desenvolvimento podem ter ficado tratáveis e que falta ambição para atacá-los."}, {"pessoa": "Gary Marcus", "citacao_original": "Saying it contains garbage and isn't elegant is not the same as saying it is incorrect.", "traducao": "Dizer que contém lixo e não é elegante não é a mesma coisa que dizer que está incorreto.", "etiqueta": "relato pessoal", "link": "https://x.com/GaryMarcus/status/2125997210185998668", "contexto": "Post no X em 26/11. Marcus reclamou de ser citado como se negasse a prova da Hipótese de Riemann e disse que criticou a elegância, não a correção. Minutos depois anunciou que sai do X, pelo menos por um tempo, e fica só no Substack."}, {"pessoa": "Brendan Carr", "citacao_original": "opens a bold new frontier for the computing infrastructure needed to power America's leadership and growth.", "traducao": "abre uma nova e ousada fronteira para a infraestrutura de computação necessária para impulsionar a liderança e o crescimento dos Estados Unidos.", "etiqueta": "opinião", "link": "https://techcrunch.com/2026/11/25/fcc-approves-spacex-plan-to-put-ai-data-centers-in-space/", "contexto": "Frase sobre a aprovação condicional, dada em 25/11 pelo Space Bureau da FCC, à constelação Starmind da SpaceX, com até 1 milhão de satélites de computação. A aprovação é fato. A frase é a avaliação de Carr."}], "fixos": {"chatgpt_business": {"alerta": false, "texto": "Sem mudança desde 19/11/2026. Segundo as páginas da OpenAI, e-commerces e serviços online fora dos EUA podem reivindicar o negócio e publicar agentes. Lojas físicas e restaurantes só podem reivindicar uma listagem que já existe nos EUA. Nenhuma das páginas cita o Brasil nem traz lista de países, e o texto principal do anúncio ainda fala em Business Agents nos EUA."}, "meta_whatsapp": "Sem mudança de preço ou regra em novembro. A tabela vale desde 01/10/2026, com cobrança por mensagem entregue, por categoria. Há uma franquia de 1.000 mensagens de serviço por mês por número, sem acúmulo (esse detalhe vem de um resumo da página). Mudanças de tarifa só entram em 1º de janeiro, abril, julho ou outubro, com pelo menos um mês de aviso. Por isso, vale checar de novo perto de 01/12/2026 para saber se haverá mudança em janeiro. No Brasil, contas elegíveis precisam migrar para faturamento em reais até 30/06/2027. A partir de 01/07/2027, a Meta deixará de entregar mensagens de contas elegíveis que não faturam em BRL.", "china": "Reportagem da Reuters com fontes anônimas, sem resposta oficial das empresas, diz que a falta de acesso a computação e as barreiras anti-destilação da OpenAI e da Anthropic podem atrasar dois modelos. O GLM-5.5 da Z.AI pode ficar para o 1º trimestre de 2027 ou depois, e o Kimi K4 da Moonshot para o meio do ano que vem. No mesmo dia, a Moonshot abriu o programa Kimi for Science, com créditos gratuitos de API para pesquisa (segundo a empresa). A imprensa fala em até 150 mil yuans, cerca de US$ 20 mil. Na madrugada de 27/11, a coleta registrou pushes da DeepSeek em cinco repositórios de infraestrutura, incluindo o DeepEP-Ascend, voltado a chips Huawei Ascend. QwenLM/qwen-code e MoonshotAI/kimi-code também receberam pushes.", "varejo": "Na janela, não foi encontrado nenhum lançamento de busca em catálogo, cotação automática ou orçamento por WhatsApp para o varejo. Como referência, a página de preços da Meta lista o Meta Business Agent a US$ 2,00 por milhão de tokens desde 01/07/2026. Segundo o Olhar Digital, o Business AI do WhatsApp Business chegou ao Brasil em 24/02/2026, com recomendação de produtos do Catálogo. No exemplo da Meta para 10.000 mensagens de IA no Brasil, a conta usa 0,68 centavo por mensagem de utilidade ou autenticação."}, "edition_date": "2026-11-27", "arquivo_url": "../", "tema_visual": {"nome": "Cone de Luz em Preprint", "conceito": "A página imita um preprint de física teórica impresso em papel creme, com diagramas de cone de luz e de Penrose como base gráfica. A tinta azul-noite e o vermelho de correção de revisor mostram a distância entre o que já foi publicado e o que ainda falta verificar.", "paleta": {"bg": "#F3F0E8", "surface": "#FBF9F4", "surface2": "#E9E4D8", "text": "#1A1A2E", "muted": "#4A4A5E", "accent": "#B3261E", "accent2": "#1F4E8C", "border": "#CFC7B5"}, "tipografia": {"titulo": "Didot, \"Bodoni 72\", \"Times New Roman\", serif", "corpo": "\"Iowan Old Style\", Palatino, Georgia, serif", "mono": "\"SF Mono\", Menlo, ui-monospace, monospace"}, "layout": {"estilo": "preprint", "descricao": "Artigo científico em duas colunas no desktop e uma no celular, com margens largas. Na margem esquerda corre na vertical um identificador em mono no estilo arXiv (ex.: radar:2611.27v1). A capa funciona como cabeçalho de paper: manchete centralizada em Didot, linha de 'autores' com as fontes e um bloco 'Abstract' com moldura fina, onde ficam o subtítulo e o Fio do dia. As seções são numeradas (§1, §2...) com versalete. Cada cartão de história é um parágrafo numerado como equação, com o número (1), (2) alinhado à direita. O status aparece entre colchetes em mono e vermelho ([preprint], [rumor], [segundo a empresa]), e as fontes vão em notas de rodapé sobrescritas. Entre as seções há réguas diagonais a 45° que cruzam e formam um pequeno cone de luz. A linha do tempo é um eixo vertical t com marcas, e 'Quem falou' vira uma coluna de citações recuadas com fio lateral azul. A densidade é média-alta, com muito respiro de margem e nada de cartões com sombra.", "ordem_secoes": ["capa", "fio_do_dia", "em_3_linhas", "historias", "quem_falou", "linha_do_tempo", "quem_ta_fazendo", "fixos"]}, "imagens": {"estilo": "Precise scientific ink line art on warm cream paper (#F3F0E8), depicting light cones, null geodesics, Penrose conformal diagrams and abstract algebraic lattices drawn in deep navy ink (#1A1A2E) and steel blue (#1F4E8C), with sparse vermilion (#B3261E) annotation marks like a referee's corrections. The look of a hand-plotted 1970s physics journal figure, with fine hatching, subtle paper grain and generous negative space. No text, no letters or equations, no logos, no human faces."}}, "imagens": {"capa": "img/capa.jpg", "gravidade-quantica-gpt6-astra": "img/gravidade-quantica-gpt6-astra.jpg", "rumor-p-igual-np-e-provas": "img/rumor-p-igual-np-e-provas.jpg", "china-chips-e-atraso-modelos": "img/china-chips-e-atraso-modelos.jpg", "trainium3-versus-nvidia-rubin": "img/trainium3-versus-nvidia-rubin.jpg", "nvidia-huang-e-acao-anthropic": "img/nvidia-huang-e-acao-anthropic.jpg", "fcc-aprova-constelacao-starmind": "img/fcc-aprova-constelacao-starmind.jpg", "fadiga-do-texto-generico-de-ia": "img/fadiga-do-texto-generico-de-ia.jpg"}, "gerado_em": "27/11/2026 07:55 (horário de Brasília)"}</script>
+<script>
+(function(){
+'use strict';
+var ED = {};
+try { ED = JSON.parse(document.getElementById('edition').textContent) || {}; } catch (e) { ED = {}; }
+if (typeof ED !== 'object' || ED === null) ED = {};
+
+/* ---- tema do dia em variáveis CSS ---- */
+var TV = ED.tema_visual || {};
+var PAL = TV.paleta || {}, TIP = TV.tipografia || {};
+var rootStyle = document.documentElement.style;
+['bg','surface','surface2','text','muted','accent','accent2','border'].forEach(function(k){
+  if (typeof PAL[k] === 'string' && PAL[k].trim()) rootStyle.setProperty('--' + k, PAL[k].trim());
+});
+[['titulo','--f-titulo'],['corpo','--f-corpo'],['mono','--f-mono']].forEach(function(p){
+  if (typeof TIP[p[0]] === 'string' && TIP[p[0]].trim()) rootStyle.setProperty(p[1], TIP[p[0]].trim());
+});
+if (typeof PAL.bg === 'string' && PAL.bg.trim()) {
+  var tc = document.querySelector('meta[name="theme-color"]');
+  if (tc) tc.setAttribute('content', PAL.bg.trim());
+}
+
+/* ---- utilidades ---- */
+function str(v){ return v == null ? '' : String(v); }
+function arr(v){ return Array.isArray(v) ? v : []; }
+function el(tag, attrs, kids){
+  var n = document.createElement(tag);
+  if (attrs) Object.keys(attrs).forEach(function(k){
+    var v = attrs[k];
+    if (v == null || v === false) return;
+    if (k === 'class') n.className = v;
+    else if (k === 'text') n.textContent = str(v);
+    else n.setAttribute(k, v === true ? '' : String(v));
+  });
+  if (kids) [].concat(kids).forEach(function(c){
+    if (c == null || c === false) return;
+    n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+  });
+  return n;
+}
+function extUrl(u){ u = str(u).trim(); return /^https?:\/\//i.test(u) ? u : null; }
+function relUrl(u){
+  u = str(u).trim();
+  if (!u) return null;
+  if (/^https?:\/\//i.test(u)) return u;
+  if (/^[a-z][a-z0-9+.\-]*:/i.test(u)) return null;
+  return u;
+}
+function host(u){ try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return str(u); } }
+function shortUrl(u){
+  try { var x = new URL(u); var p = (x.hostname.replace(/^www\./,'') + x.pathname).replace(/\/$/, ''); return p.length > 58 ? p.slice(0, 56) + '…' : p; }
+  catch (e) { return str(u); }
+}
+function words(s){ return str(s).trim().split(/\s+/).filter(Boolean).length; }
+var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function link(href, text, cls){
+  var a = el('a', { href: href, target: '_blank', rel: 'noopener', 'class': cls || null, text: text });
+  return a;
+}
+
+/* ---- selos ---- */
+function kindOf(p){
+  p = p.toLowerCase();
+  if (p.indexOf('rumor') > -1) return 'rumor';
+  if (p.indexOf('segundo') > -1) return 'segundo';
+  if (p.indexOf('reportagem') > -1) return 'rep';
+  if (p.indexOf('fato') > -1) return 'fato';
+  return 'neutro';
+}
+function stamps(status){
+  var parts = str(status).split(/\s*(?:\+|\/|;|,|\s&\s)\s*/).map(function(s){ return s.trim(); }).filter(Boolean);
+  if (!parts.length) return null;
+  var w = el('span', { 'class': 'stamps' });
+  parts.forEach(function(p){ w.appendChild(el('span', { 'class': 'stamp st-' + kindOf(p), text: p })); });
+  return w;
+}
+
+/* ---- datas ---- */
+var DIAS = ['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+var MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+var dm = /^(\d{4})-(\d{2})-(\d{2})/.exec(str(ED.edition_date));
+var dataExtenso = str(ED.edition_date), dataCurta = str(ED.edition_date), arxivId = 'radar:v1';
+if (dm) {
+  var dd = new Date(+dm[1], +dm[2] - 1, +dm[3]);
+  dataExtenso = DIAS[dd.getDay()] + ', ' + (+dm[3]) + ' de ' + MESES[+dm[2] - 1] + ' de ' + dm[1];
+  dataCurta = dm[3] + '/' + dm[2] + '/' + dm[1];
+  arxivId = 'radar:' + dm[1].slice(2) + dm[2] + '.' + dm[3] + 'v1';
+}
+var manchete = str(ED.manchete);
+document.title = 'Radar dos bastidores · ' + dataCurta + (manchete ? ' · ' + manchete : '');
+
+/* ---- arte SVG de fallback ---- */
+var NS = 'http://www.w3.org/2000/svg', artN = 0;
+function S(tag, a){ var n = document.createElementNS(NS, tag); if (a) Object.keys(a).forEach(function(k){ n.setAttribute(k, String(a[k])); }); return n; }
+function hash(s){ s = str(s); var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function rng(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function r1(n){ return Math.round(n * 10) / 10; }
+function ln(g, x1, y1, x2, y2, cls){ g.appendChild(S('line', { x1: r1(x1), y1: r1(y1), x2: r1(x2), y2: r1(y2), 'class': cls })); }
+function lerp(a, b, t){ return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]; }
+function art(seed){
+  var r = rng(hash(seed)), pid = 'hx' + (++artN);
+  var svg = S('svg', { viewBox: '0 0 400 300', preserveAspectRatio: 'xMidYMid slice', 'class': 'art', 'aria-hidden': 'true', focusable: 'false' });
+  var defs = S('defs'), pat = S('pattern', { id: pid, width: 5, height: 5, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(' + (r() < .5 ? 45 : -45) + ')' });
+  pat.appendChild(S('line', { x1: 0, y1: 0, x2: 0, y2: 5, 'class': 'hl' }));
+  defs.appendChild(pat); svg.appendChild(defs);
+  svg.appendChild(S('rect', { x: 0, y: 0, width: 400, height: 300, 'class': 'bgp' }));
+  var g = S('g', { 'class': 'grid' }), x, y;
+  for (x = 20; x < 400; x += 20) ln(g, x, 0, x, 300);
+  for (y = 20; y < 300; y += 20) ln(g, 0, y, 400, y);
+  svg.appendChild(g);
+  var d = S('g');
+  if (r() < .5) {
+    var cx = 200 + (r() - .5) * 90, cy = 150, R = 104 + r() * 24;
+    var T = [cx, cy - R], Rt = [cx + R, cy], B = [cx, cy + R], L = [cx - R, cy];
+    d.appendChild(S('polygon', { points: [L, T, B].map(function(p){ return r1(p[0]) + ',' + r1(p[1]); }).join(' '), fill: 'url(#' + pid + ')', opacity: .5 }));
+    for (var i = 1; i < 6; i++) {
+      var t = i / 6, P = lerp(L, B, t), Q = lerp(T, Rt, t), P2 = lerp(L, T, t), Q2 = lerp(B, Rt, t);
+      ln(d, P[0], P[1], Q[0], Q[1], 'steel'); ln(d, P2[0], P2[1], Q2[0], Q2[1], 'steel');
+    }
+    [.35, .7].forEach(function(k){
+      d.appendChild(S('path', { d: 'M' + r1(T[0]) + ' ' + r1(T[1]) + ' Q ' + r1(cx + k * R * 1.6) + ' ' + cy + ' ' + r1(B[0]) + ' ' + r1(B[1]), 'class': 'steel dash' }));
+    });
+    d.appendChild(S('path', { d: 'M' + [T, Rt, B, L].map(function(p){ return r1(p[0]) + ' ' + r1(p[1]); }).join(' L ') + ' Z', 'class': 'ink' }));
+    [T, B, Rt, L].forEach(function(p){ d.appendChild(S('circle', { cx: r1(p[0]), cy: r1(p[1]), r: 3.2, 'class': 'knot' })); });
+    var a = (1 + Math.floor(r() * 4)) / 6, b = (1 + Math.floor(r() * 4)) / 6;
+    var px = L[0] + a * (B[0] - L[0]) + b * (T[0] - L[0]), py = L[1] + a * (B[1] - L[1]) + b * (T[1] - L[1]);
+    d.appendChild(S('circle', { cx: r1(px), cy: r1(py), r: 10, 'class': 'red' }));
+    d.appendChild(S('path', { d: 'M' + r1(px + 14) + ' ' + r1(py - 14) + ' l 22 -18 m -8 0 l 8 0 l 0 8', 'class': 'red' }));
+    var kx = cx + R * .62, ky = cy + R * .62;
+    d.appendChild(S('path', { d: 'M' + r1(kx) + ' ' + r1(ky) + ' l 6 7 l 13 -17', 'class': 'red' }));
+  } else {
+    var ax = 130 + r() * 140, ay = 150 + (r() - .5) * 30, h = 92 + r() * 22;
+    d.appendChild(S('polygon', { points: r1(ax) + ',' + r1(ay) + ' ' + r1(ax - h) + ',' + r1(ay - h) + ' ' + r1(ax + h) + ',' + r1(ay - h), fill: 'url(#' + pid + ')', opacity: .45 }));
+    for (var j = 1; j < 6; j++) { var o = j * 26; ln(d, ax + o + 40, 300, ax + o + 40 + 300, 0, 'steel dash'); }
+    ln(d, ax - h, ay - h, ax + h, ay + h, 'ink'); ln(d, ax + h, ay - h, ax - h, ay + h, 'ink');
+    d.appendChild(S('ellipse', { cx: r1(ax), cy: r1(ay - h), rx: r1(h), ry: r1(h * .22), 'class': 'ink' }));
+    d.appendChild(S('ellipse', { cx: r1(ax), cy: r1(ay + h), rx: r1(h), ry: r1(h * .22), 'class': 'steel dash' }));
+    var w1 = (r() - .5) * 26, w2 = (r() - .5) * 30;
+    d.appendChild(S('path', { d: 'M' + r1(ax + w2) + ' 300 C ' + r1(ax - w1) + ' ' + r1(ay + 60) + ' ' + r1(ax + w1) + ' ' + r1(ay + 20) + ' ' + r1(ax) + ' ' + r1(ay) + ' S ' + r1(ax - w2) + ' ' + r1(ay - 80) + ' ' + r1(ax + w1) + ' 0', 'class': 'steel', 'stroke-width': 1.6 }));
+    d.appendChild(S('circle', { cx: r1(ax), cy: r1(ay), r: 3.6, 'class': 'redf' }));
+    d.appendChild(S('circle', { cx: r1(ax), cy: r1(ay), r: 13, 'class': 'red', 'stroke-dasharray': '2 3' }));
+    d.appendChild(S('path', { d: 'M' + r1(ax + h + 18) + ' ' + r1(ay - h + 10) + ' q 18 30 -6 58', 'class': 'red' }));
+  }
+  for (var k = 0; k < 14; k++) d.appendChild(S('circle', { cx: r1(r() * 400), cy: r1(r() * 300), r: .9 + r() * 1.2, 'class': 'dot' }));
+  svg.appendChild(d);
+  return svg;
+}
+function figure(src, alt, seed, eager, caption){
+  var box = el('div', { 'class': 'fig-box' });
+  box.appendChild(art(seed));
+  var url = relUrl(src);
+  if (url) {
+    var img = document.createElement('img');
+    img.alt = alt;
+    img.decoding = 'async';
+    if (!eager) img.setAttribute('loading', 'lazy');
+    img.onerror = function(){ img.hidden = true; box.classList.remove('has-img'); box.classList.add('no-img'); };
+    img.onload = function(){ box.classList.add('has-img'); };
+    img.src = url;
+    box.appendChild(img);
+  } else box.classList.add('no-img');
+  var fig = el('figure', { 'class': 'figw' }, [box]);
+  if (caption) fig.appendChild(caption);
+  return fig;
+}
+
+/* ---- cones separadores ---- */
+Array.prototype.forEach.call(document.querySelectorAll('.cone'), function(c){
+  var s = S('svg', { viewBox: '0 0 96 48', 'aria-hidden': 'true', focusable: 'false' });
+  s.appendChild(S('line', { x1: 24, y1: 0, x2: 72, y2: 48, 'class': 'c-l' }));
+  s.appendChild(S('line', { x1: 72, y1: 0, x2: 24, y2: 48, 'class': 'c-l' }));
+  s.appendChild(S('ellipse', { cx: 48, cy: 1.5, rx: 24, ry: 4, 'class': 'c-e' }));
+  s.appendChild(S('ellipse', { cx: 48, cy: 46.5, rx: 24, ry: 4, 'class': 'c-e' }));
+  s.appendChild(S('circle', { cx: 48, cy: 24, r: 2.6, 'class': 'c-p' }));
+  c.appendChild(s);
+});
+
+function fill(name){ return document.querySelector('[data-fill="' + name + '"]'); }
+function vazio(){ return el('p', { 'class': 'vazio', text: '— sem registros nesta edição —' }); }
+
+var HIST = arr(ED.historias), IMGS = ED.imagens || {};
+var storyNo = {};
+HIST.forEach(function(h, i){ if (h && h.id != null) storyNo[str(h.id)] = i + 1; });
+function storyEl(id){ return document.getElementById('historia-' + str(id)); }
+
+/* ---- tempo de leitura ---- */
+var total = 0;
+arr(ED.fio_do_dia).forEach(function(p){ total += words(p); });
+arr(ED.em_3_linhas).forEach(function(p){ total += words(p); });
+HIST.forEach(function(h){ total += words(h.titulo) + words(h.chamada) + words(h.por_que_importa); arr(h.corpo).forEach(function(p){ total += words(p); }); });
+arr(ED.quem_falou).forEach(function(q){ total += words(q.traducao) + words(q.contexto); });
+arr(ED.timeline).forEach(function(t){ total += words(t.o_que); });
+arr(ED.quem_ta_fazendo).forEach(function(l){ total += words(l.movimento); });
+var FX = ED.fixos || {};
+Object.keys(FX).forEach(function(k){ var v = FX[k]; total += words(v && typeof v === 'object' ? v.texto : v); });
+var minutos = Math.max(1, Math.ceil(total / 220));
+
+/* ---- arXiv lateral ---- */
+var ax = document.getElementById('arxiv');
+ax.appendChild(document.createTextNode(arxivId + '  [ia.bastidores]  '));
+ax.appendChild(el('b', { text: '[preprint]' }));
+ax.appendChild(document.createTextNode('  ' + dataCurta));
+
+/* ---- capa ---- */
+(function(){
+  var c = document.getElementById('capa');
+  c.appendChild(el('div', { 'class': 'capa-meta' }, [
+    el('span', { text: arxivId + ' [ia.bastidores]' }),
+    el('span', { 'class': 'rev', text: '[preprint · v1]' })
+  ]));
+  c.appendChild(el('div', { 'class': 'capa-meta2', 'aria-hidden': 'true' }));
+  c.appendChild(el('p', { 'class': 'kicker', text: 'Radar dos bastidores · briefing diário de IA' }));
+  c.appendChild(el('h1', { 'class': 'manchete', text: manchete || 'Radar dos bastidores' }));
+  var hosts = [];
+  HIST.forEach(function(h){ arr(h.fontes).forEach(function(u){ var x = extUrl(u); if (x) { var hn = host(x); if (hosts.indexOf(hn) < 0) hosts.push(hn); } }); });
+  if (hosts.length) {
+    var au = el('p', { 'class': 'autores' });
+    var shown = hosts.slice(0, 5);
+    shown.forEach(function(hn, i){
+      au.appendChild(document.createTextNode(hn));
+      au.appendChild(el('sup', { text: String(i + 1) }));
+      if (i < shown.length - 1) au.appendChild(document.createTextNode(', '));
+    });
+    if (hosts.length > 5) au.appendChild(document.createTextNode(' et al.'));
+    c.appendChild(au);
+    c.appendChild(el('p', { 'class': 'afil', text: 'Compilado a partir de ' + hosts.length + (hosts.length === 1 ? ' fonte primária' : ' fontes primárias') + ' · Radar dos bastidores' }));
+  }
+  var ds = el('p', { 'class': 'datas' });
+  ds.appendChild(el('span', { text: dataExtenso }));
+  ds.appendChild(el('span', { 'class': 'sep', 'aria-hidden': 'true', text: '/' }));
+  ds.appendChild(el('span', { text: '≈ ' + minutos + ' min de leitura' }));
+  c.appendChild(ds);
+  if (ED.subtitulo) c.appendChild(el('p', { 'class': 'subtitulo', text: ED.subtitulo }));
+  var cap = el('figcaption', null, [el('b', { text: 'Fig. 0. ' }), 'Diagrama de capa da edição de ' + dataCurta + '.']);
+  c.appendChild(figure(IMGS.capa, 'Ilustração de capa: diagramas de cone de luz e de Penrose em tinta azul sobre papel creme', 'capa' + str(ED.edition_date), true, cap));
+})();
+
+/* ---- fio do dia ---- */
+(function(){
+  var f = fill('fio'), ps = arr(ED.fio_do_dia);
+  if (!ps.length) { f.appendChild(vazio()); return; }
+  ps.forEach(function(p){ f.appendChild(el('p', { text: p })); });
+})();
+
+/* ---- em 3 linhas ---- */
+(function(){
+  var f = fill('em3'), ls = arr(ED.em_3_linhas);
+  if (!ls.length) { f.appendChild(vazio()); return; }
+  var RN = ['i','ii','iii','iv','v','vi','vii','viii','ix','x'];
+  var ol = el('ol', { 'class': 'props' });
+  ls.forEach(function(t, i){
+    ol.appendChild(el('li', null, [el('span', { 'class': 'rn', 'aria-hidden': 'true', text: '(' + (RN[i] || i + 1) + ')' }), el('p', { text: t })]));
+  });
+  f.appendChild(ol);
+})();
+
+/* ---- histórias ---- */
+var bodies = [];
+function setBody(btn, body, open){
+  btn.setAttribute('aria-expanded', String(open));
+  btn.textContent = open ? 'Recolher' : 'Ler a íntegra';
+  body.hidden = !open;
+}
+(function(){
+  var f = fill('historias');
+  var top = el('div', { 'class': 'hist-top' });
+  var lg = el('div', { 'class': 'legenda', 'aria-label': 'Legenda dos selos' }, [el('span', { 'class': 'lt', text: 'Selos' })]);
+  ['fato', 'segundo a empresa', 'reportagem', 'rumor', 'opinião / relato'].forEach(function(s){
+    lg.appendChild(el('span', { 'class': 'stamp st-' + kindOf(s), text: s }));
+  });
+  top.appendChild(lg);
+  var all = el('button', { type: 'button', 'class': 'btn', text: 'abrir tudo' });
+  top.appendChild(all);
+  f.appendChild(top);
+  if (!HIST.length) { f.appendChild(vazio()); all.hidden = true; return; }
+
+  HIST.forEach(function(h, i){
+    var n = i + 1, id = str(h.id || ('h' + n));
+    var art_ = el('article', { 'class': 'eq', id: 'historia-' + id, 'data-id': id, tabindex: '-1', 'aria-labelledby': 'tt-' + n });
+    var main = el('div', { 'class': 'eq-main' });
+    var st = stamps(h.status);
+    if (st) main.appendChild(st);
+    main.appendChild(el('h3', { 'class': 'eq-title', id: 'tt-' + n, text: h.titulo }));
+    var cap = el('figcaption', null, [el('b', { text: 'Fig. ' + n + '. ' }), 'Ilustração da história (' + n + ').']);
+    main.appendChild(figure(IMGS[id], 'Ilustração da história “' + str(h.titulo) + '”: diagrama científico em tinta sobre papel creme', id, false, cap));
+
+    var fontes = arr(h.fontes).map(extUrl).filter(Boolean);
+    var bodyId = 'corpo-' + n, boxId = 'simples-' + n;
+    var body = el('div', { 'class': 'eq-body', id: bodyId, hidden: true });
+    var more = el('button', { type: 'button', 'class': 'btn btn-more', 'aria-expanded': 'false', 'aria-controls': bodyId, text: 'Ler a íntegra' });
+
+    var lede = el('p', { 'class': 'eq-lede', text: h.chamada });
+    if (fontes.length) {
+      var sup = el('sup');
+      fontes.forEach(function(u, j){
+        var a = el('a', { href: '#fn-' + n + '-' + (j + 1), 'aria-label': 'Fonte ' + (j + 1), text: String(j + 1) });
+        a.addEventListener('click', function(ev){
+          ev.preventDefault();
+          setBody(more, body, true);
+          var li = document.getElementById('fn-' + n + '-' + (j + 1));
+          if (li) {
+            li.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+            li.classList.add('lit'); setTimeout(function(){ li.classList.remove('lit'); }, 2200);
+            var la = li.querySelector('a'); if (la) la.focus({ preventScroll: true });
+          }
+        });
+        sup.appendChild(a);
+        if (j < fontes.length - 1) sup.appendChild(document.createTextNode(','));
+      });
+      lede.appendChild(sup);
+    }
+    main.appendChild(lede);
+
+    var ex = el('button', { type: 'button', 'class': 'btn btn-explica', 'data-role': 'explica', 'aria-expanded': 'false', 'aria-controls': boxId, text: 'Explica simples' });
+    main.appendChild(el('div', { 'class': 'eq-actions' }, [ex, more]));
+
+    var box = el('div', { 'class': 'simples-box', 'data-role': 'simples-box', id: boxId, hidden: true });
+    var sbh = el('div', { 'class': 'sb-head' });
+    var st2 = stamps(h.status); if (st2) sbh.appendChild(st2);
+    sbh.appendChild(el('span', { 'class': 'sb-l', text: 'em palavras simples' }));
+    box.appendChild(sbh);
+    var ul = el('ul');
+    arr(h.simples).forEach(function(s){ ul.appendChild(el('li', { text: s })); });
+    box.appendChild(ul);
+    main.appendChild(box);
+    ex.addEventListener('click', function(){
+      var open = ex.getAttribute('aria-expanded') === 'true';
+      ex.setAttribute('aria-expanded', String(!open));
+      box.hidden = open;
+    });
+
+    arr(h.corpo).forEach(function(p){ body.appendChild(el('p', { text: p })); });
+    if (h.por_que_importa) body.appendChild(el('p', { 'class': 'remark' }, [el('b', { text: 'Por que importa.' }), str(h.por_que_importa)]));
+    if (fontes.length) {
+      var ol = el('ol');
+      fontes.forEach(function(u, j){
+        ol.appendChild(el('li', { id: 'fn-' + n + '-' + (j + 1) }, [el('span', { 'class': 'fn', text: '[' + (j + 1) + ']' }), el('span', null, [link(u, shortUrl(u))])]));
+      });
+      body.appendChild(el('div', { 'class': 'refs' }, [el('h4', { text: 'Fontes' }), ol]));
+    }
+    main.appendChild(body);
+    more.addEventListener('click', function(){ setBody(more, body, more.getAttribute('aria-expanded') !== 'true'); syncAll(); });
+    bodies.push([more, body]);
+
+    art_.appendChild(main);
+    art_.appendChild(el('span', { 'class': 'eq-no', 'aria-label': 'Equação ' + n, text: '(' + n + ')' }));
+    f.appendChild(art_);
+  });
+
+  function syncAll(){
+    var allOpen = bodies.every(function(b){ return !b[1].hidden; });
+    all.textContent = allOpen ? 'fechar tudo' : 'abrir tudo';
+  }
+  all.addEventListener('click', function(){
+    var allOpen = bodies.every(function(b){ return !b[1].hidden; });
+    bodies.forEach(function(b){ setBody(b[0], b[1], !allOpen); });
+    syncAll();
+  });
+})();
+
+function goStory(id){
+  var a = storyEl(id);
+  if (!a) return;
+  a.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  a.classList.remove('hit'); void a.offsetWidth; a.classList.add('hit');
+  try { a.focus({ preventScroll: true }); } catch (e) {}
+  setTimeout(function(){ a.classList.remove('hit'); }, 2700);
+}
+
+/* ---- quem falou ---- */
+(function(){
+  var f = fill('falou'), qs = arr(ED.quem_falou);
+  if (!qs.length) { f.appendChild(vazio()); return; }
+  var wrap = el('div', { 'class': 'quotes' });
+  qs.forEach(function(q, i){
+    var hasTr = !!str(q.traducao).trim(), hasOr = !!str(q.citacao_original).trim();
+    var pT = el('p', { lang: 'pt-BR', id: 'qt-' + i, text: hasTr ? q.traducao : q.citacao_original });
+    var pO = el('p', { lang: 'en', id: 'qo-' + i, text: q.citacao_original, hidden: true });
+    var bq = el('blockquote', null, [pT, pO]);
+    var cap = el('figcaption', null, [el('span', { 'class': 'q-p', text: q.pessoa })]);
+    var st = stamps(q.etiqueta); if (st) cap.appendChild(st);
+    var ctrl = el('div', { 'class': 'q-ctrl' });
+    if (hasTr && hasOr) {
+      var bT = el('button', { type: 'button', 'aria-pressed': 'true', 'aria-controls': 'qt-' + i + ' qo-' + i, text: 'Tradução' });
+      var bO = el('button', { type: 'button', 'aria-pressed': 'false', 'aria-controls': 'qt-' + i + ' qo-' + i, text: 'Original' });
+      var setQ = function(orig){ pO.hidden = !orig; pT.hidden = orig; bO.setAttribute('aria-pressed', String(orig)); bT.setAttribute('aria-pressed', String(!orig)); };
+      bT.addEventListener('click', function(){ setQ(false); });
+      bO.addEventListener('click', function(){ setQ(true); });
+      ctrl.appendChild(el('div', { 'class': 'seg', role: 'group', 'aria-label': 'Versão da citação' }, [bT, bO]));
+    }
+    var lk = extUrl(q.link);
+    if (lk) ctrl.appendChild(link(lk, 'ler na fonte ↗ ' + host(lk), 'q-link'));
+    var fig = el('figure', { 'class': 'q' }, [bq, cap]);
+    if (ctrl.childNodes.length) fig.appendChild(ctrl);
+    if (q.contexto) fig.appendChild(el('p', { 'class': 'q-ctx', text: q.contexto }));
+    wrap.appendChild(fig);
+  });
+  f.appendChild(wrap);
+})();
+
+/* ---- linha do tempo ---- */
+(function(){
+  var f = fill('timeline'), ts = arr(ED.timeline);
+  if (!ts.length) { f.appendChild(vazio()); return; }
+  var ol = el('ol', { 'class': 'tl' });
+  ol.appendChild(el('li', { 'class': 'tl-axis', 'aria-hidden': 'true' }, ['t', el('small', { text: 'eventos em ordem' })]));
+  ts.forEach(function(t){
+    var ref = str(t.ref), n = storyNo[ref];
+    var li = el('li', { 'class': 'tl-i' + (n ? ' ok' : '') });
+    var kids = [el('span', { 'class': 'tl-q', text: t.quando }), el('span', { 'class': 'tl-t', text: t.o_que })];
+    if (n) {
+      kids.push(el('span', { 'class': 'tl-r', text: '→ eq. (' + n + ')' }));
+      var b = el('button', { type: 'button', 'class': 'tl-b', 'aria-label': str(t.quando) + ': ' + str(t.o_que) + ' — ir para a história ' + n }, kids);
+      b.addEventListener('click', function(){ goStory(ref); });
+      li.appendChild(b);
+    } else {
+      if (ref) kids.push(el('span', { 'class': 'tl-r nota', text: '[nota]' }));
+      li.appendChild(el('div', { 'class': 'tl-b' }, kids));
+    }
+    ol.appendChild(li);
+  });
+  f.appendChild(ol);
+})();
+
+/* ---- quem tá fazendo ---- */
+(function(){
+  var f = fill('labs'), ls = arr(ED.quem_ta_fazendo);
+  if (!ls.length) { f.appendChild(vazio()); return; }
+  var g = el('div', { 'class': 'labs' });
+  ls.forEach(function(l){
+    var h = el('div', { 'class': 'lab-h' }, [el('h3', { text: l.lab })]);
+    var st = stamps(l.status); if (st) h.appendChild(st);
+    var card = el('article', { 'class': 'lab' }, [h, el('p', { text: l.movimento })]);
+    var seen = [], refs = el('p', { 'class': 'lab-refs' });
+    arr(l.refs).forEach(function(r){
+      r = str(r); var n = storyNo[r];
+      if (!n || seen.indexOf(n) > -1) return;
+      seen.push(n);
+      var a = el('a', { href: '#historia-' + r, text: '(' + n + ')', 'aria-label': 'Ir para a história ' + n });
+      a.addEventListener('click', function(ev){ ev.preventDefault(); goStory(r); });
+      refs.appendChild(a);
+    });
+    if (seen.length) { refs.insertBefore(document.createTextNode('cf. eq. '), refs.firstChild); card.appendChild(refs); }
+    g.appendChild(card);
+  });
+  f.appendChild(g);
+})();
+
+/* ---- fixos ---- */
+(function(){
+  var f = fill('fixos');
+  var cb = FX.chatgpt_business || {};
+  if (cb && cb.alerta === true) {
+    f.appendChild(el('div', { 'class': 'alerta', role: 'alert' }, [
+      el('span', { 'class': 'ic', 'aria-hidden': 'true', text: '🚨' }),
+      el('div', null, [el('b', { text: 'Alerta · ChatGPT Business' }), el('span', { text: 'Houve mudança relevante nesta edição. Veja o Apêndice A.' })])
+    ]));
+  }
+  var known = [['chatgpt_business', 'ChatGPT Business'], ['meta_whatsapp', 'Meta · WhatsApp'], ['china', 'China'], ['varejo', 'Varejo']];
+  var keys = known.map(function(k){ return k[0]; });
+  Object.keys(FX).forEach(function(k){ if (keys.indexOf(k) < 0) known.push([k, k.replace(/_/g, ' ')]); });
+  var g = el('div', { 'class': 'apx' }), L = 'ABCDEFGHIJKLMNOP', i = 0;
+  known.forEach(function(k){
+    var v = FX[k[0]]; if (v == null) return;
+    var txt = typeof v === 'object' ? v.texto : v;
+    if (!str(txt).trim()) return;
+    var on = k[0] === 'chatgpt_business' && cb.alerta === true;
+    g.appendChild(el('div', { 'class': 'ap' + (on ? ' on' : '') }, [
+      el('h3', null, [el('span', { 'class': 'al', text: 'Apêndice ' + L[i] + '.' }), k[1]]),
+      el('p', { text: txt })
+    ]));
+    i++;
+  });
+  f.appendChild(i ? g : vazio());
+})();
+
+/* ---- créditos ---- */
+(function(){
+  var c = document.getElementById('creditos');
+  c.appendChild(el('p', { 'class': 'tt', text: 'Radar dos bastidores' }));
+  c.appendChild(el('p', { text: 'Pesquisa verificada, redação Gemini 4 Neon, página Claude, imagens ChatGPT' }));
+  if (ED.gerado_em) c.appendChild(el('p', { text: 'Gerado em ' + str(ED.gerado_em) }));
+  var href = relUrl(ED.arquivo_url);
+  var p = el('p');
+  p.appendChild(href ? el('a', { href: href, text: 'Edições anteriores' }) : el('span', { text: 'Edições anteriores' }));
+  p.appendChild(document.createTextNode('  ·  ' + arxivId));
+  c.appendChild(p);
+})();
+
+/* ---- resumo simples (dock) ---- */
+(function(){
+  var list = document.getElementById('rs-list');
+  var rs = arr(ED.resumo_simples);
+  if (!rs.length) list.appendChild(el('li', null, [el('p', { 'class': 'vazio', text: '— sem itens nesta edição —' })]));
+  rs.forEach(function(it){
+    var li = el('li');
+    var st = stamps(it && it.selo); if (st) li.appendChild(st);
+    li.appendChild(el('p', { text: it && it.texto }));
+    list.appendChild(li);
+  });
+  var tog = document.querySelector('[data-role="resumo-toggle"]');
+  var drw = document.getElementById('resumo-gaveta');
+  var bd = document.querySelector('[data-role="resumo-backdrop"]');
+  var x = drw.querySelector('.rs-x');
+  var timer = null;
+  function open(){
+    clearTimeout(timer);
+    drw.hidden = false; bd.hidden = false;
+    void drw.offsetWidth;
+    drw.classList.add('is-open'); bd.classList.add('is-open');
+    tog.setAttribute('aria-expanded', 'true');
+    var h = document.getElementById('resumo-titulo');
+    try { h.focus({ preventScroll: true }); } catch (e) {}
+  }
+  function close(focusBack){
+    if (tog.getAttribute('aria-expanded') !== 'true') return;
+    tog.setAttribute('aria-expanded', 'false');
+    drw.classList.remove('is-open'); bd.classList.remove('is-open');
+    var done = function(){ drw.hidden = true; bd.hidden = true; };
+    if (reduceMotion) done(); else timer = setTimeout(done, 240);
+    if (focusBack) tog.focus();
+  }
+  tog.addEventListener('click', function(){ if (tog.getAttribute('aria-expanded') === 'true') close(false); else open(); });
+  x.addEventListener('click', function(){ close(true); });
+  bd.addEventListener('click', function(){ close(true); });
+  document.addEventListener('keydown', function(e){ if ((e.key === 'Escape' || e.key === 'Esc') && tog.getAttribute('aria-expanded') === 'true') { e.preventDefault(); close(true); } });
+})();
+
+/* ---- barra de navegação ---- */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#tabbar a'));
+  var ids = links.map(function(a){ return a.getAttribute('href').slice(1); });
+  var order = ['fio-do-dia', 'em-3-linhas', 'historias', 'quem-falou', 'linha-do-tempo', 'quem-ta-fazendo', 'fixos'];
+  function mark(id){
+    links.forEach(function(a){
+      var on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('is-on', on);
+      if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+    });
+  }
+  var lock = 0;
+  links.forEach(function(a){
+    a.addEventListener('click', function(ev){
+      var id = a.getAttribute('href').slice(1), t = document.getElementById(id);
+      if (!t) return;
+      ev.preventDefault();
+      mark(id); lock = Date.now() + 900;
+      t.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+      if (history.replaceState) history.replaceState(null, '', '#' + id);
+    });
+  });
+  var ticking = false;
+  function spy(){
+    ticking = false;
+    if (Date.now() < lock) return;
+    var y = window.innerHeight * 0.36, cur = null;
+    order.forEach(function(id){ var s = document.getElementById(id); if (s && s.getBoundingClientRect().top <= y) cur = id; });
+    if (cur && ids.indexOf(cur) < 0) {
+      var idx = order.indexOf(cur);
+      while (idx >= 0 && ids.indexOf(order[idx]) < 0) idx--;
+      cur = idx >= 0 ? order[idx] : null;
+    }
+    if (!cur) cur = ids[0];
+    mark(cur);
+  }
+  window.addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+  window.addEventListener('resize', spy);
+  spy();
+})();
+
+/* ---- âncora inicial para história ---- */
+if (location.hash && location.hash.indexOf('#historia-') === 0) {
+  var hid = decodeURIComponent(location.hash.slice(10));
+  setTimeout(function(){ goStory(hid); }, 60);
+}
+})();
+</script>
+</body>
+</html>
